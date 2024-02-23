@@ -26,6 +26,10 @@ The members of this team are below.
 
 Kexin is a Junior majoring in the Mathematics and Economics.
 
+## Vy Nguyen
+
+Vy is a Senior majoring in Data Science.
+
 <!-- Please leave in the information below -->
 
 ### About this Template.
