@@ -19,7 +19,7 @@ about:
 
 This comes from the file `about.qmd`.
 
-This is a website for the final project for MA[46]15 Data Science with R by Team TEAMNAME.
+This is a website for the final project for MA[46]15 Data Science with R by **Team 7Up**.
 The members of this team are below.
 
 ## Kexin Lin
