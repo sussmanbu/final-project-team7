@@ -1,0 +1,128 @@
+[
+  {
+    "objectID": "data.html",
+    "href": "data.html",
+    "title": "Data",
+    "section": "",
+    "text": "This comes from the file data.qmd.\nYour first steps in this project will be to find data to work on.\nI recommend trying to find data that interests you and that you are knowledgeable about. A bad example would be if you have no interest in video games but your data set is about video games. I also recommend finding data that is related to current events, social justice, and other areas that have an impact.\nInitially, you will study one dataset but later you will need to combine that data with another dataset. For this reason, I recommend finding data that has some date and/or location components. These types of data are conducive to interesting visualizations and analysis and you can also combine this data with other data that also has a date or location variable. Data from the census, weather data, economic data, are all relatively easy to combine with other data with time/location components."
+  },
+  {
+    "objectID": "data.html#what-makes-a-good-data-set",
+    "href": "data.html#what-makes-a-good-data-set",
+    "title": "Data",
+    "section": "What makes a good data set?",
+    "text": "What makes a good data set?\n\nData you are interested in and care about.\nData where there are a lot of potential questions that you can explore.\nA data set that isn’t completely cleaned already.\nMultiple sources for data that you can combine.\nSome type of time and/or location component."
+  },
+  {
+    "objectID": "data.html#where-to-keep-data",
+    "href": "data.html#where-to-keep-data",
+    "title": "Data",
+    "section": "Where to keep data?",
+    "text": "Where to keep data?\nBelow 50mb: In dataset folder\nAbove 50mb: In dataset_ignore folder. This folder will be ignored by git so you’ll have to manually sync these files across your team.\n\nSharing your data\nFor small datasets (&lt;50mb), you can use the dataset folder that is tracked by github. Add the files just like you would any other file.\nIf you create a folder named data this will cause problems.\nFor larger datasets, you’ll need to create a new folder in the project root directory named dataset-ignore. This will be ignored by git (based off the .gitignore file in the project root directory) which will help you avoid issues with Github’s size limits. Your team will have to manually make sure the data files in dataset-ignore are synced across team members.\nYour load_and_clean_data.R file is how you will load and clean your data. Here is a an example of a very simple one.\n\nsource(\n  \"scripts/load_and_clean_data.R\",\n  echo = TRUE # Use echo=FALSE or omit it to avoid code output  \n)\n\n\n&gt; library(tidyverse)\n\n\nWarning: package 'readr' was built under R version 4.2.3\n\n\nWarning: package 'dplyr' was built under R version 4.2.3\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.0\n✔ ggplot2   3.4.4     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.0\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\n\n&gt; loan_data &lt;- read_csv(here::here(\"dataset\", \"loan_refusal.csv\"))\n\n\nRows: 20 Columns: 5\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (1): bank\ndbl (4): min, white, himin, hiwhite\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n\n&gt; loan_data_clean &lt;- loan_data\n\n&gt; write_csv(loan_data_clean, file = here::here(\"dataset\", \n+     \"loan_refusal_clean.csv\"))\n\n&gt; save(loan_data_clean, file = here::here(\"dataset/loan_refusal.RData\"))\n\n\nYou should never use absolute paths (eg. /Users/danielsussman/path/to/project/ or C:\\MA415\\\\Final_Project\\).\nYou might consider using the here function from the here package to avoid path problems.\n\n\nLoad and clean data script\nThe idea behind this file is that someone coming to your website could largely replicate your analyses after running this script on the original data sets to clean them. This file might create a derivative data set that you then use for your subsequent analysis. Note that you don’t need to run this script from every post/page. Instead, you can load in the results of this script, which could be plain text files or .RData files. In your data page you’ll describe how these results were created. If you have a very large data set, you might save smaller data sets that you can use for exploration purposes. To link to this file, you can use [cleaning script](/scripts/load_and_clean_data.R) wich appears as cleaning script."
+  },
+  {
+    "objectID": "data.html#rubric-on-this-page",
+    "href": "data.html#rubric-on-this-page",
+    "title": "Data",
+    "section": "Rubric: On this page",
+    "text": "Rubric: On this page\nYou will\n\nDescribe where/how to find data.\n\nYou must include a link to the original data source(s). Make sure to provide attribution to those who collected the data.\nWhy was the data collected/curated? Who put it together? (This is important, if you don’t know why it was collected then that might not be a good dataset to look at.\n\nDescribe the different data files used and what each variable means.\n\nIf you have many variables then only describe the most relevant ones and summarize the rest.\n\nDescribe any cleaning you had to do for your data.\n\nYou must include a link to your load_and_clean_data.R file.\nRrename variables and recode factors to make data more clear.\nAlso, describe any additional R packages you used outside of those covered in class.\nDescribe and show code for how you combined multiple data files and any cleaning that was necessary for that.\nSome repetition of what you do in your load_and_clean_data.R file is fine and encouraged if it helps explain what you did.\n\nOrganization, clarity, cleanliness of the page\n\nMake sure to remove excessive warnings, use clean easy-to-read code (without side scrolling), organize with sections, use bullets and other organization tools, etc.\nThis page should be self-contained."
+  },
+  {
+    "objectID": "analysis.html",
+    "href": "analysis.html",
+    "title": "Analysis",
+    "section": "",
+    "text": "This comes from the file analysis.qmd.\nWe describe here our detailed data analysis. This page will provide an overview of what questions you addressed, illustrations of relevant aspects of the data with tables and figures, and a statistical model that attempts to answer part of the question. You’ll also reflect on next steps and further analysis.\nThe audience for this page is someone like your class mates, so you can expect that they have some level of statistical and quantitative sophistication and understand ideas like linear and logistic regression, coefficients, confidence intervals, overfitting, etc.\nWhile the exact number of figures and tables will vary and depend on your analysis, you should target around 5 to 6. An overly long analysis could lead to losing points. If you want you can link back to your blog posts or create separate pages with more details.\nThe style of this paper should aim to be that of an academic paper. I don’t expect this to be of publication quality but you should keep that aim in mind. Avoid using “we” too frequently, for example “We also found that …”. Describe your methodology and your findings but don’t describe your whole process."
+  },
+  {
+    "objectID": "analysis.html#note-on-attribution",
+    "href": "analysis.html#note-on-attribution",
+    "title": "Analysis",
+    "section": "Note on Attribution",
+    "text": "Note on Attribution\nIn general, you should try to provide links to relevant resources, especially those that helped you. You don’t have to link to every StackOverflow post you used but if there are explainers on aspects of the data or specific models that you found helpful, try to link to those. Also, try to link to other sources that might support (or refute) your analysis. These can just be regular hyperlinks. You don’t need a formal citation.\nIf you are directly quoting from a source, please make that clear. You can show quotes using &gt; like this\n&gt; To be or not to be.\n\nTo be or not to be."
+  },
+  {
+    "objectID": "analysis.html#rubric-on-this-page",
+    "href": "analysis.html#rubric-on-this-page",
+    "title": "Analysis",
+    "section": "Rubric: On this page",
+    "text": "Rubric: On this page\nYou will\n\nIntroduce what motivates your Data Analysis (DA)\n\nWhich variables and relationships are you most interested in?\nWhat questions are you interested in answering?\nProvide context for the rest of the page. This will include figures/tables that illustrate aspects of the data of your question.\n\nModeling and Inference\n\nThe page will include some kind of formal statistical model. This could be a linear regression, logistic regression, or another modeling framework.\nExplain the ideas and techniques you used to choose the predictors for your model. (Think about including interaction terms and other transformations of your variables.)\nDescribe the results of your modelling and make sure to give a sense of the uncertainty in your estimates and conclusions.\n\nExplain the flaws and limitations of your analysis\n\nAre there some assumptions that you needed to make that might not hold? Is there other data that would help to answer your questions?\n\nClarity Figures\n\nAre your figures/tables/results easy to read, informative, without problems like overplotting, hard-to-read labels, etc?\nEach figure should provide a key insight. Too many figures or other data summaries can detract from this. (While not a hard limit, around 5 total figures is probably a good target.)\nDefault lm output and plots are typically not acceptable.\n\nClarity of Explanations\n\nHow well do you explain each figure/result?\nDo you provide interpretations that suggest further analysis or explanations for observed phenomenon?\n\nOrganization and cleanliness.\n\nMake sure to remove excessive warnings, hide most or all code, organize with sections or multiple pages, use bullets, etc.\nThis page should be self-contained, i.e. provide a description of the relevant data."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "MA [46]15 Final Project",
+    "section": "",
+    "text": "Final Project due May 7, 2024 at 11:59pm.\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\nExamples\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFeb 26, 2024\n\n\nDaniel Sussman\n\n\n\n\n\n\n  \n\n\n\n\nGetting started\n\n\n\n\n\n\n\n\n\n\nDirections to set up your website and create your first post.\n\n\n\n\n\n\nFeb 23, 2024\n\n\nDaniel Sussman\n\n\n\n\n\n\n  \n\n\n\n\nFirst Team Meeting\n\n\n\n\n\n\n\n\n\n\nThis post details the steps you’ll take for your first team meeting.\n\n\n\n\n\n\nFeb 21, 2024\n\n\nDaniel Sussman\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/2023-10-13-first-team-meeting/first-team-meeting.html",
+    "href": "posts/2023-10-13-first-team-meeting/first-team-meeting.html",
+    "title": "First Team Meeting",
+    "section": "",
+    "text": "These are the steps that you will take today to get started on your project. Today, you will just be brainstorming, and then next week, you’ll get started on the main aspects of the project.\n\nStart by introducing yourselves to each other. I also recommend creating a private channel on Microsoft Teams with all your team members. This will be a place that you can communicate and share ideas, code, problems, etc.\nDiscuss what aspects of the project each of you are more or less excited about. These include\n\nCollecting, cleaning, and munging data ,\nStatistical Modeling,\nVisualization,\nWriting about analyses, and\nManaging and reviewing team work.\n\nBased on this, discuss where you feel your strengths and weaknesses might be.\nNext, start brainstorming questions you hope to answer as part of this project. This question should in some way be addressing issues around racial disparities. The questions you come up with should be at the level of the question we started with when exploring the HMDA data. (“Are there differences in the ease of securing a loan based on the race of the applicant?”) You’ll revise your questions a lot over the course of the project. Come up with a few questions that your group might be interested in exploring.\nBased on these questions, start looking around for data that might help you analyze this. If you are looking at U.S. based data, data.gov is a good source and if you are looking internationally, I recommend checking out the World Bank. Also, try Googling for data. Include “data set” or “dataset” in your query. You might even include “CSV” or some other format. Using “data” by itself in your query often doesn’t work too well. Spend some time searching for data and try to come up with at least three possible data sets. (For your first blog post, you’ll write short proposals about each of them that I’ll give feedback on.)\nCome up with a team name. Next week, I’ll provide the Github Classroom assignment that will be where you work on your final project and you’ll have to have your team name finalized by then. Your project will be hosted online at the website with a URL like sussmanbu.github.io/ma4615-fa23-final-project-TEAMNAME.\n\nNext time, you’ll get your final project website set up and write your first blog post."
+  },
+  {
+    "objectID": "posts/2023-10-15-getting-started/getting-started.html",
+    "href": "posts/2023-10-15-getting-started/getting-started.html",
+    "title": "Getting started",
+    "section": "",
+    "text": "Below, the items marked with [[OP]] should only be done by one person on the team.\n\nTo get started\n\n[[OP]] One person from the team should click the Github Classroom link on Teams.\n[[OP]] That person types in the group name for their group.\nThe rest of the team now clicks the Github Classroom link and selects their team from the dropdown list.\nFinally, each of you can clone the repository to your laptop like a normal assignment.\n\n\n\nSetting up the site\n\n[[OP]] Open the terminal and run quarto publish gh-pages.\n[[OP]] Select Yes to the prompt:  ? Publish site to https://sussmanbu.github.io/ma4615-fa23-final-project-TEAMNAME/ using gh-pages? (Y/n)\n[[OP]] Wait for the process to finish.\nOnce it is done, you can go to the URL it asked you about to see your site.\n\nNote: This is the process you will use every time you want to update your published site. Make sure to always follow the steps below for rendering, previewing, and committing your changes before doing these publish steps. Anyone can publish in the future.\n\n\nCustomize your site\n\n[[OP]] Open the _quarto.yml file and update the title to include your team name.\n[[OP]] Go to the about.qmd and remove the TF’s and professor’s names.\nadd your own along with a short introduction and a link to your Github user page.\n[[OP]] Render the site.\n[[OP]] Check and make sure you didn’t get any errors.\n[[OP]] Commit your changes and push.\n[[OP]] Repeat the steps under Setting up your site.\n\nOnce one person is done with this, each teammate in the group can, in turn, repeat steps 3-7. Before doing so, make sure to pull the changes from teammates before starting to make new changes. (We’ll talk soon about ways to organize your work and resolve conflicts.)\n\n\nStart your first post\n\nTo start your first post first, run remotes::install_github(\"sussmanbu/quartopost\") in your Console.\n[[OP]] Run quartopost::quartopost() (or click Addins-&gt;Create Quarto Post, or use C-Shift-P, type “Create Quarto” and press enter to run the command).\n\nNow you can start working on your post. You’ll want to render your post to see what it will look like on the site.\n\nEvery time you want to make a new post, you can repeat step 2 above.\nWhen you want to publish your progress, follow steps 4-7 from Customize your site.\n\nFinally, make sure to read through everything on this site which has the directions and rubric for the final project."
+  },
+  {
+    "objectID": "posts/2023-12-20-examples/examples.html",
+    "href": "posts/2023-12-20-examples/examples.html",
+    "title": "Examples",
+    "section": "",
+    "text": "Here are some examples of changing the size of a figure.\n\nplot(1:10)\n\n\n\n\n\n\n\n\n\nplot(1:10)\n\n\n\n\nWe can also specify column: screen and out-width: 100% so that the figure will fill the screen. plot in the svg vector graphics file format.\n\nlibrary(ggplot2)\nggplot(pressure, aes(x = temperature, y = pressure)) + geom_point()"
+  },
+  {
+    "objectID": "posts/2023-12-20-examples/examples.html#figure-sizing",
+    "href": "posts/2023-12-20-examples/examples.html#figure-sizing",
+    "title": "Examples",
+    "section": "",
+    "text": "Here are some examples of changing the size of a figure.\n\nplot(1:10)\n\n\n\n\n\n\n\n\n\nplot(1:10)\n\n\n\n\nWe can also specify column: screen and out-width: 100% so that the figure will fill the screen. plot in the svg vector graphics file format.\n\nlibrary(ggplot2)\nggplot(pressure, aes(x = temperature, y = pressure)) + geom_point()"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "This comes from the file about.qmd.\nThis is a website for the final project for MA[46]15 Data Science with R by Team TEAMNAME. The members of this team are below."
+  },
+  {
+    "objectID": "about.html#chang-liu",
+    "href": "about.html#chang-liu",
+    "title": "About",
+    "section": "Chang Liu",
+    "text": "Chang Liu\nLuis is a Ph.D. student in Stats and is the Teaching Fellow for the course."
+  },
+  {
+    "objectID": "about.html#dan-sussman",
+    "href": "about.html#dan-sussman",
+    "title": "About",
+    "section": "Dan Sussman",
+    "text": "Dan Sussman\nDan is a professor in the Math/Stat department and is the instructor for the course.\n\n\nAbout this Template.\nThis is based off of the standard Quarto website template from RStudio (2023.09.0 Build 463)."
+  },
+  {
+    "objectID": "big_picture.html",
+    "href": "big_picture.html",
+    "title": "Big Picture",
+    "section": "",
+    "text": "This comes from the file big_picture.Rmd.\nThink of this page as your 538/Upshot style article. This means that you should try to tell a story through the data and your analysis. Read articles from those sites and similar sites to get a feeling for what they are like. Try to write in the style of a news or popular article. Importantly, this pge should be geared towards the general public. You shouldn’t assume the reader understands how to interpret a linear regression. Focus on interpretation and visualizations."
+  },
+  {
+    "objectID": "big_picture.html#rubric-on-this-page",
+    "href": "big_picture.html#rubric-on-this-page",
+    "title": "Big Picture",
+    "section": "Rubric: On this page",
+    "text": "Rubric: On this page\nYou will\n\nTitle\n\nYour big picture page should have a creative/click-bait-y title/headline that provides a hint about your thesis.\n\nClarity of Explanation\n\nYou should have a clear thesis/goal for this page. What are you trying to show? Make sure that you explain your analysis in detail but don’t go into top much mathematics or statistics. The audience for this page is the general public (to the extent possible). Your thesis should be a statement, not a question.\nEach figure should be very polished and also not too complicated. There should be a clear interpretation of the figure so the figure has a clear purpose. Even something like a histogram can be difficult to interpret for non-experts.\n\nCreativity\n\nDo your best to make things interesting. Think of a story. Think of how each part of your analysis supports the previous part or provides a different perspective.\n\nThis page should be self-contained.\n\nNote: This page should have no code visible, i.e. use #| echo: FALSE."
+  },
+  {
+    "objectID": "big_picture.html#rubric-other-components",
+    "href": "big_picture.html#rubric-other-components",
+    "title": "Big Picture",
+    "section": "Rubric: Other components",
+    "text": "Rubric: Other components\n\nInteractive\nYou will also be required to make an interactive dashboard like this one.\nYour Big Data page should include a link to an interactive dashboard. The dashboard should be created either using Shiny or FlexDashboard (or another tool with professor’s approval). This interactive component should in some way support your thesis from your big picture page. Good interactives often provide both high-level understanding of the data while allowing a user to investigate specific scenarios, observations, subgroups, etc.\n\nQuality and ease of use of the interactive components. Is it clear what can be explored using your interactive components? Does it enhance and reinforce your conclusions from the Big Picture? Plotly with default hover text will get no credit. Be creative!\n\n\n\nVideo Recording\nMake a video recording (probably using Zoom) demonstrating your interactive components. You should provide a quick explanation of your data and demonstrate some of the conclusions from your EDA. This video should be no longer than 4 minutes. Include a link to your video (and password if needed) in your README.md file on your Github repository. You are not required to provide a link on the website. This can be presented by any subset of the team members.\n\n\nRest of the Site\nFinally, here are important things to keep in mind for the rest of the site.\nThe main title of your page is informative. Each post has an author/description/informative title. All lab required posts are present. Each page (including the home page) has a nice featured image associated with it. Your about page is up to date and clean. You have removed the generic posts from the initial site template."
+  }
+]
