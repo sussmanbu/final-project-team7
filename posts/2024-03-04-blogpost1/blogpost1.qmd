@@ -6,6 +6,9 @@ date-modified: "2024-03-04"
 draft: FALSE
 ---
 
+These are the descriptions of three data sets that we want to work with.
+
+
 **Dataset 1: Death rates for suicide, by sex, race, Hispanic origin, and age: United States - Catalog**
 https://catalog.data.gov/dataset/death-rates-for-suicide-by-sex-race-hispanic-origin-and-age-united-states-020c1
 https://data.cdc.gov/NCHS/Death-rates-for-suicide-by-sex-race-Hispanic-origi/9j2v-jamp/about_data 
