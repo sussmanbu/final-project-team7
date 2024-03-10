@@ -18,7 +18,7 @@
     "href": "data.html#where-to-keep-data",
     "title": "Data",
     "section": "Where to keep data?",
-    "text": "Where to keep data?\nBelow 50mb: In dataset folder\nAbove 50mb: In dataset_ignore folder. This folder will be ignored by git so you’ll have to manually sync these files across your team.\n\nSharing your data\nFor small datasets (&lt;50mb), you can use the dataset folder that is tracked by github. Add the files just like you would any other file.\nIf you create a folder named data this will cause problems.\nFor larger datasets, you’ll need to create a new folder in the project root directory named dataset-ignore. This will be ignored by git (based off the .gitignore file in the project root directory) which will help you avoid issues with Github’s size limits. Your team will have to manually make sure the data files in dataset-ignore are synced across team members.\nYour load_and_clean_data.R file is how you will load and clean your data. Here is a an example of a very simple one.\n\nsource(\n  \"scripts/load_and_clean_data.R\",\n  echo = TRUE # Use echo=FALSE or omit it to avoid code output  \n)\n\n\n&gt; library(tidyverse)\n\n\nWarning: package 'readr' was built under R version 4.2.3\n\n\nWarning: package 'dplyr' was built under R version 4.2.3\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.0\n✔ ggplot2   3.4.4     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.0\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\n\n&gt; loan_data &lt;- read_csv(here::here(\"dataset\", \"loan_refusal.csv\"))\n\n\nRows: 20 Columns: 5\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (1): bank\ndbl (4): min, white, himin, hiwhite\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n\n&gt; loan_data_clean &lt;- loan_data\n\n&gt; write_csv(loan_data_clean, file = here::here(\"dataset\", \n+     \"loan_refusal_clean.csv\"))\n\n&gt; save(loan_data_clean, file = here::here(\"dataset/loan_refusal.RData\"))\n\n\nYou should never use absolute paths (eg. /Users/danielsussman/path/to/project/ or C:\\MA415\\\\Final_Project\\).\nYou might consider using the here function from the here package to avoid path problems.\n\n\nLoad and clean data script\nThe idea behind this file is that someone coming to your website could largely replicate your analyses after running this script on the original data sets to clean them. This file might create a derivative data set that you then use for your subsequent analysis. Note that you don’t need to run this script from every post/page. Instead, you can load in the results of this script, which could be plain text files or .RData files. In your data page you’ll describe how these results were created. If you have a very large data set, you might save smaller data sets that you can use for exploration purposes. To link to this file, you can use [cleaning script](/scripts/load_and_clean_data.R) wich appears as cleaning script."
+    "text": "Where to keep data?\nBelow 50mb: In dataset folder\nAbove 50mb: In dataset_ignore folder. This folder will be ignored by git so you’ll have to manually sync these files across your team.\n\nSharing your data\nFor small datasets (&lt;50mb), you can use the dataset folder that is tracked by github. Add the files just like you would any other file.\nIf you create a folder named data this will cause problems.\nFor larger datasets, you’ll need to create a new folder in the project root directory named dataset-ignore. This will be ignored by git (based off the .gitignore file in the project root directory) which will help you avoid issues with Github’s size limits. Your team will have to manually make sure the data files in dataset-ignore are synced across team members.\nYour load_and_clean_data.R file is how you will load and clean your data. Here is a an example of a very simple one.\n\nsource(\n  \"scripts/load_and_clean_data.R\",\n  echo = TRUE # Use echo=FALSE or omit it to avoid code output  \n)\n\n\n&gt; library(tidyverse)\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.4.4     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.0\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\n\n&gt; loan_data &lt;- read_csv(here::here(\"dataset\", \"loan_refusal.csv\"))\n\n\nRows: 20 Columns: 5\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (1): bank\ndbl (4): min, white, himin, hiwhite\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n\n&gt; loan_data_clean &lt;- loan_data\n\n&gt; write_csv(loan_data_clean, file = here::here(\"dataset\", \n+     \"loan_refusal_clean.csv\"))\n\n&gt; save(loan_data_clean, file = here::here(\"dataset/loan_refusal.RData\"))\n\n\nYou should never use absolute paths (eg. /Users/danielsussman/path/to/project/ or C:\\MA415\\\\Final_Project\\).\nYou might consider using the here function from the here package to avoid path problems.\n\n\nLoad and clean data script\nThe idea behind this file is that someone coming to your website could largely replicate your analyses after running this script on the original data sets to clean them. This file might create a derivative data set that you then use for your subsequent analysis. Note that you don’t need to run this script from every post/page. Instead, you can load in the results of this script, which could be plain text files or .RData files. In your data page you’ll describe how these results were created. If you have a very large data set, you might save smaller data sets that you can use for exploration purposes. To link to this file, you can use [cleaning script](/scripts/load_and_clean_data.R) wich appears as cleaning script."
   },
   {
     "objectID": "data.html#rubric-on-this-page",
@@ -53,7 +53,14 @@
     "href": "index.html",
     "title": "MA [46]15 Final Project",
     "section": "",
-    "text": "Final Project due May 7, 2024 at 11:59pm.\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\nExamples\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFeb 26, 2024\n\n\nDaniel Sussman\n\n\n\n\n\n\n  \n\n\n\n\nGetting started\n\n\n\n\n\n\n\n\n\n\nDirections to set up your website and create your first post.\n\n\n\n\n\n\nFeb 23, 2024\n\n\nDaniel Sussman\n\n\n\n\n\n\n  \n\n\n\n\nFirst Team Meeting\n\n\n\n\n\n\n\n\n\n\nThis post details the steps you’ll take for your first team meeting.\n\n\n\n\n\n\nFeb 21, 2024\n\n\nDaniel Sussman\n\n\n\n\n\n\nNo matching items"
+    "text": "Final Project due May 7, 2024 at 11:59pm.\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\nblog-post-1\n\n\n\n\n\n\n\n\n\n\n\n\nMar 4, 2024\n\n\nTeam 7\n\n\n\n\n\n\n  \n\n\n\n\nExamples\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFeb 26, 2024\n\n\nDaniel Sussman\n\n\n\n\n\n\n  \n\n\n\n\nGetting started\n\n\n\n\n\n\n\n\n\n\nDirections to set up your website and create your first post.\n\n\n\n\n\n\nFeb 23, 2024\n\n\nDaniel Sussman\n\n\n\n\n\n\n  \n\n\n\n\nTest\n\n\n\n\n\nThis post is just to test.\n\n\n\n\n\n\nFeb 23, 2024\n\n\nVy\n\n\n\n\n\n\n  \n\n\n\n\nFirst Team Meeting\n\n\n\n\n\n\n\n\n\n\nThis post details the steps you’ll take for your first team meeting.\n\n\n\n\n\n\nFeb 21, 2024\n\n\nDaniel Sussman\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/2024-03-04-blogpost1/blogpost1.html",
+    "href": "posts/2024-03-04-blogpost1/blogpost1.html",
+    "title": "blog-post-1",
+    "section": "",
+    "text": "Dataset 1: Death rates for suicide, by sex, race, Hispanic origin, and age: United States - Catalog https://catalog.data.gov/dataset/death-rates-for-suicide-by-sex-race-hispanic-origin-and-age-united-states-020c1 https://data.cdc.gov/NCHS/Death-rates-for-suicide-by-sex-race-Hispanic-origi/9j2v-jamp/about_data\nThis datasets is about death rates for suicides across different combination of race, gender, age, and years. There are 6390 rows and 13 columns. Each row in this dataset represents a specific combination of race, gender, age, and year, for example, Female: White, or Male:Asian:65 years or order, and gives its suicide rate for the specific group. This data was originally collected by multiple organizations across many years from 1950 to 2019. It’s published by the National Center for Health Statistics. The data itself is already clean and available as a csv file. This dataset is outstanding as it concerns a lot of different demographic aspects, like race, gender, age, and year, which could be useful if we want to assess racial disparities and other issues with intersectionality. For example, we could compare groups with the same race but different gender, or same gender with different races, to explore more about racial disparities and how other demographics influence that. We would also be able to analyze the data longitudinal as it also provides changes over time for the same group. A potential challenge for this dataset could be the inconsistency of entities as they contain different numbers of demographic conditions (race and gender, or race, gender, and age), therefore more data cleaning might be necessary.\nDataset 2: Mental Health Care in the Last 4 Weeks\nhttps://catalog.data.gov/dataset/mental-health-care-in-the-last-4-weeks\nThe “Mental Health Care in the Last 4 Weeks” dataset comprises 10,404 entries across 11 columns, derived from email and text message surveys. Its analysis is pivotal for investigating potential correlations between access to mental health services and suicide rates amidst the pandemic. However, the dataset poses a significant challenge due to the disorganized nature of its subgroup categorization, necessitating meticulous data cleaning and reorganization. Addressing this challenge is critical to ensuring the dataset accurately reflects the surveyed population, thereby enabling a meaningful examination of how mental health care impacts suicide trends during this unprecedented period.\nDataset 3: Violence Reduction\nhttps://catalog.data.gov/dataset/violence-reduction-victim-demographics-aggregated\nThe “Violent Reduction” dataset primarily provides aggregate data on violent index victimizations in all 22 districts of Chicago at the quarter level of each year from 2001 to the present. The focus of this dataset is on gun related violence; it covers 10 crime types selected by the FBI (codes 1-4) for due to their seriousness and frequency. The dataset is refreshed daily, but excludes the most recent complete day to allow CPD time to gather the best available information. Moreover, it is critical to remember that this dataset is only based on crimes reported to the Chicago Police Department and is not all encompassing of crime in Chicago. Each row is aggregated up to victimization type, age group, sex, race, and whether the victimization was domestic-related. This dataset provides insights into the nature of victims and crime in Chicago and allows the CPD to keep a track of trends across time. There are several opportunities to clean the data including reassigning the names in the race variable and converting certain columns to binary variables. The main questions we could possibly address with this dataset include:\n- How does the rate and severity of violent victimizations vary by demographic characteristics such as age, race, ethnicity, gender, and domestic relationship?\n- How does the distribution and trend of violent victimizations change by geographic areas such as police districts, community areas, and neighborhoods?\nWe can also tie this dataset to other available data on the nature of mental health and access to welfare in districts in Chicago and attempt to correlate it with trends in crime. The biggest challenges we might face include a lack of detailed demographic data, limited continuous variables, and some incomplete rows."
   },
   {
     "objectID": "posts/2023-10-13-first-team-meeting/first-team-meeting.html",
@@ -88,21 +95,42 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "This comes from the file about.qmd.\nThis is a website for the final project for MA[46]15 Data Science with R by Team TEAMNAME. The members of this team are below."
+    "text": "This comes from the file about.qmd.\nThis is a website for the final project for MA[46]15 Data Science with R by Team 7Up. The members of this team are below."
   },
   {
-    "objectID": "about.html#chang-liu",
-    "href": "about.html#chang-liu",
+    "objectID": "about.html#kexin-lin",
+    "href": "about.html#kexin-lin",
     "title": "About",
-    "section": "Chang Liu",
-    "text": "Chang Liu\nLuis is a Ph.D. student in Stats and is the Teaching Fellow for the course."
+    "section": "Kexin Lin",
+    "text": "Kexin Lin\nKexin is a Junior majoring in the Mathematics and Economics."
   },
   {
-    "objectID": "about.html#dan-sussman",
-    "href": "about.html#dan-sussman",
+    "objectID": "about.html#vy-nguyen",
+    "href": "about.html#vy-nguyen",
     "title": "About",
-    "section": "Dan Sussman",
-    "text": "Dan Sussman\nDan is a professor in the Math/Stat department and is the instructor for the course.\n\n\nAbout this Template.\nThis is based off of the standard Quarto website template from RStudio (2023.09.0 Build 463)."
+    "section": "Vy Nguyen",
+    "text": "Vy Nguyen\nVy is a Senior majoring in Data Science and minor in Business Administration and Management."
+  },
+  {
+    "objectID": "about.html#sid-chakravarthy",
+    "href": "about.html#sid-chakravarthy",
+    "title": "About",
+    "section": "Sid Chakravarthy",
+    "text": "Sid Chakravarthy\nSid is a Sophomore majoring in Economics and Mathematics and minoring in Public Policy Analysis."
+  },
+  {
+    "objectID": "about.html#dima-kazlouski",
+    "href": "about.html#dima-kazlouski",
+    "title": "About",
+    "section": "Dima Kazlouski",
+    "text": "Dima Kazlouski\nDima is a Senior majoring in Data Science."
+  },
+  {
+    "objectID": "about.html#yuan-tian",
+    "href": "about.html#yuan-tian",
+    "title": "About",
+    "section": "Yuan Tian",
+    "text": "Yuan Tian\n\n\nAbout this Template.\nThis is based off of the standard Quarto website template from RStudio (2023.09.0 Build 463)."
   },
   {
     "objectID": "big_picture.html",
