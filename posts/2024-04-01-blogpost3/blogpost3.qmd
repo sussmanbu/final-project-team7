@@ -8,9 +8,13 @@ draft: FALSE
 
 As per the instructions we checked the size of our data file and discovered that it was larger than 50mb. As a result we worked on the “load_and_clean_data.R” file, cleaning our “NYSERDA_LMI_Census_2013-2015.csv” file stored in the “dataset-ignore” folder.
 
-Preliminary cleaning steps included: handling duplicate rows (eliminating them) for the sake of avoiding redundancy and potential biases. Handled the one variable that had missing values: “Mortgage Indicator” by assigning missing values to “Unknown” to maintain data integrity and save the variable for future analysis that may reveal some patterns. Converted character types to factor types to facilitate future statistical analysis. After these cleaning steps a subset of the clean data (\< 5mb) was saved to the “dataset” folder for the sake of having a small data set easy to work with later (can use a larger subset if needed). This subset was created by taking 13500 random rows from the cleaned dataset. Attached below is some EDA work that was done to reveal that duplicate rows and missing values had to be handled:
+Preliminary cleaning steps included: handling duplicate rows (eliminating them) for the sake of avoiding redundancy and potential biases. Handled the one variable that had missing values: “Mortgage Indicator” by assigning missing values to “Unknown” to maintain data integrity and save the variable for future analysis that may reveal some patterns. Then we converted character types to factor types because this dataset is derived from a survey and each column should only have certain categorical preset values (except the two numbers are represented in continuous form). It's also easier for future statistical analysis, and also helped us to check all the values for each column and make sure there is no unusual value for each column, and we know how many levels there are for each column. The output that shows all the levels for each factor/column is attached below to make sure data is cleaned, consistent and with no unusual values.
+
+After these cleaning steps a subset of the clean data (\< 5mb) was saved to the “dataset” folder for the sake of having a small data set easy to work with later (can use a larger subset if needed). This subset was created by taking 13500 random rows from the cleaned dataset. Attached below is some EDA work that was done to reveal that duplicate rows and missing values had to be handled:
 
 ![](images/post3_table.png){width="2.67in"}
+
+![](images/post3_table2.png){width="388"}
 
 Data Equity:\
 A limitation of our study is that the data was collected between 2013 and 2015, confining our results to this period and potentially limiting their current relevance. To enhance the breadth and relevance of our analysis, incorporating additional datasets from beyond this timeframe would be beneficial. This approach would allow for a more comprehensive and updated analysis, facilitating broader and more meaningful insights.
