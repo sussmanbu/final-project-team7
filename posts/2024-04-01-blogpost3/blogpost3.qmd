@@ -10,7 +10,7 @@ As per the instructions we checked the size of our data file and discovered that
 
 Preliminary cleaning steps included: handling duplicate rows (eliminating them) for the sake of avoiding redundancy and potential biases. Handled the one variable that had missing values: “Mortgage Indicator” by assigning missing values to “Unknown” to maintain data integrity and save the variable for future analysis that may reveal some patterns. Converted character types to factor types to facilitate future statistical analysis. After these cleaning steps a subset of the clean data (\< 5mb) was saved to the “dataset” folder for the sake of having a small data set easy to work with later (can use a larger subset if needed). This subset was created by taking 13500 random rows from the cleaned dataset. Attached below is some EDA work that was done to reveal that duplicate rows and missing values had to be handled:
 
-![](https://lh7-us.googleusercontent.com/k-4iIerN5wGGUw698NkAe7YMxJonOjmo0wpudFxkFirbg_1zBwZSXut0xPZJA5F-8BZ1HsZJvT3SAXTDQruLHfPiOG_x7bTjTEPpg-Yk9Z46memEfs12jLLexSw-0758fVYH8CxGXF7wSwdSbEmnz7k){width="6.3cm" height="8.4cm"}
+![](images/post3_table.png){width="2.67in"}
 
 Data Equity:\
 A limitation of our study is that the data was collected between 2013 and 2015, confining our results to this period and potentially limiting their current relevance. To enhance the breadth and relevance of our analysis, incorporating additional datasets from beyond this timeframe would be beneficial. This approach would allow for a more comprehensive and updated analysis, facilitating broader and more meaningful insights.
