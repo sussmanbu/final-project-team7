@@ -1,16 +1,3 @@
-# This file is purely as an example. 
-# There are a few places
-
-#loan_data <- read_csv(here::here("dataset", "loan_refusal.csv"))
-
-## CLEAN the data
-#loan_data_clean <- loan_data
-
-#write_csv(loan_data_clean, file = here::here("dataset", "loan_refusal_clean.csv"))
-
-#save(loan_data_clean, file = here::here("dataset/loan_refusal.RData"))
-
-#____________________________________________________________________________
 # Load necessary libraries
 library(here)
 library(readr)
@@ -47,12 +34,6 @@ print(missing_values)
 
 # Convert all character columns to factors
 data <- data.frame(lapply(data, function(x) if(is.character(x)) factor(x) else x))
-
-# Checking size of cleaned data
-#memory_size_bytes <- object.size(data)
-#memory_size_kb <- memory_size_bytes / 1024
-#memory_size_mb <- memory_size_kb / 1024
-# print(paste("Dataframe memory size: ", round(memory_size_mb, 2), " MB"))
 
 #check again for the whole dataset, check again for no unusual values
 str(data)
