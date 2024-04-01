@@ -59,19 +59,10 @@ str(data)
 
 # Save the cleaned dataset
 
-# This is the code to save the whole cleaned data set
-#cleaned_dataset_path <- here("dataset", "cleaned_NYSERDA_LMI_Census_2013-2015.csv")
-#write_csv(cleaned_data, cleaned_dataset_path)
+# Saving as an rds file
+cleaned_dataset_path_rds <- here("dataset", "cleaned_NYSERDA_LMI_Census_2013-2015.rds")
+saveRDS(cleaned_data, file = cleaned_dataset_path_rds)
 
-# Saving a subset of the clean data that is < 5mb
-rows_saved <- 13500 
-
-# random subset of the data
-data_subset <- sample_n(data, rows_saved)
-
-# Saving the subset to a new file
-subset_dataset_path <- here("dataset", "clean_subset_NYSERDA_LMI_Census_2013-2015.csv")
-write_csv(data_subset, subset_dataset_path)
 
 
 
