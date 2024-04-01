@@ -48,6 +48,7 @@ print(missing_values)
 # Convert all character columns to factors
 data <- data.frame(lapply(data, function(x) if(is.character(x)) factor(x) else x))
 
+#checking the range of certain columns and identify unusual value
 
 # Checking size of cleaned data
 #memory_size_bytes <- object.size(data)
