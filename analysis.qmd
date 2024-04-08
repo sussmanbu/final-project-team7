@@ -20,17 +20,7 @@ The style of this paper should aim to be that of an academic paper.
 I don't expect this to be of publication quality but you should keep that aim in mind.
 Avoid using "we" too frequently, for example "We also found that ...". Describe your methodology and your findings but don't describe your whole process.
 
-### Example of loading data
 
-The code below shows an example of loading the loan refusal data set (which you should delete at some point).
-
-```{r}
-library(tidyverse)
-print(getwd())
-data <- read_csv(here::here("dataset/loan_refusal_clean.csv"))
-load(here::here("dataset/loan_refusal.RData"))
-print(ls())
-```
 
 ## Note on Attribution
 
@@ -70,3 +60,88 @@ You will
 -   Organization and cleanliness.
     -   Make sure to remove excessive warnings, hide most or all code, organize with sections or multiple pages, use bullets, etc.
     -   This page should be self-contained, i.e. provide a description of the relevant data.
+    
+-----------------------------------------------------------------------------
+## Loading Clean Data
+
+```{r}
+# Set the path to the RDS file
+cleaned_dataset_path_rds <- here("dataset", "cleaned_NYSERDA_LMI_Census_2013-2015.rds")
+
+# Load the dataset from the RDS file
+clean_data <- readRDS(cleaned_dataset_path_rds)
+
+head(clean_data)
+```
+
+## Analysis
+
+For Blog Post 4:
+
+```{r}
+library(ggplot2)
+library(reshape2)
+
+# Creating a cross-tabulation of Race / Ethnicity and Education Level
+ct <- table(clean_data$`Race / Ethnicity`, clean_data$`Education Level`)
+
+# Melting the table for ggplot
+ct_melted <- melt(ct)
+
+# Plotting with counts in each box
+ggplot(ct_melted, aes(x = Var2, y = Var1, fill = value)) + 
+  geom_tile() +  
+  geom_text(aes(label = value), color = "white", size = 4) +  # Showing the count
+  scale_fill_gradient(low = "lightblue", high = "blue") + 
+  labs(x = "Education Level", y = "Race / Ethnicity", fill = "Count", 
+       title = "Heatmap of Education Level by Race / Ethnicity") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+```{r}
+# Same as before but with percentages of each education level
+ct_percent <- prop.table(ct, 2) * 100
+ct_percent_melted <- melt(ct_percent)
+
+# Plotting with percentage in each box
+ggplot(ct_percent_melted, aes(x = Var2, y = Var1, fill = value)) + 
+  geom_tile() +  
+  geom_text(aes(label = sprintf("%.1f%%", value)), color = "white", size = 4) +  # showing percentage
+  scale_fill_gradient(low = "lightblue", high = "blue") +  
+  labs(x = "Education Level", y = "Race / Ethnicity", fill = "Percentage", 
+       title = "Heatmap of Education Level by Race / Ethnicity (Percentage)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+```{r}
+library(dplyr)
+library(forcats)
+
+clean_data$`Income Numeric` <- case_when(
+  clean_data$`Income Groups` == "$0 to <$10,000" ~ 5,
+  clean_data$`Income Groups` == "$10,000-<$20,000" ~ 15,
+  clean_data$`Income Groups` == "$20,000-<$30,000" ~ 25,
+  clean_data$`Income Groups` == "$30,000-<$40,000" ~ 35,
+  clean_data$`Income Groups` == "$40,000-<$50,000" ~ 45,
+  clean_data$`Income Groups` == "$50,000+" ~ 55,
+  TRUE ~ NA_real_
+)
+
+ggplot(clean_data, aes(x = fct_reorder(`Education Level`, `Income Numeric`, .fun=mean), y = `Income Numeric`, fill = `Race / Ethnicity`)) +
+  geom_bar(stat = "summary", fun = "mean", position = position_dodge()) +
+  theme_minimal() +
+  labs(x = "Education Level", y = "Average Income", fill = "Race / Ethnicity", title = "Average Income by Education Level and Race / Ethnicity") +
+  theme(axis.text.x = element_text(angle = 55, hjust = 1),
+        legend.position = "top",
+        panel.grid.major.y = element_line(color = "black", size = 0.5), 
+        panel.grid.minor.y = element_line(color = "black", size = 0.5)) +
+  scale_fill_brewer(palette = "Set3")
+
+```
+
+
+
+
+
+
