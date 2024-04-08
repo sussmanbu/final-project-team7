@@ -1,0 +1,21 @@
+---
+title: "Blog Post 4"
+author: "Team 7Up"
+date: "2024-04-08"
+date-modified: "2024-04-08"
+draft: FALSE
+---
+
+# EDA and visualization
+
+![](https://lh7-us.googleusercontent.com/O4QxpMQctoVD8ZH1AkdFJ9WFSGtBrBGuwLVW1lFCsQOn6GKIXGA6vJxcY9dhHUKOGQQ9PbLUx180A-1WkCWJEbSK6g2fDOkg3FGdXQ3AdPsUNBhcuww-SwhzIdDxCfLN2MSMoU3sb4bjFzlnpuA8vYk)
+
+![](https://lh7-us.googleusercontent.com/JMOvZOnSk4WnjsrCS8jDt7NOflx8Ry3mxwhEhSzyRw_WiQivVfnNEw6XsmjCFTCK9CgS9ukl6GniOq31oEwe1MFBr3jzsNVxYE2j-tq93TcfSbukpcSwIKlJ99vf7rnfgih9EbvTC-uPeKDsg1lYYTc)
+
+Based on the two visualizations above, despite the White, non-Hispanic demographic consistently representing the majority across all education levels, a closer examination of the 'Average Income by Education Level and Race/Ethnicity' reveals a more uniform distribution of income across different races and ethnicities. This suggests that while educational attainment might differ significantly among racial and ethnic groups, the resulting income levels exhibit comparatively less variation. Further analysis will be done to evaluate which variables play a larger role in the disparity in the education levels between different race / ethnicity groups. (code in analysis.qmd file)
+
+# Thoughts on Statistical Modeling
+
+Investigating the relationship between Household Weight and Education Level across racial groups necessitates a thoughtful statistical approach, particularly to determine whether the observed trends represent the core of the data's story or merely its surface. To delve deeper, we should consider whether these trends offer a complete explanation or if they necessitate further exploration to uncover underlying factors or potential confounders. This exploration could involve examining how additional variables, such as income, employment status, or geographical location, interact with and influence the primary relationship between Household Weight and Education Level. Essentially, the goal is to discern whether the initial trend is the main point of interest or if there are more complex, perhaps hidden, dynamics at play that could provide a fuller understanding of the data's narrative.
+
+Since Education Level is a binary variable, we will use the logistic model to find how predictor variables, Household Weight, influence the likelihood of achieving different levels of Education. In this analysis, Education Level becomes the response variable, with Household Weight as a primary explanatory variable, while also factoring in Race. To achieve breadth in the analysis, it's crucial to examine additional variables such as Linguistic isolation, Households with children, Geographic location, and access to Mortgage indicators, which could influence Education Outcomes. For depth, the interaction between Household Weight and Race in predicting Education Level should be thoroughly explored to understand how these dynamics vary across different racial groups. Data transformation might be necessary to address skewness, scale differences, or non-linearity in the relationships between variables.
