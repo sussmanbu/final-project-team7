@@ -1,0 +1,17 @@
+---
+title: "Blog Post 5"
+author: "Team 7Up"
+date: "2024-04-15"
+date-modified: "2024-04-15"
+draft: FALSE
+---
+
+Dataset to combine: Quarterly Census of Employment and Wages Annual
+
+https://data.ny.gov/Economic-Development/Quarterly-Census-of-Employment-and-Wages-Annual-Da/shc7-xcbw/about_data
+
+This new dataset we found is about employment and wages data in New York state from the year of 2000. It contains employment and wages data for about 97% of all employment in New York, and data is organized by industry and county. For each record in this dataset, which is an employer, it has information about where it’s located (by country), ownership type(private or public), industry, year, average employment number within 12 months of that year, the total wage of all employees, and the annual average salary of its employees. We only take data from 2013-2015 from this dataset since the time period matches with our original dataset. With this dataset, we are able to compute salary data for each county or each industry, and do comparative analysis between states or industries.
+
+Our original dataset already encompasses multiple perspectives such as county, education level, income group, race, age, etc. It’s hard to find a new dataset that provides a completely new angle to examine it. However, with this new dataset we could further our analysis in the income perspective. Since both datasets has county column, we plan to combine the second dataset to the first one by adding a new column to the original dataset as “average income for the county” calculated from the data from the second dataset. With this new column, we are now able to have a numerous value for income/wage variable to supplement our original dataset which only has factor variables on income. With numerous/continuous variables, we can further our statistical analysis like linear regression and logistic regression.
+
+While the new dataset is based on county-level data, we also plan to do county-level comparative analysis. For example, we could do regression analysis between a county’s average salary and its education level. We could also compare different county’s demographic structure to find out how it correlates with income level.
