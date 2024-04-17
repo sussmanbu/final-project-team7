@@ -65,6 +65,7 @@ You will
 ## Loading Clean Data
 
 ```{r}
+library(here)
 # Set the path to the RDS file
 cleaned_dataset_path_rds <- here("dataset", "cleaned_NYSERDA_LMI_Census_2013-2015.rds")
 
@@ -138,9 +139,123 @@ ggplot(clean_data, aes(x = fct_reorder(`Education Level`, `Income Numeric`, .fun
         panel.grid.minor.y = element_line(color = "black", size = 0.5)) +
   scale_fill_brewer(palette = "Set3")
 
+
 ```
 
 
+----------------------------------------------------------------------------------------
+## New Analysis
+
+# Libraries
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(here)
+library(caret)
+library(tidyverse)  # For data manipulation
+library(modelr)     # For weighted regression
+
+```
+
+```{r}
+# Load the dataset
+clean_data <- readRDS(here("dataset", "cleaned_NYSERDA_LMI_Census_2013-2015.rds"))
+```
+
+1. Analyzing income distribution by race/ethnicity
+
+```{r}
+# Option 1
+
+# Calculating weighted proportions
+grouped_data <- clean_data %>%
+  group_by(Race = `Race / Ethnicity`, Income = `Income Groups`) %>%
+  summarise(Weighted_Count = sum(`Household Weight`), .groups = 'drop')
+
+total_weights_per_race <- grouped_data %>%
+  group_by(Race) %>%
+  summarise(Total_Weight = sum(Weighted_Count), .groups = 'drop')
+
+grouped_data <- grouped_data %>%
+  left_join(total_weights_per_race, by = "Race") %>%
+  mutate(Proportion = Weighted_Count / Total_Weight)
+
+# stacked bar plot
+ggplot(grouped_data, aes(x = Race, y = Proportion, fill = Income)) +
+  geom_bar(stat = "identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Weighted Distribution of Income Groups by Race/Ethnicity",
+       x = "Race / Ethnicity",
+       y = "Proportion") +
+  scale_fill_brewer(palette = "Paired")
+
+```
+```{r}
+# Option 2
+
+# Calculating weighted proportions
+plot_data <- clean_data %>%
+  group_by(`Race / Ethnicity`, `Income Groups`) %>%
+  summarise(Weighted_Count = sum(`Household Weight`), .groups = 'drop') %>%
+  group_by(`Race / Ethnicity`) %>%
+  mutate(Total_Weight = sum(Weighted_Count)) %>%
+  mutate(Proportion = Weighted_Count / Total_Weight)
+
+# Creating weighted histograms
+ggplot(plot_data, aes(x = `Income Groups`, y = Proportion, fill = `Income Groups`)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~`Race / Ethnicity`, scales = "free_x") +
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(title = "Income Distribution by Race/Ethnicity",
+       x = "Income Groups",
+       y = "Weighted Proportion") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+Model 1
+
+```{r}
+
+```
+
+
+2. Analyzing Housing Characteristics by Race/Ethnicity:
+
+```{r}
+weighted_counts <- clean_data %>%
+  group_by(`Race / Ethnicity`, `Owner-Renter Status`) %>%
+  summarise(Weighted.Count = sum(`Household Weight`), .groups = 'drop')
+
+# Plot
+ggplot(weighted_counts, aes(x=`Race / Ethnicity`, y=Weighted.Count, fill=`Owner-Renter Status`)) +
+  geom_bar(stat="identity", position=position_dodge()) +
+  labs(title="Weighted Housing Status Distribution by Race / Ethnicity",
+       x="Race / Ethnicity", y="Weighted Count") +
+  scale_y_continuous(labels = scales::comma) +
+  scale_fill_brewer(palette="Set1") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+3. Analyzing Impact of Race/Ethnicity on Educational Outcomes:
+
+```{r}
+weighted_education_counts <- clean_data %>%
+  group_by(`Race / Ethnicity`, `Education Level`) %>%
+  summarise(Weighted.Count = sum(`Household Weight`), .groups = 'drop')
+
+# Plot
+ggplot(weighted_education_counts, aes(x=`Race / Ethnicity`, y=Weighted.Count, fill=`Education Level`)) +
+  geom_bar(stat="identity", position=position_dodge()) +
+  labs(title="Weighted Education Level Distribution by Race / Ethnicity",
+       x="Race / Ethnicity", y="Weighted Count") +
+  scale_y_continuous(labels = scales::comma) +  
+  scale_fill_viridis_d() +  
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme(legend.position="right")
+```
 
 
 
