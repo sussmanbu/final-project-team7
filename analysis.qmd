@@ -177,6 +177,21 @@ clean_data <- readRDS(here("dataset", "cleaned_NYSERDA_LMI_Census_2013-2015.rds"
 
 1. Analyzing income distribution by race/ethnicity
 
+```{r}
+weighted_counts <- clean_data %>%
+  group_by(`Income.Groups`) %>%
+  summarise(Weighted.Count = sum(`Household.Weight`), .groups = 'drop')
+
+# Plot
+ggplot(weighted_counts, aes(x=`Income.Groups`, y=Weighted.Count, fill=`Income.Groups`)) +
+  geom_bar(stat="identity", position=position_dodge()) +
+  labs(title="Weighted Housing Distribution by Income Groups",
+       x="Income Groups", y="Weighted Count") +
+  scale_y_continuous(labels = scales::comma) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
 
 ```{r}
 # Option 1
@@ -198,7 +213,7 @@ grouped_data <- grouped_data %>%
 ggplot(grouped_data, aes(x = Race, y = Proportion, fill = Income)) +
   geom_bar(stat = "identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  labs(title = "Weighted Distribution of Income Groups by Race/Ethnicity",
+  labs(title = "Household Weights Proportion by Income Groups and Race/Ethnicity",
        x = "Race / Ethnicity",
        y = "Proportion") +
   scale_fill_brewer(palette = "Paired")
