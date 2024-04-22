@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Team 7Up">
-<meta name="dcterms.date" content="2024-03-24">
+<meta name="dcterms.date" content="2024-04-08">
 
-<title>MA [46]15 Final Project - Team 7Up - Blog Post 2</title>
+<title>MA [46]15 Final Project - Team 7Up - Blog Post 4</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Blog Post 2</h1>
+      <h1 class="title">Blog Post 4</h1>
                       </div>
   </div>
     
@@ -127,14 +127,14 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">March 24, 2024</p>
+        <p class="date">April 8, 2024</p>
       </div>
     </div>
     
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">March 24, 2024</p>
+        <p class="date-modified">April 8, 2024</p>
       </div>
     </div>
       
@@ -151,13 +151,19 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>The data we choose for our project is: Low- to Moderate-Income New York State Census Population Analysis Dataset. The data source is: <a href="https://www.nyserda.ny.gov/lmi-tool" class="uri">https://www.nyserda.ny.gov/lmi-tool</a></p>
-<p>This data comes from the U.S. Census Bureau’s American Community Survey (ACS) 1-year Public Use Microdata Sample (PUMS) files for the years 2013, 2014, and 2015. It was collected by APPRISE as part of the NYSERDA Low- to Moderate-Income (LMI) Market Characterization Study. The primary objective of collecting this data was to analyze the low- to moderate-income population within New York State (NYS), aiming to understand their demographic, economic, and housing characteristics more comprehensively. The original source of the data is the U.S. Census Bureau, accessible through the ACS PUMS files. These files can typically be found on the Census Bureau’s website or through specific data tools provided by research and policy organizations, including the mentioned NYSERDA LMI Analysis Tool.</p>
-<p>The sample population consists of households within New York State that responded to the ACS, specifically focusing on the low- to moderate-income groups. The survey aims to be representative of the entire population, but biases can occur. Also, there are some potential Issues with data collection. For example, self-reported data can sometimes be inaccurate due to misunderstandings of the questions, recall bias, or intentional misreporting.</p>
-<p>This dataset is used to understand the characteristics and needs of the LMI population in NY State. It supports various analyses, such as evaluating the accessibility of housing, understanding the distribution of income groups, or assessing the prevalence of certain demographic characteristics within the LMI population. We believe the dataset can inform a range of policy decisions, particularly those related to economic development, housing, social services, and energy efficiency programs targeted at the LMI population. Researchers might use this data to explore questions related to socioeconomic disparities, housing affordability, energy insecurity, and the effectiveness of public assistance programs. By identifying the specific needs and challenges faced by these communities, policymakers and researchers can provide programs and interventions more effectively.</p>
-<p>Data cleaning strategy: to clean our data we will consider what data types we are dealing with, whether there are any missing values, and whether there are any duplicate rows. Specifically, we will determine if we need to perform data type conversions, i.e.&nbsp;if there are columns that represent categorical data that can be converted to a category type for more efficient processing. For missing values we will see if there are a few particular columns with a large number of missing values and or if there are a multitude of columns with a few missing values in each. In either case we will evaluate what steps to take depending on the importance of a given column to our analysis. Lastly we will look to remove duplicate rows to ensure uniqueness of our data entries which will help avoid skewness in the analysis.</p>
+<section id="eda-and-visualization" class="level1">
+<h1>EDA and visualization</h1>
+<p><img src="images/eda1.png" class="img-fluid"></p>
+<p><img src="images/eda2.png" class="img-fluid"></p>
+<p>Based on the two visualizations above, despite the White, non-Hispanic demographic consistently representing the majority across all education levels, a closer examination of the ‘Average Income by Education Level and Race/Ethnicity’ reveals a more uniform distribution of income across different races and ethnicities. This suggests that while educational attainment might differ significantly among racial and ethnic groups, the resulting income levels exhibit comparatively less variation. Further analysis will be done to evaluate which variables play a larger role in the disparity in the education levels between different race / ethnicity groups. (Our code is in “analysis.qmd” file)</p>
+</section>
+<section id="thoughts-on-statistical-modeling" class="level1">
+<h1>Thoughts on Statistical Modeling</h1>
+<p>Investigating the relationship between Household Weight and Education Level across racial groups necessitates a thoughtful statistical approach, particularly to determine whether the observed trends represent the core of the data’s story or merely its surface. To delve deeper, we should consider whether these trends offer a complete explanation or if they necessitate further exploration to uncover underlying factors or potential confounders. This exploration could involve examining how additional variables, such as income, employment status, or geographical location, interact with and influence the primary relationship between Household Weight and Education Level. Essentially, the goal is to discern whether the initial trend is the main point of interest or if there are more complex, perhaps hidden, dynamics at play that could provide a fuller understanding of the data’s narrative.</p>
+<p>Since Education Level is a binary variable, we will use the logistic model to find how predictor variables, Household Weight, influence the likelihood of achieving different levels of Education. In this analysis, Education Level becomes the response variable, with Household Weight as a primary explanatory variable, while also factoring in Race. To achieve breadth in the analysis, it’s crucial to examine additional variables such as Linguistic isolation, Households with children, Geographic location, and access to Mortgage indicators, which could influence Education Outcomes. For depth, the interaction between Household Weight and Race in predicting Education Level should be thoroughly explored to understand how these dynamics vary across different racial groups. Data transformation might be necessary to address skewness, scale differences, or non-linearity in the relationships between variables.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

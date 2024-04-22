@@ -155,6 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#load-and-clean-data-script" id="toc-load-and-clean-data-script" class="nav-link" data-scroll-target="#load-and-clean-data-script">Load and clean data script</a></li>
   </ul></li>
   <li><a href="#rubric-on-this-page" id="toc-rubric-on-this-page" class="nav-link" data-scroll-target="#rubric-on-this-page">Rubric: On this page</a></li>
+  <li><a href="#our-work" id="toc-our-work" class="nav-link" data-scroll-target="#our-work">Our Work</a></li>
   </ul>
 </nav>
     </div>
@@ -215,42 +216,212 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
+&gt; library(here)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>here() starts at /Users/vynguyen/Desktop/MA415/final-project-team7</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+&gt; library(readr)
+
 &gt; library(tidyverse)</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ dplyr     1.1.4     ✔ purrr     1.0.2
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.0
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✔ lubridate 1.9.3     ✔ tidyr     1.3.0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-&gt; loan_data &lt;- read_csv(here::here("dataset", "loan_refusal.csv"))</code></pre>
+&gt; dataset_path &lt;- here("dataset-ignore", "NYSERDA_LMI_Census_2013-2015.csv")
+
+&gt; data &lt;- read_csv(dataset_path)</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 20 Columns: 5
+<pre><code>Rows: 223085 Columns: 23
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
-chr (1): bank
-dbl (4): min, white, himin, hiwhite
+chr (21): County / County Group, Households with Elderly, Households with Ch...
+dbl  (2): Non-elderly Disabled Indicator, Household Weight
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-&gt; loan_data_clean &lt;- loan_data
+&gt; str(data)
+spc_tbl_ [223,085 × 23] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ County / County Group             : chr [1:223085] "Queens" "Queens" "Erie" "Queens" ...
+ $ Households with Elderly           : chr [1:223085] "Yes" "No" "Yes" "No" ...
+ $ Households with Children          : chr [1:223085] "No" "Yes" "No" "No" ...
+ $ Economic Development Region       : chr [1:223085] "New York City" "New York City" "Western New York" "New York City" ...
+ $ Income Groups                     : chr [1:223085] "$10,000-&lt;$20,000" "$0 to &lt;$10,000" "$0 to &lt;$10,000" "$10,000-&lt;$20,000" ...
+ $ Percent of Poverty Level          : chr [1:223085] "1 - Income at or below 100% HHSPG" "1 - Income at or below 100% HHSPG" "1 - Income at or below 100% HHSPG" "2 - Income 101%-150% HHSPG" ...
+ $ Low-to-Moderate Income (LMI) Group: chr [1:223085] "Group 1 - Very Low Income" "Group 1 - Very Low Income" "Group 1 - Very Low Income" "Group 1 - Very Low Income" ...
+ $ Household Type                    : chr [1:223085] "Elderly(60+) Individual" "Younger(Up to 40) with children" "Elderly(60+) Individual" "Older(40-59) with no children" ...
+ $ Non-elderly Disabled Indicator    : num [1:223085] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Race / Ethnicity                  : chr [1:223085] "Asian, non-Hispanic" "Asian, non-Hispanic" "Black, non-Hispanic" "Hispanic" ...
+ $ Linguistic Isolation              : chr [1:223085] "Linguistically Isolated Other" "Not Linguistically Isolated" "Not Linguistically Isolated" "Not Linguistically Isolated" ...
+ $ Housing Unit Type                 : chr [1:223085] "4 - Moderate Multi-Family (5-50 units)" "1 - Single Family Attached" "5 - Large Multi-Family (50+ units)" "3 - Small Multi-Family (2-4 units)" ...
+ $ Owner-Renter Status               : chr [1:223085] "Own" "Rent/Other" "Rent/Other" "Rent/Other" ...
+ $ Main Heating Fuel Type            : chr [1:223085] "3 - Fuel Oil" "1 - Electric" "1 - Electric" "1 - Electric" ...
+ $ Home Energy Payment Method        : chr [1:223085] "Only pays non-heat electric direct-to-vendor" "Pays heating bill direct-to-vendor" "Heat included in rent or fee" "Pays heating bill direct-to-vendor" ...
+ $ Housing Vintage                   : chr [1:223085] "1939 or Earlier" "1939 or Earlier" "1939 or Earlier" "1970-&lt;2000" ...
+ $ LMI Study Region                  : chr [1:223085] "NYC I" "NYC I" "Western" "NYC I" ...
+ $ LMI Population Segment            : chr [1:223085] "#8 – Low/Moderate-Income Owners in Multifamily (5+ Unit) Buildings" "#5 – Low-Income Renters in Single-Family &amp; Small Multifamily (2-4 Units) Homes" "#1 – Low-Income Renters in Multifamily (5+ Unit) Buildings" "#5 – Low-Income Renters in Single-Family &amp; Small Multifamily (2-4 Units) Homes" ...
+ $ Mortgage Indicator                : chr [1:223085] "No" NA NA NA ...
+ $ Time in Home                      : chr [1:223085] "4 - 10 to 19 years" "4 - 10 to 19 years" "3 - Five to nine years" "2 - Two to four years" ...
+ $ Education Level                   : chr [1:223085] "5 - Bachelor's" "3 - Some College" "6 - Graduate Degree" "3 - Some College" ...
+ $ Head of Household Age             : chr [1:223085] "60-69" "30-39" "70+" "50-59" ...
+ $ Household Weight                  : num [1:223085] 145 28.3 21.7 23 25.7 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   `County / County Group` = col_character(),
+  ..   `Households with Elderly` = col_character(),
+  ..   `Households with Children` = col_character(),
+  ..   `Economic Development Region` = col_character(),
+  ..   `Income Groups` = col_character(),
+  ..   `Percent of Poverty Level` = col_character(),
+  ..   `Low-to-Moderate Income (LMI) Group` = col_character(),
+  ..   `Household Type` = col_character(),
+  ..   `Non-elderly Disabled Indicator` = col_double(),
+  ..   `Race / Ethnicity` = col_character(),
+  ..   `Linguistic Isolation` = col_character(),
+  ..   `Housing Unit Type` = col_character(),
+  ..   `Owner-Renter Status` = col_character(),
+  ..   `Main Heating Fuel Type` = col_character(),
+  ..   `Home Energy Payment Method` = col_character(),
+  ..   `Housing Vintage` = col_character(),
+  ..   `LMI Study Region` = col_character(),
+  ..   `LMI Population Segment` = col_character(),
+  ..   `Mortgage Indicator` = col_character(),
+  ..   `Time in Home` = col_character(),
+  ..   `Education Level` = col_character(),
+  ..   `Head of Household Age` = col_character(),
+  ..   `Household Weight` = col_double()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt; 
 
-&gt; write_csv(loan_data_clean, file = here::here("dataset", 
-+     "loan_refusal_clean.csv"))
+&gt; duplicate_rows &lt;- sum(duplicated(data))
 
-&gt; save(loan_data_clean, file = here::here("dataset/loan_refusal.RData"))</code></pre>
+&gt; print(paste("Number of duplicate rows before cleaning:", 
++     duplicate_rows))
+[1] "Number of duplicate rows before cleaning: 1357"
+
+&gt; data &lt;- data[!duplicated(data), ]
+
+&gt; missing_values &lt;- sapply(data, function(x) sum(is.na(x)))
+
+&gt; print("Missing values per column before cleaning:")
+[1] "Missing values per column before cleaning:"
+
+&gt; print(missing_values)
+             County / County Group            Households with Elderly 
+                                 0                                  0 
+          Households with Children        Economic Development Region 
+                                 0                                  0 
+                     Income Groups           Percent of Poverty Level 
+                                 0                                  0 
+Low-to-Moderate Income (LMI) Group                     Household Type 
+                                 0                                  0 
+    Non-elderly Disabled Indicator                   Race / Ethnicity 
+                                 0                                  0 
+              Linguistic Isolation                  Housing Unit Type 
+                                 0                                  0 
+               Owner-Renter Status             Main Heating Fuel Type 
+                                 0                                  0 
+        Home Energy Payment Method                    Housing Vintage 
+                                 0                                  0 
+                  LMI Study Region             LMI Population Segment 
+                                 0                                  0 
+                Mortgage Indicator                       Time in Home 
+                             83045                                  0 
+                   Education Level              Head of Household Age 
+                                 0                                  0 
+                  Household Weight 
+                                 0 
+
+&gt; data[["Mortgage Indicator"]][is.na(data[["Mortgage Indicator"]])] &lt;- "Unknown"
+
+&gt; duplicate_rows &lt;- sum(duplicated(data))
+
+&gt; print(paste("Number of duplicate rows after cleaning:", 
++     duplicate_rows))
+[1] "Number of duplicate rows after cleaning: 0"
+
+&gt; missing_values &lt;- sapply(data, function(x) sum(is.na(x)))
+
+&gt; print("Missing values per column after cleaning:")
+[1] "Missing values per column after cleaning:"
+
+&gt; print(missing_values)
+             County / County Group            Households with Elderly 
+                                 0                                  0 
+          Households with Children        Economic Development Region 
+                                 0                                  0 
+                     Income Groups           Percent of Poverty Level 
+                                 0                                  0 
+Low-to-Moderate Income (LMI) Group                     Household Type 
+                                 0                                  0 
+    Non-elderly Disabled Indicator                   Race / Ethnicity 
+                                 0                                  0 
+              Linguistic Isolation                  Housing Unit Type 
+                                 0                                  0 
+               Owner-Renter Status             Main Heating Fuel Type 
+                                 0                                  0 
+        Home Energy Payment Method                    Housing Vintage 
+                                 0                                  0 
+                  LMI Study Region             LMI Population Segment 
+                                 0                                  0 
+                Mortgage Indicator                       Time in Home 
+                                 0                                  0 
+                   Education Level              Head of Household Age 
+                                 0                                  0 
+                  Household Weight 
+                                 0 
+
+&gt; data &lt;- data.frame(lapply(data, function(x) if (is.character(x)) factor(x) else x))
+
+&gt; str(data)
+'data.frame':   221728 obs. of  23 variables:
+ $ County...County.Group             : Factor w/ 39 levels "Albany","Bronx",..: 26 26 10 26 10 19 14 20 24 5 ...
+ $ Households.with.Elderly           : Factor w/ 2 levels "No","Yes": 2 1 2 1 2 1 1 2 1 1 ...
+ $ Households.with.Children          : Factor w/ 2 levels "No","Yes": 1 2 1 1 1 2 1 1 2 2 ...
+ $ Economic.Development.Region       : Factor w/ 10 levels "Capital District",..: 7 7 10 7 10 7 7 10 6 2 ...
+ $ Income.Groups                     : Factor w/ 6 levels "$0 to &lt;$10,000",..: 2 1 1 2 2 2 2 1 2 3 ...
+ $ Percent.of.Poverty.Level          : Factor w/ 4 levels "1 - Income at or below 100% HHSPG",..: 1 1 1 2 2 1 1 1 1 1 ...
+ $ Low.to.Moderate.Income..LMI..Group: Factor w/ 4 levels "Group 1 - Very Low Income",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ Household.Type                    : Factor w/ 6 levels "Elderly(60+) Head",..: 2 5 2 4 1 3 4 2 5 5 ...
+ $ Non.elderly.Disabled.Indicator    : num  0 0 0 0 0 0 0 0 0 1 ...
+ $ Race...Ethnicity                  : Factor w/ 5 levels "Asian, non-Hispanic",..: 1 1 2 3 5 3 4 5 5 5 ...
+ $ Linguistic.Isolation              : Factor w/ 3 levels "Linguistically Isolated Hispanic",..: 2 3 3 3 3 3 3 3 3 3 ...
+ $ Housing.Unit.Type                 : Factor w/ 6 levels "1 - Single Family Attached",..: 4 1 5 3 2 4 5 4 6 3 ...
+ $ Owner.Renter.Status               : Factor w/ 2 levels "Own","Rent/Other": 1 2 2 2 1 2 2 2 2 2 ...
+ $ Main.Heating.Fuel.Type            : Factor w/ 6 levels "1 - Electric",..: 3 1 1 1 2 3 6 2 4 2 ...
+ $ Home.Energy.Payment.Method        : Factor w/ 3 levels "Heat included in rent or fee",..: 2 3 1 3 3 3 3 2 3 3 ...
+ $ Housing.Vintage                   : Factor w/ 4 levels "1939 or Earlier",..: 1 1 1 3 2 1 2 3 4 2 ...
+ $ LMI.Study.Region                  : Factor w/ 7 levels "Central","Eastern",..: 4 4 7 4 7 6 5 7 1 1 ...
+ $ LMI.Population.Segment            : Factor w/ 9 levels "#1 – Low-Income Renters in Multifamily (5+ Unit) Buildings",..: 8 5 1 5 3 1 1 1 7 5 ...
+ $ Mortgage.Indicator                : Factor w/ 3 levels "No","Unknown",..: 1 2 2 2 1 2 2 2 2 2 ...
+ $ Time.in.Home                      : Factor w/ 7 levels "1 - Less than 2 years",..: 4 4 3 2 6 5 3 1 1 2 ...
+ $ Education.Level                   : Factor w/ 6 levels "1 - Less than High School Diploma",..: 5 3 6 3 1 4 3 5 2 2 ...
+ $ Head.of.Household.Age             : Factor w/ 6 levels "&lt;30","30-39",..: 5 2 6 4 6 4 3 6 1 2 ...
+ $ Household.Weight                  : num  145 28.3 21.7 23 25.7 ...
+
+&gt; cleaned_data &lt;- data
+
+&gt; cleaned_dataset_path_rds &lt;- here("dataset", "cleaned_NYSERDA_LMI_Census_2013-2015.rds")
+
+&gt; saveRDS(cleaned_data, file = cleaned_dataset_path_rds)</code></pre>
 </div>
 </div>
 <p>You should never use absolute paths (eg. <code>/Users/danielsussman/path/to/project/</code> or <code>C:\MA415\\Final_Project\</code>).</p>
@@ -289,6 +460,16 @@ dbl (4): min, white, himin, hiwhite
 <li>This page should be self-contained.</li>
 </ul></li>
 </ul>
+<hr>
+</section>
+<section id="our-work" class="level2">
+<h2 class="anchored" data-anchor-id="our-work">Our Work</h2>
+<p>The data we choose for our project is: Low- to Moderate-Income New York State Census Population Analysis Dataset. The data source is: https://www.nyserda.ny.gov/lmi-tool</p>
+<p>This data comes from the U.S. Census Bureau’s American Community Survey (ACS) 1-year Public Use Microdata Sample (PUMS) files for the years 2013, 2014, and 2015. It was collected by APPRISE as part of the NYSERDA Low- to Moderate-Income (LMI) Market Characterization Study. The primary objective of collecting this data was to analyze the low- to moderate-income population within New York State (NYS), aiming to understand their demographic, economic, and housing characteristics more comprehensively. The original source of the data is the U.S. Census Bureau, accessible through the ACS PUMS files. These files can typically be found on the Census Bureau’s website or through specific data tools provided by research and policy organizations, including the mentioned NYSERDA LMI Analysis Tool.</p>
+<p>The sample population consists of households within New York State that responded to the ACS, specifically focusing on the low- to moderate-income groups. The survey aims to be representative of the entire population, but biases can occur. Also, there are some potential Issues with data collection. For example, self-reported data can sometimes be inaccurate due to misunderstandings of the questions, recall bias, or intentional misreporting.</p>
+<p>This dataset is used to understand the characteristics and needs of the LMI population in NY State. It supports various analyses, such as evaluating the accessibility of housing, understanding the distribution of income groups, or assessing the prevalence of certain demographic characteristics within the LMI population. We believe the dataset can inform a range of policy decisions, particularly those related to economic development, housing, social services, and energy efficiency programs targeted at the LMI population. Researchers might use this data to explore questions related to socioeconomic disparities, housing affordability, energy insecurity, and the effectiveness of public assistance programs. By identifying the specific needs and challenges faced by these communities, policymakers and researchers can provide programs and interventions more effectively.</p>
+<p>Data Cleaning:</p>
+<p>As per the instructions we checked the size of our data file and discovered that it was larger than 50mb. As a result we worked on the “load_and_clean_data.R” file, cleaning our “NYSERDA_LMI_Census_2013-2015.csv” file stored in the “dataset-ignore” folder. Preliminary cleaning steps included: handling duplicate rows (eliminating them) for the sake of avoiding redundancy and potential biases. Furthermore we handled the one variable that had missing values: “Mortgage Indicator” by assigning missing values to “Unknown” to maintain data integrity and save the variable for future analysis that may reveal some patterns. Lastly we converted “character” types to “factor” types to facilitate future statistical analysis and saved our new clean data file as a rds file: cleaned_NYSERDA_LMI_Census_2013-2015.rds to the dataset folder since it is now only 2.7mb.</p>
 
 
 </section>
