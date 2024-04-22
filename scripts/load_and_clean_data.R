@@ -39,6 +39,7 @@ data <- data.frame(lapply(data, function(x) if(is.character(x)) factor(x) else x
 str(data)
 
 # Save the cleaned dataset
+cleaned_data <- data
 
 # Saving as an rds file
 cleaned_dataset_path_rds <- here("dataset", "cleaned_NYSERDA_LMI_Census_2013-2015.rds")

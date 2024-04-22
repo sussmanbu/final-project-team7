@@ -8,11 +8,11 @@ draft: FALSE
 
 # EDA and visualization
 
-![](https://lh7-us.googleusercontent.com/O4QxpMQctoVD8ZH1AkdFJ9WFSGtBrBGuwLVW1lFCsQOn6GKIXGA6vJxcY9dhHUKOGQQ9PbLUx180A-1WkCWJEbSK6g2fDOkg3FGdXQ3AdPsUNBhcuww-SwhzIdDxCfLN2MSMoU3sb4bjFzlnpuA8vYk)
+![](images/eda1.png)
 
-![](https://lh7-us.googleusercontent.com/JMOvZOnSk4WnjsrCS8jDt7NOflx8Ry3mxwhEhSzyRw_WiQivVfnNEw6XsmjCFTCK9CgS9ukl6GniOq31oEwe1MFBr3jzsNVxYE2j-tq93TcfSbukpcSwIKlJ99vf7rnfgih9EbvTC-uPeKDsg1lYYTc)
+![](images/eda2.png)
 
-Based on the two visualizations above, despite the White, non-Hispanic demographic consistently representing the majority across all education levels, a closer examination of the 'Average Income by Education Level and Race/Ethnicity' reveals a more uniform distribution of income across different races and ethnicities. This suggests that while educational attainment might differ significantly among racial and ethnic groups, the resulting income levels exhibit comparatively less variation. Further analysis will be done to evaluate which variables play a larger role in the disparity in the education levels between different race / ethnicity groups. (code in analysis.qmd file)
+Based on the two visualizations above, despite the White, non-Hispanic demographic consistently representing the majority across all education levels, a closer examination of the 'Average Income by Education Level and Race/Ethnicity' reveals a more uniform distribution of income across different races and ethnicities. This suggests that while educational attainment might differ significantly among racial and ethnic groups, the resulting income levels exhibit comparatively less variation. Further analysis will be done to evaluate which variables play a larger role in the disparity in the education levels between different race / ethnicity groups. (Our code is in "analysis.qmd" file)
 
 # Thoughts on Statistical Modeling
 
