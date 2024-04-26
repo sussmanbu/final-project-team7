@@ -22,8 +22,7 @@ summary(modellm)
 plot(x = clean_data$`Household.Weight`, y = clean_data$`Income Numeric`) 
 
 #Run ggplot--- it is not linearily
-
-ggplot(clean_data, aes(x = `Household Weight`, y = `Income Numeric`, color = `Race / Ethnicity`, group = `Race / Ethnicity`)) +
+ggplot(clean_data, aes(x = `Household.Weight`, y = `Income Numeric`, color = `Race / Ethnicity`, group = `Race / Ethnicity`)) +
   geom_line() +
   labs(title = "Income Disparity across Race",
        x = "Household Weight",
@@ -49,8 +48,6 @@ pred_data <- data.frame(
 )
 
 library(tidyr)
-library(ggplot2)
-
 prob_data$`Household Weight` = weight_range
 
 prob_data_long <- pivot_longer(prob_data, 
