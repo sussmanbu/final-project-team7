@@ -62,5 +62,5 @@ cleaned_dataset_path_rds <- here("dataset", "cleaned_NYSERDA_LMI_Census_2013-201
 saveRDS(data, file = cleaned_dataset_path_rds)
 
 # Saving as a CSV file
-cleaned_dataset_path <- here("dataset", "cleaned_Data.csv")
-write_csv(data, cleaned_dataset_path)
+#cleaned_dataset_path <- here("dataset", "cleaned_Data.csv")
+#write_csv(data, cleaned_dataset_path)

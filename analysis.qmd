@@ -152,10 +152,89 @@ ggplot(clean_data, aes(x = fct_reorder(Education.Level, Income.Numeric, .fun = m
 ```
 
 
+## Loading Clean Data
+
+```{r}
+library(here)
+# Set the path to the RDS file
+cleaned_dataset_path_rds <- here("dataset", "cleaned_NYSERDA_LMI_Census_2013-2015.rds")
+
+# Load the dataset from the RDS file
+clean_data <- readRDS(cleaned_dataset_path_rds)
+
+head(clean_data)
+```
+
+## Analysis
+
+For Blog Post 4:
+
+```{r}
+library(ggplot2)
+library(reshape2)
+
+# Creating a cross-tabulation of Race / Ethnicity and Education Level
+ct <- table(clean_data$`Race_Ethnicity`, clean_data$`Education_Level`)
+
+# Melting the table for ggplot
+ct_melted <- melt(ct)
+
+# Plotting with counts in each box
+ggplot(ct_melted, aes(x = Var2, y = Var1, fill = value)) +
+  geom_tile() +  
+  geom_text(aes(label = value), color = "white", size = 4) +  # Showing the count
+  scale_fill_gradient(low = "lightblue", high = "blue") +
+  labs(x = "Education Level", y = "Race / Ethnicity", fill = "Count",
+       title = "Heatmap of Education Level by Race / Ethnicity") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+```{r}
+# Same as before but with percentages of each education level
+ct_percent <- prop.table(ct, 2) * 100
+ct_percent_melted <- melt(ct_percent)
+
+# Plotting with percentage in each box
+ggplot(ct_percent_melted, aes(x = Var2, y = Var1, fill = value)) +
+  geom_tile() +  
+  geom_text(aes(label = sprintf("%.1f%%", value)), color = "white", size = 4) +  # showing percentage
+  scale_fill_gradient(low = "lightblue", high = "blue") +  
+  labs(x = "Education Level", y = "Race / Ethnicity", fill = "Percentage",
+       title = "Heatmap of Education Level by Race / Ethnicity (Percentage)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+```{r}
+library(dplyr)
+library(forcats)
+
+clean_data$`Income Numeric` <- case_when(
+  clean_data$`Income_Groups` == "$0 to <$10,000" ~ 5,
+  clean_data$`Income_Groups` == "$10,000-<$20,000" ~ 15,
+  clean_data$`Income_Groups` == "$20,000-<$30,000" ~ 25,
+  clean_data$`Income_Groups` == "$30,000-<$40,000" ~ 35,
+  clean_data$`Income_Groups` == "$40,000-<$50,000" ~ 45,
+  clean_data$`Income_Groups` == "$50,000+" ~ 55,
+  TRUE ~ NA_real_
+)
+
+ggplot(clean_data, aes(x = fct_reorder(`Education_Level`, `Income Numeric`, .fun=mean), y = `Income Numeric`, fill = `Race_Ethnicity`)) +
+  geom_bar(stat = "summary", fun = "mean", position = position_dodge()) +
+  theme_minimal() +
+  labs(x = "Education Level", y = "Average Income", fill = "Race / Ethnicity", title = "Average Income by Education Level and Race / Ethnicity") +
+  theme(axis.text.x = element_text(angle = 55, hjust = 1),
+        legend.position = "top",
+        panel.grid.major.y = element_line(color = "black", size = 0.5),
+        panel.grid.minor.y = element_line(color = "black", size = 0.5)) +
+  scale_fill_brewer(palette = "Set3")
+
+
+```
+
+
 ----------------------------------------------------------------------------------------
 ## New Analysis
-
-**For Blog Post 6:**
 
 # Libraries
 
@@ -178,28 +257,12 @@ clean_data <- readRDS(here("dataset", "cleaned_NYSERDA_LMI_Census_2013-2015.rds"
 1. Analyzing income distribution by race/ethnicity
 
 ```{r}
-weighted_counts <- clean_data %>%
-  group_by(`Income.Groups`) %>%
-  summarise(Weighted.Count = sum(`Household.Weight`), .groups = 'drop')
-
-# Plot
-ggplot(weighted_counts, aes(x=`Income.Groups`, y=Weighted.Count, fill=`Income.Groups`)) +
-  geom_bar(stat="identity", position=position_dodge()) +
-  labs(title="Weighted Housing Distribution by Income Groups",
-       x="Income Groups", y="Weighted Count") +
-  scale_y_continuous(labels = scales::comma) +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-```
-
-
-```{r}
 # Option 1
 
 # Calculating weighted proportions
 grouped_data <- clean_data %>%
-  group_by(Race = Race...Ethnicity, Income = Income.Groups) %>%
-  summarise(Weighted_Count = sum(Household.Weight), .groups = 'drop')
+  group_by(Race = `Race_Ethnicity`, Income = `Income_Groups`) %>%
+  summarise(Weighted_Count = sum(`Household_Weight`), .groups = 'drop')
 
 total_weights_per_race <- grouped_data %>%
   group_by(Race) %>%
@@ -213,30 +276,29 @@ grouped_data <- grouped_data %>%
 ggplot(grouped_data, aes(x = Race, y = Proportion, fill = Income)) +
   geom_bar(stat = "identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  labs(title = "Household Weights Proportion by Income Groups and Race/Ethnicity",
+  labs(title = "Weighted Distribution of Income Groups by Race/Ethnicity",
        x = "Race / Ethnicity",
        y = "Proportion") +
   scale_fill_brewer(palette = "Paired")
 
 ```
-
 ```{r}
 # Option 2
 
 # Calculating weighted proportions
 plot_data <- clean_data %>%
-  group_by(Race...Ethnicity, Income.Groups) %>%
-  summarise(Weighted_Count = sum(Household.Weight), .groups = 'drop') %>%
-  group_by(Race...Ethnicity) %>%
+  group_by(`Race_Ethnicity`, `Income_Groups`) %>%
+  summarise(Weighted_Count = sum(`Household_Weight`), .groups = 'drop') %>%
+  group_by(`Race_Ethnicity`) %>%
   mutate(Total_Weight = sum(Weighted_Count)) %>%
   mutate(Proportion = Weighted_Count / Total_Weight)
 
 # Creating weighted histograms
-ggplot(plot_data, aes(x = Income.Groups, y = Proportion, fill = Income.Groups)) +
+ggplot(plot_data, aes(x = `Income_Groups`, y = Proportion, fill = `Income_Groups`)) +
   geom_bar(stat = "identity", position = "dodge") +
-  facet_wrap(~`Race...Ethnicity`, scales = "free_x") +
+  facet_wrap(~`Race_Ethnicity`, scales = "free_x") +
   scale_y_continuous(labels = scales::percent_format()) +
-  labs(title = "Household Weights by Income Groups and Race/Ethnicity",
+  labs(title = "Income Distribution by Race/Ethnicity",
        x = "Income Groups",
        y = "Weighted Proportion") +
   theme_minimal() +
@@ -247,11 +309,11 @@ ggplot(plot_data, aes(x = Income.Groups, y = Proportion, fill = Income.Groups)) 
 
 ```{r}
 weighted_counts <- clean_data %>%
-  group_by(`Race...Ethnicity`, `Owner.Renter.Status`) %>%
-  summarise(Weighted.Count = sum(`Household.Weight`), .groups = 'drop')
+  group_by(`Race_Ethnicity`, `Owner_Renter_Status`) %>%
+  summarise(Weighted.Count = sum(`Household_Weight`), .groups = 'drop')
 
 # Plot
-ggplot(weighted_counts, aes(x=`Race...Ethnicity`, y=Weighted.Count, fill=`Owner.Renter.Status`)) +
+ggplot(weighted_counts, aes(x=`Race_Ethnicity`, y=Weighted.Count, fill=`Owner_Renter_Status`)) +
   geom_bar(stat="identity", position=position_dodge()) +
   labs(title="Weighted Housing Status Distribution by Race / Ethnicity",
        x="Race / Ethnicity", y="Weighted Count") +
@@ -260,16 +322,15 @@ ggplot(weighted_counts, aes(x=`Race...Ethnicity`, y=Weighted.Count, fill=`Owner.
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-
 3. Analyzing Impact of Race/Ethnicity on Educational Outcomes:
 
 ```{r}
 weighted_education_counts <- clean_data %>%
-  group_by(`Race...Ethnicity`, `Education.Level`) %>%
-  summarise(Weighted.Count = sum(`Household.Weight`), .groups = 'drop')
+  group_by(`Race_Ethnicity`, `Education_Level`) %>%
+  summarise(Weighted.Count = sum(`Household_Weight`), .groups = 'drop')
 
 # Plot
-ggplot(weighted_education_counts, aes(x=`Race...Ethnicity`, y=Weighted.Count, fill=`Education.Level`)) +
+ggplot(weighted_education_counts, aes(x=`Race_Ethnicity`, y=Weighted.Count, fill=`Education_Level`)) +
   geom_bar(stat="identity", position=position_dodge()) +
   labs(title="Weighted Education Level Distribution by Race / Ethnicity",
        x="Race / Ethnicity", y="Weighted Count") +
@@ -279,6 +340,45 @@ ggplot(weighted_education_counts, aes(x=`Race...Ethnicity`, y=Weighted.Count, fi
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   theme(legend.position="right")
 ```
+
+4. Geographical Map
+
+Currently takes too long to run
+```{r}
+#library(sf)
+
+# Loading the shapefile
+#county_sf <- st_read("dataset/tl_2023_us_county.shp")
+#print(county_sf)
+
+```
+```{r}
+#library(dplyr)
+#library(sf)
+#library(ggplot2)
+#library(viridis)
+
+# Filtering for New York State counties only
+#ny_county_sf <- county_sf %>%
+#  filter(STATEFP == '36')
+
+# Simplifying the geometries for New York State
+#simplified_ny_county_sf <- st_simplify(ny_county_sf, preserveTopology = TRUE, dTolerance = 0.01)
+
+# Merging the datasets, making sure to merge the simplified New York spatial data
+#merged_data <- simplified_ny_county_sf %>%
+#  left_join(clean_data, by = c("NAME" = "County"))
+
+#class(merged_data)
+#str(merged_data)
+
+# Ploting the map using a simpler theme for speed
+#map_plot <- ggplot(data = merged_data) +
+#  geom_sf(aes(fill = Race_Ethnicity)) +  # Replace 'Race_Ethnicity' as needed
+#  scale_fill_viridis_d(option = "plasma", begin = 0, end = 1, direction = 1, guide = guide_legend(title = "Race/Ethnicity")) +
+#  theme_void()  # Using theme_void for minimal styling to improve rendering speed
+
+#print(map_plot)
 
 
 ## Statistical Modelling
