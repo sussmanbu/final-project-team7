@@ -89,4 +89,6 @@ This dataset is used to understand the characteristics and needs of the LMI popu
 
 Data Cleaning:
 
+[Link to the load_and_clean_data.R](scripts/load_and_clean_data.R)
+
 As per the instructions we checked the size of our data file and discovered that it was larger than 50mb. As a result we worked on the “load_and_clean_data.R” file, cleaning our “NYSERDA_LMI_Census_2013-2015.csv” file stored in the “dataset-ignore” folder. Preliminary cleaning steps included: handling duplicate rows (eliminating them) for the sake of avoiding redundancy and potential biases. Furthermore we handled the one variable that had missing values: “Mortgage Indicator” by assigning missing values to “Unknown” to maintain data integrity and save the variable for future analysis that may reveal some patterns. Lastly we converted "character" types to "factor" types to facilitate future statistical analysis and saved our new clean data file as a rds file: cleaned_NYSERDA_LMI_Census_2013-2015.rds to the dataset folder since it is now only 2.7mb. 
