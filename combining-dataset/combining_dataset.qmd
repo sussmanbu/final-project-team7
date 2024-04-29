@@ -1,0 +1,61 @@
+```{r}
+library(dplyr)
+library(stringr)
+library(tidyr)
+
+# Read the CSV file into a data frame
+dataset_to_combine <- read.csv("combining-dataset/Quarterly_Census_of_Employment_and_Wages_Annual_Data__Beginning_2000_20240415.csv", stringsAsFactors = FALSE) |>
+    mutate_if(is.character, str_trim) # Trim leading and trailing whitespace from all character columns
+
+dataset_to_combine
+
+```
+
+
+```{r}
+# calculate the 
+county_avg_wage <- 
+  filter(dataset_to_combine, Area.Type == "County") |>
+  group_by(Area) |>
+  summarise(Total_Wages = sum(`Total.Wage`, na.rm = TRUE),
+            Total_Employment = sum(`Average.Employment`, na.rm = TRUE)) |>
+  mutate(Average_Wage = Total_Wages / Total_Employment) |>
+  rename(County = Area) |>
+  mutate(County = str_replace_all(County, fixed(" County"), "")) |>
+  select(-c(Total_Wages, Total_Employment))
+  
+county_avg_wage
+```
+
+```{r}
+#bring in the original dataset 
+library(here)
+# Set the path to the RDS file
+cleaned_dataset_path_rds <- here("dataset", "cleaned_NYSERDA_LMI_Census_2013-2015.rds")
+
+# Load the dataset from the RDS file
+original_data <- readRDS(cleaned_dataset_path_rds)
+
+```
+
+```{r}
+#combining 
+joined_dataset <- left_join(original_data, county_avg_wage, by = "County")
+joined_dataset
+```
+
+
+```{r}
+#make a table with racial proportion for each race in each county 
+race_proportion <- original_data |>
+  group_by(Race_Ethnicity, County) |>
+  summarise(count=n(), .groups = 'drop') |>
+  group_by(County) |>
+  mutate(total = sum(count)) |>
+  ungroup() |>
+  mutate(proportion = count / total) %>%
+  select(-count, -total) %>%
+  pivot_wider(names_from = Race_Ethnicity, values_from = proportion)
+race_proportion
+```
+

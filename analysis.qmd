@@ -227,6 +227,31 @@ income_levels <- c("$0 to <$10,000" = 5000,
 demographic_data <- demographic_data %>%
   mutate(Income_Numeric = income_levels[as.character(Income_Groups)])
 
+#Adding the average wage from the combined dataset 
+dataset_to_combine <- read.csv("combining-dataset/Quarterly_Census_of_Employment_and_Wages_Annual_Data__Beginning_2000_20240415.csv", stringsAsFactors = FALSE) |>
+    mutate_if(is.character, str_trim) # Trim leading and trailing whitespace from all character columns
+
+county_avg_wage <- 
+  filter(dataset_to_combine, Area.Type == "County") |>
+  group_by(Area) |>
+  summarise(Total_Wages = sum(`Total.Wage`, na.rm = TRUE),
+            Total_Employment = sum(`Average.Employment`, na.rm = TRUE)) |>
+  mutate(Average_Wage = Total_Wages / Total_Employment) |>
+  rename(County = Area) |>
+  mutate(County = str_replace_all(County, fixed(" County"), "")) |>
+  select(-c(Total_Wages, Total_Employment))
+
+#make a table with racial proportion for each race in each county 
+race_proportion <- demographic_data |>
+  group_by(Race_Ethnicity, County) |>
+  summarise(count=n(), .groups = 'drop') |>
+  group_by(County) |>
+  mutate(total = sum(count)) |>
+  ungroup() |>
+  mutate(proportion = count / total) %>%
+  select(-count, -total) %>%
+  pivot_wider(names_from = Race_Ethnicity, values_from = proportion)
+
 # Aggregating demographic data to find least common race, average income, and most common education level
 demographic_data_aggregated <- demographic_data %>%
   group_by(County) %>%
@@ -235,7 +260,9 @@ demographic_data_aggregated <- demographic_data %>%
     Most_Common_Education_Level = names(sort(table(Education_Level), decreasing = TRUE))[1],
     Average_Income = weighted.mean(Income_Numeric, Household_Weight, na.rm = TRUE),
     .groups = 'drop'
-  )
+  )|>
+  left_join(county_avg_wage, by = "County") |>
+  left_join(race_proportion, by = "County")
 
 # Merging
 merged_data <- ny_counties_sf %>%
@@ -255,6 +282,8 @@ income_colors <- scale_fill_viridis_c(
   na.value = "grey50"
 )
 education_colors <- scale_fill_brewer(palette = "Set3", guide = "legend")
+race_color <- scale_fill_gradient(low = "lightgreen", high = "darkgreen", 
+                      na.value = "grey50", name = "Proportion")
 
 # Plotting map for Least Common Race/Ethnicity by County
 race_map <- ggplot(data = merged_data) +
@@ -266,6 +295,35 @@ race_map <- ggplot(data = merged_data) +
   ) +
   theme_minimal() +
   theme(legend.position = "bottom")
+
+# Plotting map for the proportion of Black population by County 
+black_map <- ggplot(data = merged_data) +
+  geom_sf(aes(fill = `Black, non-Hispanic`), color = "black", size = 0.25) +
+  race_color +
+  labs(
+    title = "Proportion of Black/AA Population by County in New York",
+    fill = "Black/AA Population"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+        legend.text = element_text(angle = 45, hjust = 1),
+        legend.key.size = unit(1.5, "lines")) 
+
+# Plotting map for the proportion of White population by County
+# there could be a similar map
+
+#Plotting map for Average wage (from combined dataset) by County
+wage_map <- ggplot(data = merged_data) +
+  geom_sf(aes(fill = Average_Wage), color = "black", size = 0.25) +
+  income_colors +
+  labs(
+    title = "Average Wage by County in New York",
+    fill = "Average Wage"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+        legend.text = element_text(angle = 45, hjust = 1),
+        legend.key.size = unit(1.5, "lines")) 
 
 # Plotting map for Average Income by County
 income_map <- ggplot(data = merged_data) +
@@ -302,6 +360,8 @@ education_map <- ggplot(data = merged_data) +
 print(race_map)
 print(income_map)
 print(education_map)
+print(wage_map)
+print(black_map)
 ```
 
 
@@ -377,10 +437,18 @@ print(interactive_map)
 ## Statistical Modelling
 
 **For Blog post 7:**
-Model 1
+Model 1 Linear Regression between black, white, hispanic, asian population proportion and Average wage at county level
 
 ```{r}
+#linear model
+model_aggregated<-lm(Average_Wage ~ `Black, non-Hispanic`+`Hispanic`+`Asian, non-Hispanic`+`White, non-Hispanic`, data = demographic_data_aggregated)
+summary(modellm)
 
+model_white <- lm(Average_Wage ~ `White, non-Hispanic`, data = demographic_data_aggregated)
+summary(model_white)
+
+plot(x = demographic_data_aggregated$`Black, non-Hispanic`, y = demographic_data_aggregated$Average_Wage) 
+plot(x = demographic_data_aggregated$`White, non-Hispanic`, y = demographic_data_aggregated$Average_Wage) 
 ```
 
 
