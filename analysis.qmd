@@ -370,6 +370,7 @@ print(black_map)
 
 ```{r}
 # install.packages("leaflet")
+library(RColorBrewer)
 library(leaflet)
 
 palette <- brewer.pal(9, "Pastel1")
@@ -431,9 +432,6 @@ print(interactive_map)
 ```
 
 
-
-
-
 ## Statistical Modelling
 
 **For Blog post 7:**
@@ -451,7 +449,7 @@ plot(x = demographic_data_aggregated$`Black, non-Hispanic`, y = demographic_data
 plot(x = demographic_data_aggregated$`White, non-Hispanic`, y = demographic_data_aggregated$Average_Wage) 
 ```
 
-Model 2: Linear Regression between Household weight, Education, Income group, Race/Ethnicity, 
+Model 2: Linear Regression between Household weight, Education, Income group, Race/Ethnicity, Owner/Renter Status, Household Type
 
 ```{r}
 cleaned_data$Education <- as.factor(cleaned_data$Education.Level)
