@@ -269,7 +269,7 @@ merged_data <- ny_counties_sf %>%
   left_join(demographic_data_aggregated, by = c("NAME" = "County"))
 ```
 
-Static Maps 
+5. Static Maps 
 
 ```{r}
 library(scales) 
@@ -365,11 +365,11 @@ print(black_map)
 ```
 
 
-Interactive Version
+6. Interactive Version
 
 
 ```{r}
-#install.packages("leaflet")
+# install.packages("leaflet")
 library(leaflet)
 
 palette <- brewer.pal(9, "Pastel1")
@@ -441,7 +441,7 @@ Model 1 Linear Regression between black, white, hispanic, asian population propo
 
 ```{r}
 #linear model
-model_aggregated<-lm(Average_Wage ~ `Black, non-Hispanic`+`Hispanic`+`Asian, non-Hispanic`+`White, non-Hispanic`, data = demographic_data_aggregated)
+modellm<-lm(Average_Wage ~ `Black, non-Hispanic`+`Hispanic`+`Asian, non-Hispanic`+`White, non-Hispanic`, data = demographic_data_aggregated)
 summary(modellm)
 
 model_white <- lm(Average_Wage ~ `White, non-Hispanic`, data = demographic_data_aggregated)
@@ -451,6 +451,21 @@ plot(x = demographic_data_aggregated$`Black, non-Hispanic`, y = demographic_data
 plot(x = demographic_data_aggregated$`White, non-Hispanic`, y = demographic_data_aggregated$Average_Wage) 
 ```
 
+Model 2: Linear Regression between Household weight, Education, Income group, Race/Ethnicity, 
 
+```{r}
+cleaned_data$Education <- as.factor(cleaned_data$Education.Level)
+cleaned_data$Race_Ethnicity <- as.factor(cleaned_data$Race...Ethnicity)
+cleaned_data$Income_group <- as.factor(cleaned_data$Income.Groups)
+cleaned_data$Race_Ethnicity <- as.factor(cleaned_data$Economic.Development.Region)
+cleaned_data$Race_Ethnicity <- as.factor(cleaned_data$Owner.Renter.Status)
+cleaned_data$Race_Ethnicity <- as.factor(cleaned_data$Household.Type)
 
+# Linear model
+model_linear <- lm(Household.Weight ~ Education.Level + Race...Ethnicity + Income.Groups + Economic.Development.Region + Owner.Renter.Status + Household.Type, data = cleaned_data)
+summary(model_linear)
 
+# Diagnostic plots to check for assumptions
+par(mfrow=c(2,2))
+model_linear
+```
