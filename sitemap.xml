@@ -2,62 +2,70 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://sussmanbu.github.io/final-project-team7/data.html</loc>
-    <lastmod>2024-04-22T18:31:45.606Z</lastmod>
+    <lastmod>2024-04-30T04:09:16.561Z</lastmod>
   </url>
   <url>
     <loc>https://sussmanbu.github.io/final-project-team7/analysis.html</loc>
-    <lastmod>2024-04-22T18:31:35.013Z</lastmod>
+    <lastmod>2024-04-30T04:09:04.240Z</lastmod>
   </url>
   <url>
     <loc>https://sussmanbu.github.io/final-project-team7/index.html</loc>
-    <lastmod>2024-04-22T18:31:29.525Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sussmanbu.github.io/final-project-team7/posts/2024-04-08-blogpost4/blogpost4.html</loc>
-    <lastmod>2024-04-22T18:31:28.306Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sussmanbu.github.io/final-project-team7/posts/2024-03-04-blogpost1/blogpost1.html</loc>
-    <lastmod>2024-04-22T18:31:27.541Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sussmanbu.github.io/final-project-team7/posts/2024-04-15-blogpost5/blogpost5.html</loc>
-    <lastmod>2024-04-22T18:31:26.805Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sussmanbu.github.io/final-project-team7/posts/2024-04-01-blogpost3/blogpost3.html</loc>
-    <lastmod>2024-04-22T18:31:26.118Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sussmanbu.github.io/final-project-team7/posts/2023-10-15-getting-started/getting-started.html</loc>
-    <lastmod>2024-04-22T18:31:25.331Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sussmanbu.github.io/final-project-team7/posts/2023-10-13-first-team-meeting/first-team-meeting.html</loc>
-    <lastmod>2024-04-22T18:31:25.753Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sussmanbu.github.io/final-project-team7/posts/2024-04-22-blogpost6/blogpost6.html</loc>
-    <lastmod>2024-04-22T18:31:26.460Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sussmanbu.github.io/final-project-team7/posts/2024-02-23-test/test.html</loc>
-    <lastmod>2024-04-22T18:31:27.106Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sussmanbu.github.io/final-project-team7/posts/2024-03-24-blogpost2/blogpost2.html</loc>
-    <lastmod>2024-04-22T18:31:27.935Z</lastmod>
+    <lastmod>2024-04-30T04:08:14.370Z</lastmod>
   </url>
   <url>
     <loc>https://sussmanbu.github.io/final-project-team7/posts/2023-12-20-examples/examples.html</loc>
-    <lastmod>2024-04-22T18:31:28.854Z</lastmod>
+    <lastmod>2024-04-30T04:07:55.789Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sussmanbu.github.io/final-project-team7/posts/2024-03-24-blogpost2/blogpost2.html</loc>
+    <lastmod>2024-04-30T04:07:54.862Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sussmanbu.github.io/final-project-team7/posts/2024-02-23-test/test.html</loc>
+    <lastmod>2024-04-30T04:07:54.061Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sussmanbu.github.io/final-project-team7/posts/2024-04-22-blogpost6/blogpost6.html</loc>
+    <lastmod>2024-04-30T04:07:53.358Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sussmanbu.github.io/final-project-team7/posts/2024-04-29-blogpost7/blogpost7.html</loc>
+    <lastmod>2024-04-30T04:07:52.615Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sussmanbu.github.io/final-project-team7/posts/2023-10-15-getting-started/getting-started.html</loc>
+    <lastmod>2024-04-30T04:07:51.849Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sussmanbu.github.io/final-project-team7/posts/2023-10-13-first-team-meeting/first-team-meeting.html</loc>
+    <lastmod>2024-04-30T04:07:52.257Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sussmanbu.github.io/final-project-team7/posts/2024-04-01-blogpost3/blogpost3.html</loc>
+    <lastmod>2024-04-30T04:07:53.001Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sussmanbu.github.io/final-project-team7/posts/2024-04-15-blogpost5/blogpost5.html</loc>
+    <lastmod>2024-04-30T04:07:53.719Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sussmanbu.github.io/final-project-team7/posts/2024-03-04-blogpost1/blogpost1.html</loc>
+    <lastmod>2024-04-30T04:07:54.481Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sussmanbu.github.io/final-project-team7/posts/2024-04-08-blogpost4/blogpost4.html</loc>
+    <lastmod>2024-04-30T04:07:55.226Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sussmanbu.github.io/final-project-team7/combining-dataset/combining_dataset.html</loc>
+    <lastmod>2024-04-30T04:08:13.647Z</lastmod>
   </url>
   <url>
     <loc>https://sussmanbu.github.io/final-project-team7/about.html</loc>
-    <lastmod>2024-04-22T18:31:29.836Z</lastmod>
+    <lastmod>2024-04-30T04:08:14.669Z</lastmod>
   </url>
   <url>
     <loc>https://sussmanbu.github.io/final-project-team7/big_picture.html</loc>
-    <lastmod>2024-04-22T18:31:35.421Z</lastmod>
+    <lastmod>2024-04-30T04:09:04.641Z</lastmod>
   </url>
 </urlset>

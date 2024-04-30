@@ -95,6 +95,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -148,15 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#note-on-attribution" id="toc-note-on-attribution" class="nav-link active" data-scroll-target="#note-on-attribution">Note on Attribution</a></li>
-  <li><a href="#rubric-on-this-page" id="toc-rubric-on-this-page" class="nav-link" data-scroll-target="#rubric-on-this-page">Rubric: On this page</a></li>
-  <li><a href="#loading-clean-data" id="toc-loading-clean-data" class="nav-link" data-scroll-target="#loading-clean-data">Loading Clean Data</a></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
-  <li><a href="#new-analysis" id="toc-new-analysis" class="nav-link" data-scroll-target="#new-analysis">New Analysis</a></li>
-  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries">Libraries</a>
-  <ul class="collapse">
-  <li><a href="#statistical-modelling" id="toc-statistical-modelling" class="nav-link" data-scroll-target="#statistical-modelling">Statistical Modelling</a></li>
-  </ul></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link active" data-scroll-target="#analysis">Analysis</a></li>
   </ul>
 </nav>
     </div>
@@ -185,147 +179,91 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Pebbleswithquarzite.jpg" class="img-fluid"></p>
-<p>This comes from the file <code>analysis.qmd</code>.</p>
-<p>We describe here our detailed data analysis. This page will provide an overview of what questions you addressed, illustrations of relevant aspects of the data with tables and figures, and a statistical model that attempts to answer part of the question. You’ll also reflect on next steps and further analysis.</p>
-<p>The audience for this page is someone like your class mates, so you can expect that they have some level of statistical and quantitative sophistication and understand ideas like linear and logistic regression, coefficients, confidence intervals, overfitting, etc.</p>
-<p>While the exact number of figures and tables will vary and depend on your analysis, you should target around 5 to 6. An overly long analysis could lead to losing points. If you want you can link back to your blog posts or create separate pages with more details.</p>
-<p>The style of this paper should aim to be that of an academic paper. I don’t expect this to be of publication quality but you should keep that aim in mind. Avoid using “we” too frequently, for example “We also found that …”. Describe your methodology and your findings but don’t describe your whole process.</p>
-<section id="note-on-attribution" class="level2">
-<h2 class="anchored" data-anchor-id="note-on-attribution">Note on Attribution</h2>
-<p>In general, you should try to provide links to relevant resources, especially those that helped you. You don’t have to link to every StackOverflow post you used but if there are explainers on aspects of the data or specific models that you found helpful, try to link to those. Also, try to link to other sources that might support (or refute) your analysis. These can just be regular hyperlinks. You don’t need a formal citation.</p>
-<p>If you are directly quoting from a source, please make that clear. You can show quotes using <code>&gt;</code> like this</p>
-<pre><code>&gt; To be or not to be.</code></pre>
-<blockquote class="blockquote">
-<p>To be or not to be.</p>
-</blockquote>
-<hr>
-</section>
-<section id="rubric-on-this-page" class="level2">
-<h2 class="anchored" data-anchor-id="rubric-on-this-page">Rubric: On this page</h2>
-<p>You will</p>
-<ul>
-<li>Introduce what motivates your Data Analysis (DA)
-<ul>
-<li>Which variables and relationships are you most interested in?</li>
-<li>What questions are you interested in answering?</li>
-<li>Provide context for the rest of the page. This will include figures/tables that illustrate aspects of the data of your question.</li>
-</ul></li>
-<li>Modeling and Inference
-<ul>
-<li>The page will include some kind of formal statistical model. This could be a linear regression, logistic regression, or another modeling framework.</li>
-<li>Explain the ideas and techniques you used to choose the predictors for your model. (Think about including interaction terms and other transformations of your variables.)</li>
-<li>Describe the results of your modelling and make sure to give a sense of the uncertainty in your estimates and conclusions.</li>
-</ul></li>
-<li>Explain the flaws and limitations of your analysis
-<ul>
-<li>Are there some assumptions that you needed to make that might not hold? Is there other data that would help to answer your questions?</li>
-</ul></li>
-<li>Clarity Figures
-<ul>
-<li>Are your figures/tables/results easy to read, informative, without problems like overplotting, hard-to-read labels, etc?</li>
-<li>Each figure should provide a key insight. Too many figures or other data summaries can detract from this. (While not a hard limit, around 5 total figures is probably a good target.)</li>
-<li>Default <code>lm</code> output and plots are typically not acceptable.</li>
-</ul></li>
-<li>Clarity of Explanations
-<ul>
-<li>How well do you explain each figure/result?</li>
-<li>Do you provide interpretations that suggest further analysis or explanations for observed phenomenon?</li>
-</ul></li>
-<li>Organization and cleanliness.
-<ul>
-<li>Make sure to remove excessive warnings, hide most or all code, organize with sections or multiple pages, use bullets, etc.</li>
-<li>This page should be self-contained, i.e.&nbsp;provide a description of the relevant data.</li>
-</ul></li>
-</ul>
-<hr>
-</section>
-<section id="loading-clean-data" class="level2">
-<h2 class="anchored" data-anchor-id="loading-clean-data">Loading Clean Data</h2>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Pebbleswithquarzite.jpg" class="img-fluid"> ## Loading Clean Data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>here() starts at /Users/vynguyen/Desktop/MA415/final-project-team7</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the path to the RDS file</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cleaned_dataset_path_rds <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"dataset"</span>, <span class="st">"cleaned_NYSERDA_LMI_Census_2013-2015.rds"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset from the RDS file</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>clean_data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(cleaned_dataset_path_rds)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the path to the RDS file</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cleaned_dataset_path_rds <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"dataset"</span>, <span class="st">"cleaned_NYSERDA_LMI_Census_2013-2015.rds"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset from the RDS file</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>clean_data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(cleaned_dataset_path_rds)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  County...County.Group Households.with.Elderly Households.with.Children
-1                Queens                     Yes                       No
-2                Queens                      No                      Yes
-3                  Erie                     Yes                       No
-4                Queens                      No                       No
-5                  Erie                     Yes                       No
-6              New York                      No                      Yes
-  Economic.Development.Region    Income.Groups
+<pre><code>    County Households_with_Elderly Households_with_Children
+1   Queens                     Yes                       No
+2   Queens                      No                      Yes
+3     Erie                     Yes                       No
+4   Queens                      No                       No
+5     Erie                     Yes                       No
+6 New York                      No                      Yes
+  Economic_Development_Region    Income_Groups
 1               New York City $10,000-&lt;$20,000
 2               New York City   $0 to &lt;$10,000
 3            Western New York   $0 to &lt;$10,000
 4               New York City $10,000-&lt;$20,000
 5            Western New York $10,000-&lt;$20,000
 6               New York City $10,000-&lt;$20,000
-           Percent.of.Poverty.Level Low.to.Moderate.Income..LMI..Group
+           Percent_of_Poverty_Level Low_to_Moderate_Income__LMI__Group
 1 1 - Income at or below 100% HHSPG          Group 1 - Very Low Income
 2 1 - Income at or below 100% HHSPG          Group 1 - Very Low Income
 3 1 - Income at or below 100% HHSPG          Group 1 - Very Low Income
 4        2 - Income 101%-150% HHSPG          Group 1 - Very Low Income
 5        2 - Income 101%-150% HHSPG          Group 1 - Very Low Income
 6 1 - Income at or below 100% HHSPG          Group 1 - Very Low Income
-                   Household.Type Non.elderly.Disabled.Indicator
+                   Household_Type Non_elderly_Disabled_Indicator
 1         Elderly(60+) Individual                              0
 2 Younger(Up to 40) with children                              0
 3         Elderly(60+) Individual                              0
 4   Older(40-59) with no children                              0
 5               Elderly(60+) Head                              0
 6      Older(40-59) with children                              0
-     Race...Ethnicity          Linguistic.Isolation
+       Race_Ethnicity          Linguistic_Isolation
 1 Asian, non-Hispanic Linguistically Isolated Other
 2 Asian, non-Hispanic   Not Linguistically Isolated
 3 Black, non-Hispanic   Not Linguistically Isolated
 4            Hispanic   Not Linguistically Isolated
 5 White, non-Hispanic   Not Linguistically Isolated
 6            Hispanic   Not Linguistically Isolated
-                       Housing.Unit.Type Owner.Renter.Status
+                       Housing_Unit_Type Owner_Renter_Status
 1 4 - Moderate Multi-Family (5-50 units)                 Own
 2             1 - Single Family Attached          Rent/Other
 3     5 - Large Multi-Family (50+ units)          Rent/Other
 4     3 - Small Multi-Family (2-4 units)          Rent/Other
 5             2 - Single Family Detached                 Own
 6 4 - Moderate Multi-Family (5-50 units)          Rent/Other
-  Main.Heating.Fuel.Type                   Home.Energy.Payment.Method
+  Main_Heating_Fuel_Type                   Home_Energy_Payment_Method
 1           3 - Fuel Oil Only pays non-heat electric direct-to-vendor
 2           1 - Electric           Pays heating bill direct-to-vendor
 3           1 - Electric                 Heat included in rent or fee
 4           1 - Electric           Pays heating bill direct-to-vendor
 5        2 - Utility Gas           Pays heating bill direct-to-vendor
 6           3 - Fuel Oil           Pays heating bill direct-to-vendor
-  Housing.Vintage LMI.Study.Region
+  Housing_Vintage LMI_Study_Region
 1 1939 or Earlier            NYC I
 2 1939 or Earlier            NYC I
 3 1939 or Earlier          Western
 4      1970-&lt;2000            NYC I
 5     1940-&lt; 1970          Western
 6 1939 or Earlier          NYC III
-                                                          LMI.Population.Segment
+                                                          LMI_Population_Segment
 1             #8 – Low/Moderate-Income Owners in Multifamily (5+ Unit) Buildings
 2 #5 – Low-Income Renters in Single-Family &amp; Small Multifamily (2-4 Units) Homes
 3                     #1 – Low-Income Renters in Multifamily (5+ Unit) Buildings
 4 #5 – Low-Income Renters in Single-Family &amp; Small Multifamily (2-4 Units) Homes
 5   #3 – Low-Income Owners in Single-Family &amp; Small Multifamily (2-4 Unit) Homes
 6                     #1 – Low-Income Renters in Multifamily (5+ Unit) Buildings
-  Mortgage.Indicator           Time.in.Home                   Education.Level
+  Mortgage_Indicator           Time_in_Home                   Education_Level
 1                 No     4 - 10 to 19 years                    5 - Bachelor's
 2            Unknown     4 - 10 to 19 years                  3 - Some College
 3            Unknown 3 - Five to nine years               6 - Graduate Degree
 4            Unknown  2 - Two to four years                  3 - Some College
 5                 No   6 - 30 or more years 1 - Less than High School Diploma
 6            Unknown     5 - 20 to 29 years                   4 - Associate's
-  Head.of.Household.Age Household.Weight
+  Head_of_Household_Age Household_Weight
 1                 60-69           145.00
 2                 30-39            28.33
 3                   70+            21.67
@@ -334,53 +272,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 6                 50-59            31.33</code></pre>
 </div>
 </div>
-</section>
 <section id="analysis" class="level2">
 <h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
-<p><strong>For Blog Post 4:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a cross-tabulation of Race / Ethnicity and Education Level</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>ct <span class="ot">&lt;-</span> <span class="fu">table</span>(clean_data<span class="sc">$</span><span class="st">"Race...Ethnicity"</span>, clean_data<span class="sc">$</span><span class="st">"Education.Level"</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Melting the table for ggplot</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>ct_melted <span class="ot">&lt;-</span> <span class="fu">melt</span>(ct)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting with counts in each box</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ct_melted, <span class="fu">aes</span>(<span class="at">x =</span> Var2, <span class="at">y =</span> Var1, <span class="at">fill =</span> value)) <span class="sc">+</span> </span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span>  </span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> value), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span>  <span class="co"># Showing the count</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"lightblue"</span>, <span class="at">high =</span> <span class="st">"blue"</span>) <span class="sc">+</span> </span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Education Level"</span>, <span class="at">y =</span> <span class="st">"Race / Ethnicity"</span>, <span class="at">fill =</span> <span class="st">"Count"</span>, </span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Heatmap of Education Level by Race / Ethnicity"</span>) <span class="sc">+</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a cross-tabulation of Race / Ethnicity and Education Level</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>ct <span class="ot">&lt;-</span> <span class="fu">table</span>(clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Race_Ethnicity</span><span class="st">`</span>, clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Education_Level</span><span class="st">`</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Melting the table for ggplot</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>ct_melted <span class="ot">&lt;-</span> <span class="fu">melt</span>(ct)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting with counts in each box</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ct_melted, <span class="fu">aes</span>(<span class="at">x =</span> Var2, <span class="at">y =</span> Var1, <span class="at">fill =</span> value)) <span class="sc">+</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span>  </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> value), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span>  <span class="co"># Showing the count</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"lightblue"</span>, <span class="at">high =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Education Level"</span>, <span class="at">y =</span> <span class="st">"Race / Ethnicity"</span>, <span class="at">fill =</span> <span class="st">"Count"</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Heatmap of Education Level by Race / Ethnicity"</span>) <span class="sc">+</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Same as before but with percentages of each education level</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ct_percent <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(ct, <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>ct_percent_melted <span class="ot">&lt;-</span> <span class="fu">melt</span>(ct_percent)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting with percentage in each box</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ct_percent_melted, <span class="fu">aes</span>(<span class="at">x =</span> Var2, <span class="at">y =</span> Var1, <span class="at">fill =</span> value)) <span class="sc">+</span> </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span>  </span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, value)), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span>  <span class="co"># showing percentage</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"lightblue"</span>, <span class="at">high =</span> <span class="st">"blue"</span>) <span class="sc">+</span>  </span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Education Level"</span>, <span class="at">y =</span> <span class="st">"Race / Ethnicity"</span>, <span class="at">fill =</span> <span class="st">"Percentage"</span>, </span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Heatmap of Education Level by Race / Ethnicity (Percentage)"</span>) <span class="sc">+</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Same as before but with percentages of each education level</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ct_percent <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(ct, <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ct_percent_melted <span class="ot">&lt;-</span> <span class="fu">melt</span>(ct_percent)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting with percentage in each box</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ct_percent_melted, <span class="fu">aes</span>(<span class="at">x =</span> Var2, <span class="at">y =</span> Var1, <span class="at">fill =</span> value)) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span>  </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, value)), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span>  <span class="co"># showing percentage</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"lightblue"</span>, <span class="at">high =</span> <span class="st">"blue"</span>) <span class="sc">+</span>  </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Education Level"</span>, <span class="at">y =</span> <span class="st">"Race / Ethnicity"</span>, <span class="at">fill =</span> <span class="st">"Percentage"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Heatmap of Education Level by Race / Ethnicity (Percentage)"</span>) <span class="sc">+</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'dplyr'</code></pre>
@@ -395,36 +331,27 @@ Attaching package: 'dplyr'</code></pre>
 
     intersect, setdiff, setequal, union</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Adding a numeric representation for income groups</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Income.Numeric <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span>Income.Groups <span class="sc">==</span> <span class="st">"$0 to &lt;$10,000"</span> <span class="sc">~</span> <span class="dv">5</span>,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span>Income.Groups <span class="sc">==</span> <span class="st">"$10,000-&lt;$20,000"</span> <span class="sc">~</span> <span class="dv">15</span>,</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span>Income.Groups <span class="sc">==</span> <span class="st">"$20,000-&lt;$30,000"</span> <span class="sc">~</span> <span class="dv">25</span>,</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span>Income.Groups <span class="sc">==</span> <span class="st">"$30,000-&lt;$40,000"</span> <span class="sc">~</span> <span class="dv">35</span>,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span>Income.Groups <span class="sc">==</span> <span class="st">"$40,000-&lt;$50,000"</span> <span class="sc">~</span> <span class="dv">45</span>,</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span>Income.Groups <span class="sc">==</span> <span class="st">"$50,000+"</span> <span class="sc">~</span> <span class="dv">55</span>,</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_real_</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the plot</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(clean_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(Education.Level, Income.Numeric, <span class="at">.fun =</span> mean), <span class="at">y =</span> Income.Numeric, <span class="at">fill =</span> Race...Ethnicity)) <span class="sc">+</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"summary"</span>, <span class="at">fun =</span> <span class="st">"mean"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Education Level"</span>,</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Income"</span>,</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Race / Ethnicity"</span>,</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Income by Education Level and Race / Ethnicity"</span></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">55</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>),</span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>)</span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income Numeric</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$0 to &lt;$10,000"</span> <span class="sc">~</span> <span class="dv">5</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$10,000-&lt;$20,000"</span> <span class="sc">~</span> <span class="dv">15</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$20,000-&lt;$30,000"</span> <span class="sc">~</span> <span class="dv">25</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$30,000-&lt;$40,000"</span> <span class="sc">~</span> <span class="dv">35</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$40,000-&lt;$50,000"</span> <span class="sc">~</span> <span class="dv">45</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$50,000+"</span> <span class="sc">~</span> <span class="dv">55</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_real_</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(clean_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(<span class="st">`</span><span class="at">Education_Level</span><span class="st">`</span>, <span class="st">`</span><span class="at">Income Numeric</span><span class="st">`</span>, <span class="at">.fun=</span>mean), <span class="at">y =</span> <span class="st">`</span><span class="at">Income Numeric</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Race_Ethnicity</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"summary"</span>, <span class="at">fun =</span> <span class="st">"mean"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Education Level"</span>, <span class="at">y =</span> <span class="st">"Average Income"</span>, <span class="at">fill =</span> <span class="st">"Race / Ethnicity"</span>, <span class="at">title =</span> <span class="st">"Average Income by Education Level and Race / Ethnicity"</span>) <span class="sc">+</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">55</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>),</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.
 ℹ Please use the `linewidth` argument instead.</code></pre>
@@ -433,165 +360,270 @@ Attaching package: 'dplyr'</code></pre>
 <p><img src="analysis_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<hr>
-</section>
-<section id="new-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="new-analysis">New Analysis</h2>
-<p><strong>For Blog Post 6:</strong></p>
-</section>
-<section id="libraries" class="level1">
-<h1>Libraries</h1>
+<table class="table">
+<colgroup>
+<col style="width: 5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">## New Analysis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05 ‘.’ 0.1 ’ ’ 1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Residual standard error: 10540 on 60 degrees of freedom Multiple R-squared: 0.2327, Adjusted R-squared: 0.2199 F-statistic: 18.2 on 1 and 60 DF, p-value: 7.167e-05 ``` :::</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>{.r .cell-code} plot(x = demographic_data_aggregated$`Black, non-Hispanic`, y = demographic_data_aggregated$Average_Wage)</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">::: {.cell-output-display} <img src="analysis_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"> :::</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>{.r .cell-code} plot(x = demographic_data_aggregated$`White, non-Hispanic`, y = demographic_data_aggregated$Average_Wage)</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">::: {.cell-output-display} <img src="analysis_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"> ::: :::</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Model 2: Linear Regression between Household weight, Education, Income group, Race/Ethnicity, Owner/Renter Status, Household Type</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">::: {.cell}</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">```{.r .cell-code} clean_data<span class="math inline">\(Education_Level &lt;- as.factor(clean_data\)</span>Education_Level) clean_data<span class="math inline">\(Race_Ethnicity &lt;- as.factor(clean_data\)</span>Race_Ethnicity) clean_data<span class="math inline">\(Income_Groups &lt;- as.factor(clean_data\)</span>Income_Groups) clean_data<span class="math inline">\(Economic_Development_Region &lt;- as.factor(clean_data\)</span>Economic_Development_Region) clean_data<span class="math inline">\(Owner_Renter_Status &lt;- as.factor(clean_data\)</span>Owner_Renter_Status) clean_data<span class="math inline">\(Household_Type &lt;- as.factor(clean_data\)</span>Household_Type)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"># Linear model model_linear &lt;- lm(Household_Weight ~ Education_Level + Race_Ethnicity + Income_Groups + Economic_Development_Region + Owner_Renter_Status + Household_Type, data = clean_data) summary(model_linear) ```</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">::: {.cell-output .cell-output-stdout} ```</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Call: lm(formula = Household_Weight ~ Education_Level + Race_Ethnicity + Income_Groups + Economic_Development_Region + Owner_Renter_Status + Household_Type, data = clean_data)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Residuals: Min 1Q Median 3Q Max -42.82 -13.48 -5.44 6.77 655.56</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Coefficients: Estimate Std. Error t value (Intercept) 24.97413 0.32726 76.313 Education_Level2 - High School Diploma -0.05642 0.15096 -0.374 Education_Level3 - Some College -0.10637 0.16239 -0.655 Education_Level4 - Associate’s -0.30700 0.18518 -1.658 Education_Level5 - Bachelor’s 0.14986 0.16799 0.892 Education_Level6 - Graduate Degree -0.44382 0.17398 -2.551 Race_EthnicityBlack, non-Hispanic 3.67498 0.23357 15.734 Race_EthnicityHispanic 6.67351 0.23580 28.301 Race_EthnicityOther 0.62962 0.37247 1.690 Race_EthnicityWhite, non-Hispanic -1.54112 0.20191 -7.633 Income_Groups$10,000-&lt;$20,000 -0.36185 0.20192 -1.792 Income_Groups$20,000-&lt;$30,000 -0.22285 0.20511 -1.087 Income_Groups$30,000-&lt;$40,000 0.68888 0.20948 3.289 Income_Groups$40,000-&lt;$50,000 -0.25564 0.21584 -1.184 Income_Groups$50,000+ 0.49253 0.18013 2.734 Economic_Development_RegionCentral New York -4.13477 0.22602 -18.294 Economic_Development_RegionFinger Lakes -2.41399 0.22120 -10.913 Economic_Development_RegionLong Island 4.27167 0.21758 19.633 Economic_Development_RegionMid-Hudson 3.14474 0.21838 14.400 Economic_Development_RegionMohawk Valley -6.46534 0.21178 -30.529 Economic_Development_RegionNew York City 4.54950 0.19702 23.092 Economic_Development_RegionNorth Country -7.52647 0.23316 -32.281 Economic_Development_RegionSouthern Tier -5.37256 0.20664 -26.000 Economic_Development_RegionWestern New York -2.35784 0.22488 -10.485 Owner_Renter_StatusRent/Other 8.14099 0.10433 78.029 Household_TypeElderly(60+) Individual 1.16832 0.13652 8.558 Household_TypeOlder(40-59) with children 3.98667 0.13000 30.667 Household_TypeOlder(40-59) with no children 3.76672 0.11700 32.193 Household_TypeYounger(Up to 40) with children 5.47273 0.16109 33.974 Household_TypeYounger(Up to 40) with no children 6.11328 0.16615 36.793 Pr(&gt;|t|) (Intercept) &lt; 2e-16 <strong><em> Education_Level2 - High School Diploma 0.70860 Education_Level3 - Some College 0.51245 Education_Level4 - Associate’s 0.09736 . Education_Level5 - Bachelor’s 0.37236 Education_Level6 - Graduate Degree 0.01074 </em> Race_EthnicityBlack, non-Hispanic &lt; 2e-16 </strong><em> Race_EthnicityHispanic &lt; 2e-16 </em><strong> Race_EthnicityOther 0.09096 . Race_EthnicityWhite, non-Hispanic 2.3e-14 </strong><em> Income_Groups$10,000-&lt;$20,000 0.07313 . Income_Groups$20,000-&lt;$30,000 0.27725 Income_Groups$30,000-&lt;$40,000 0.00101 <strong> Income_Groups$40,000-&lt;$50,000 0.23627 Income_Groups$50,000+ 0.00625 </strong> Economic_Development_RegionCentral New York &lt; 2e-16 </em><strong> Economic_Development_RegionFinger Lakes &lt; 2e-16 </strong><em> Economic_Development_RegionLong Island &lt; 2e-16 </em><strong> Economic_Development_RegionMid-Hudson &lt; 2e-16 </strong><em> Economic_Development_RegionMohawk Valley &lt; 2e-16 </em><strong> Economic_Development_RegionNew York City &lt; 2e-16 </strong><em> Economic_Development_RegionNorth Country &lt; 2e-16 </em><strong> Economic_Development_RegionSouthern Tier &lt; 2e-16 </strong><em> Economic_Development_RegionWestern New York &lt; 2e-16 </em><strong> Owner_Renter_StatusRent/Other &lt; 2e-16 </strong><em> Household_TypeElderly(60+) Individual &lt; 2e-16 </em><strong> Household_TypeOlder(40-59) with children &lt; 2e-16 </strong><em> Household_TypeOlder(40-59) with no children &lt; 2e-16 </em><strong> Household_TypeYounger(Up to 40) with children &lt; 2e-16 </strong><em> Household_TypeYounger(Up to 40) with no children &lt; 2e-16 </em>**</td>
+</tr>
+</tbody>
+</table>
+<p>Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05 ‘.’ 0.1 ’ ’ 1</p>
+<p>Residual standard error: 22.6 on 310808 degrees of freedom Multiple R-squared: 0.1282, Adjusted R-squared: 0.1281 F-statistic: 1576 on 29 and 310808 DF, p-value: &lt; 2.2e-16</p>
+<pre><code>:::
+
+```{.r .cell-code}
+# Diagnostic plots to check for assumptions
+par(mfrow=c(2,2))
+model_linear</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Household_Weight ~ Education_Level + Race_Ethnicity + 
+    Income_Groups + Economic_Development_Region + Owner_Renter_Status + 
+    Household_Type, data = clean_data)
+
+Coefficients:
+                                     (Intercept)  
+                                        24.97413  
+          Education_Level2 - High School Diploma  
+                                        -0.05642  
+                 Education_Level3 - Some College  
+                                        -0.10637  
+                  Education_Level4 - Associate's  
+                                        -0.30700  
+                   Education_Level5 - Bachelor's  
+                                         0.14986  
+              Education_Level6 - Graduate Degree  
+                                        -0.44382  
+               Race_EthnicityBlack, non-Hispanic  
+                                         3.67498  
+                          Race_EthnicityHispanic  
+                                         6.67351  
+                             Race_EthnicityOther  
+                                         0.62962  
+               Race_EthnicityWhite, non-Hispanic  
+                                        -1.54112  
+                   Income_Groups$10,000-&lt;$20,000  
+                                        -0.36185  
+                   Income_Groups$20,000-&lt;$30,000  
+                                        -0.22285  
+                   Income_Groups$30,000-&lt;$40,000  
+                                         0.68888  
+                   Income_Groups$40,000-&lt;$50,000  
+                                        -0.25564  
+                           Income_Groups$50,000+  
+                                         0.49253  
+     Economic_Development_RegionCentral New York  
+                                        -4.13477  
+         Economic_Development_RegionFinger Lakes  
+                                        -2.41399  
+          Economic_Development_RegionLong Island  
+                                         4.27167  
+           Economic_Development_RegionMid-Hudson  
+                                         3.14474  
+        Economic_Development_RegionMohawk Valley  
+                                        -6.46534  
+        Economic_Development_RegionNew York City  
+                                         4.54950  
+        Economic_Development_RegionNorth Country  
+                                        -7.52647  
+        Economic_Development_RegionSouthern Tier  
+                                        -5.37256  
+     Economic_Development_RegionWestern New York  
+                                        -2.35784  
+                   Owner_Renter_StatusRent/Other  
+                                         8.14099  
+           Household_TypeElderly(60+) Individual  
+                                         1.16832  
+        Household_TypeOlder(40-59) with children  
+                                         3.98667  
+     Household_TypeOlder(40-59) with no children  
+                                         3.76672  
+   Household_TypeYounger(Up to 40) with children  
+                                         5.47273  
+Household_TypeYounger(Up to 40) with no children  
+                                         6.11328  </code></pre>
+</div>
+<p>:::</p>
+<p>Model 3: Multinomial logistic regression with Race_Ethnicity as the dependent variable</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: lattice</code></pre>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Race_Ethnicity <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Race_Ethnicity)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Education_Level <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Education_Level)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Income_Groups <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Income_Groups)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Economic_Development_Region <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Economic_Development_Region)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Owner_Renter_Status <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Owner_Renter_Status)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Multinomial logistic regression</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>multinom_model <span class="ot">&lt;-</span> <span class="fu">multinom</span>(Race_Ethnicity <span class="sc">~</span> Education_Level <span class="sc">+</span> Income_Groups <span class="sc">+</span> Household_Weight <span class="sc">+</span> Owner_Renter_Status, <span class="at">data =</span> clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># weights:  70 (52 variable)
+initial  value 500274.461823 
+iter  10 value 282403.948404
+iter  20 value 280232.864254
+iter  30 value 266259.763199
+iter  40 value 256269.811521
+iter  50 value 242314.940159
+iter  60 value 234231.201882
+iter  70 value 233605.230698
+final  value 233605.164315 
+converged</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)  <span class="co"># For data manipulation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ lubridate 1.9.3     ✔ tibble    3.2.1
-✔ purrr     1.0.2     ✔ tidyr     1.3.0
-✔ stringr   1.5.1     </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-✖ purrr::lift()   masks caret::lift()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelr)     <span class="co"># For weighted regression</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>clean_data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">here</span>(<span class="st">"dataset"</span>, <span class="st">"cleaned_NYSERDA_LMI_Census_2013-2015.rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ol type="1">
-<li>Analyzing income distribution by race/ethnicity</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>weighted_counts <span class="ot">&lt;-</span> clean_data <span class="sc">%&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Income.Groups</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Weighted.Count =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Household.Weight</span><span class="st">`</span>), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(weighted_counts, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Income.Groups</span><span class="st">`</span>, <span class="at">y=</span>Weighted.Count, <span class="at">fill=</span><span class="st">`</span><span class="at">Income.Groups</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Weighted Housing Distribution by Income Groups"</span>,</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Income Groups"</span>, <span class="at">y=</span><span class="st">"Weighted Count"</span>) <span class="sc">+</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Option 1</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating weighted proportions</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="ot">&lt;-</span> clean_data <span class="sc">%&gt;%</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">Race =</span> Race...Ethnicity, <span class="at">Income =</span> Income.Groups) <span class="sc">%&gt;%</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Weighted_Count =</span> <span class="fu">sum</span>(Household.Weight), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>total_weights_per_race <span class="ot">&lt;-</span> grouped_data <span class="sc">%&gt;%</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Race) <span class="sc">%&gt;%</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total_Weight =</span> <span class="fu">sum</span>(Weighted_Count), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="ot">&lt;-</span> grouped_data <span class="sc">%&gt;%</span></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(total_weights_per_race, <span class="at">by =</span> <span class="st">"Race"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Proportion =</span> Weighted_Count <span class="sc">/</span> Total_Weight)</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="co"># stacked bar plot</span></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(grouped_data, <span class="fu">aes</span>(<span class="at">x =</span> Race, <span class="at">y =</span> Proportion, <span class="at">fill =</span> Income)) <span class="sc">+</span></span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Household Weights Proportion by Income Groups and Race/Ethnicity"</span>,</span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Race / Ethnicity"</span>,</span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Proportion"</span>) <span class="sc">+</span></span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Paired"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Option 2</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating weighted proportions</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> clean_data <span class="sc">%&gt;%</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Race...Ethnicity, Income.Groups) <span class="sc">%&gt;%</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Weighted_Count =</span> <span class="fu">sum</span>(Household.Weight), <span class="at">.groups =</span> <span class="st">'drop'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Race...Ethnicity) <span class="sc">%&gt;%</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total_Weight =</span> <span class="fu">sum</span>(Weighted_Count)) <span class="sc">%&gt;%</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Proportion =</span> Weighted_Count <span class="sc">/</span> Total_Weight)</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating weighted histograms</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> Income.Groups, <span class="at">y =</span> Proportion, <span class="at">fill =</span> Income.Groups)) <span class="sc">+</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span><span class="st">`</span><span class="at">Race...Ethnicity</span><span class="st">`</span>, <span class="at">scales =</span> <span class="st">"free_x"</span>) <span class="sc">+</span></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>()) <span class="sc">+</span></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Household Weights by Income Groups and Race/Ethnicity"</span>,</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Income Groups"</span>,</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Weighted Proportion"</span>) <span class="sc">+</span></span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<ol start="2" type="1">
-<li>Analyzing Housing Characteristics by Race/Ethnicity:</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>weighted_counts <span class="ot">&lt;-</span> clean_data <span class="sc">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Race...Ethnicity</span><span class="st">`</span>, <span class="st">`</span><span class="at">Owner.Renter.Status</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Weighted.Count =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Household.Weight</span><span class="st">`</span>), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(weighted_counts, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Race...Ethnicity</span><span class="st">`</span>, <span class="at">y=</span>Weighted.Count, <span class="at">fill=</span><span class="st">`</span><span class="at">Owner.Renter.Status</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Weighted Housing Status Distribution by Race / Ethnicity"</span>,</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Race / Ethnicity"</span>, <span class="at">y=</span><span class="st">"Weighted Count"</span>) <span class="sc">+</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette=</span><span class="st">"Set1"</span>) <span class="sc">+</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<ol start="3" type="1">
-<li>Analyzing Impact of Race/Ethnicity on Educational Outcomes:</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>weighted_education_counts <span class="ot">&lt;-</span> clean_data <span class="sc">%&gt;%</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">`</span><span class="at">Race...Ethnicity</span><span class="st">`</span>, <span class="st">`</span><span class="at">Education.Level</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Weighted.Count =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Household.Weight</span><span class="st">`</span>), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(weighted_education_counts, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Race...Ethnicity</span><span class="st">`</span>, <span class="at">y=</span>Weighted.Count, <span class="at">fill=</span><span class="st">`</span><span class="at">Education.Level</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">"identity"</span>, <span class="at">position=</span><span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Weighted Education Level Distribution by Race / Ethnicity"</span>,</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"Race / Ethnicity"</span>, <span class="at">y=</span><span class="st">"Weighted Count"</span>) <span class="sc">+</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>comma) <span class="sc">+</span>  </span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span>  </span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">"right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of the model</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(multinom_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+multinom(formula = Race_Ethnicity ~ Education_Level + Income_Groups + 
+    Household_Weight + Owner_Renter_Status, data = clean_data)
+
+Coefficients:
+                    (Intercept) Education_Level2 - High School Diploma
+Black, non-Hispanic   0.1720327                              0.8778828
+Hispanic              0.2029666                              0.1209516
+Other                -1.1320638                              0.9020786
+White, non-Hispanic   2.5252654                              1.4197625
+                    Education_Level3 - Some College
+Black, non-Hispanic                       1.1427539
+Hispanic                                  0.3330605
+Other                                     1.2883867
+White, non-Hispanic                       1.5029519
+                    Education_Level4 - Associate's
+Black, non-Hispanic                      0.7332104
+Hispanic                                -0.1137900
+Other                                    1.0143704
+White, non-Hispanic                      1.3551427
+                    Education_Level5 - Bachelor's
+Black, non-Hispanic                   -0.41561162
+Hispanic                              -1.28624007
+Other                                  0.03404424
+White, non-Hispanic                    0.38680494
+                    Education_Level6 - Graduate Degree
+Black, non-Hispanic                         -0.4672515
+Hispanic                                    -1.4952743
+Other                                       -0.1104460
+White, non-Hispanic                          0.3912665
+                    Income_Groups$10,000-&lt;$20,000 Income_Groups$20,000-&lt;$30,000
+Black, non-Hispanic                   -0.03658283                   -0.23673974
+Hispanic                               0.04358311                   -0.03585016
+Other                                 -0.02281292                   -0.18530446
+White, non-Hispanic                    0.38007521                    0.19222045
+                    Income_Groups$30,000-&lt;$40,000 Income_Groups$40,000-&lt;$50,000
+Black, non-Hispanic                   -0.13613483                   -0.20284678
+Hispanic                               0.05182832                    0.08838805
+Other                                 -0.34785688                   -0.29448904
+White, non-Hispanic                    0.23206990                    0.22119510
+                    Income_Groups$50,000+ Household_Weight
+Black, non-Hispanic           -0.31976472      0.003301279
+Hispanic                       0.07938986      0.006515713
+Other                         -0.45804428     -0.002312999
+White, non-Hispanic           -0.01174037     -0.011146464
+                    Owner_Renter_StatusRent/Other
+Black, non-Hispanic                    0.51193537
+Hispanic                               0.81309346
+Other                                  0.01399226
+White, non-Hispanic                   -0.80538807
+
+Std. Errors:
+                    (Intercept) Education_Level2 - High School Diploma
+Black, non-Hispanic  0.04385461                             0.03550242
+Hispanic             0.04340332                             0.03445201
+Other                0.07028943                             0.05766721
+White, non-Hispanic  0.03830676                             0.03093198
+                    Education_Level3 - Some College
+Black, non-Hispanic                      0.04033959
+Hispanic                                 0.03959182
+Other                                    0.06178834
+White, non-Hispanic                      0.03589846
+                    Education_Level4 - Associate's
+Black, non-Hispanic                     0.04765358
+Hispanic                                0.04775056
+Other                                   0.07252259
+White, non-Hispanic                     0.04122173
+                    Education_Level5 - Bachelor's
+Black, non-Hispanic                    0.03549016
+Hispanic                               0.03492365
+Other                                  0.06020907
+White, non-Hispanic                    0.02845506
+                    Education_Level6 - Graduate Degree
+Black, non-Hispanic                         0.03790577
+Hispanic                                    0.03855821
+Other                                       0.06506451
+White, non-Hispanic                         0.02980050
+                    Income_Groups$10,000-&lt;$20,000 Income_Groups$20,000-&lt;$30,000
+Black, non-Hispanic                    0.04744883                    0.04830338
+Hispanic                               0.04769155                    0.04853022
+Other                                  0.07145314                    0.07299604
+White, non-Hispanic                    0.04278204                    0.04285026
+                    Income_Groups$30,000-&lt;$40,000 Income_Groups$40,000-&lt;$50,000
+Black, non-Hispanic                    0.05008570                    0.05230632
+Hispanic                               0.05065684                    0.05270842
+Other                                  0.07836310                    0.08048362
+White, non-Hispanic                    0.04442535                    0.04577317
+                    Income_Groups$50,000+ Household_Weight
+Black, non-Hispanic            0.03963636     0.0003592393
+Hispanic                       0.04004772     0.0003526973
+Other                          0.06070335     0.0006308042
+White, non-Hispanic            0.03527613     0.0003237799
+                    Owner_Renter_StatusRent/Other
+Black, non-Hispanic                    0.02260577
+Hispanic                               0.02317579
+Other                                  0.03592528
+White, non-Hispanic                    0.01870698
+
+Residual Deviance: 467210.3 
+AIC: 467314.3 </code></pre>
 </div>
 </div>
-<section id="statistical-modelling" class="level2">
-<h2 class="anchored" data-anchor-id="statistical-modelling">Statistical Modelling</h2>
-<p><strong>For Blog post 7:</strong> Model 1</p>
+<p>```</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
