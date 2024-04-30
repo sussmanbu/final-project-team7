@@ -21,8 +21,6 @@ head(clean_data)
 
 ## Analysis
 
-For Blog Post 4:
-
 ```{r}
 library(ggplot2)
 library(reshape2)
@@ -434,7 +432,6 @@ print(interactive_map)
 
 ## Statistical Modelling
 
-**For Blog post 7:**
 Model 1 Linear Regression between black, white, hispanic, asian population proportion and Average wage at county level
 
 ```{r}
@@ -452,18 +449,36 @@ plot(x = demographic_data_aggregated$`White, non-Hispanic`, y = demographic_data
 Model 2: Linear Regression between Household weight, Education, Income group, Race/Ethnicity, Owner/Renter Status, Household Type
 
 ```{r}
-cleaned_data$Education <- as.factor(cleaned_data$Education.Level)
-cleaned_data$Race_Ethnicity <- as.factor(cleaned_data$Race...Ethnicity)
-cleaned_data$Income_group <- as.factor(cleaned_data$Income.Groups)
-cleaned_data$Race_Ethnicity <- as.factor(cleaned_data$Economic.Development.Region)
-cleaned_data$Race_Ethnicity <- as.factor(cleaned_data$Owner.Renter.Status)
-cleaned_data$Race_Ethnicity <- as.factor(cleaned_data$Household.Type)
+clean_data$Education_Level <- as.factor(clean_data$Education_Level)
+clean_data$Race_Ethnicity <- as.factor(clean_data$Race_Ethnicity)
+clean_data$Income_Groups <- as.factor(clean_data$Income_Groups)
+clean_data$Economic_Development_Region <- as.factor(clean_data$Economic_Development_Region)
+clean_data$Owner_Renter_Status <- as.factor(clean_data$Owner_Renter_Status)
+clean_data$Household_Type <- as.factor(clean_data$Household_Type)
 
 # Linear model
-model_linear <- lm(Household.Weight ~ Education.Level + Race...Ethnicity + Income.Groups + Economic.Development.Region + Owner.Renter.Status + Household.Type, data = cleaned_data)
+model_linear <- lm(Household_Weight ~ Education_Level + Race_Ethnicity + Income_Groups + Economic_Development_Region + Owner_Renter_Status + Household_Type, data = clean_data)
 summary(model_linear)
 
 # Diagnostic plots to check for assumptions
 par(mfrow=c(2,2))
 model_linear
 ```
+
+Model 3: Multinomial logistic regression with Race_Ethnicity as the dependent variable
+```{r}
+library(nnet)
+clean_data$Race_Ethnicity <- as.factor(clean_data$Race_Ethnicity)
+clean_data$Education_Level <- as.factor(clean_data$Education_Level)
+clean_data$Income_Groups <- as.factor(clean_data$Income_Groups)
+clean_data$Economic_Development_Region <- as.factor(clean_data$Economic_Development_Region)
+clean_data$Owner_Renter_Status <- as.factor(clean_data$Owner_Renter_Status)
+
+# Multinomial logistic regression
+multinom_model <- multinom(Race_Ethnicity ~ Education_Level + Income_Groups + Household_Weight + Owner_Renter_Status, data = clean_data)
+
+# Summary of the model
+summary(multinom_model)
+```
+```
+

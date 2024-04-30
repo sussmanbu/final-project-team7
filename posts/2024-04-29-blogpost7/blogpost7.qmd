@@ -1,5 +1,5 @@
 ---
-title: "Blog Post 6"
+title: "Blog Post 7"
 author: "Team 7Up"
 date: "2024-04-22"
 date-modified: "2024-04-22"
@@ -18,4 +18,8 @@ For this week, we used sf map data to create static and interactive maps that sh
 
 To enhance our visual storytelling, we have utilized tools from the RColorBrewer and leaflet package to refine our interacting map. Each map has clearly displayed how these characteristics are distributed in NY State across each county. By comparing each graph, the systematic relationship between wage levels and racial distinctions becomes apparent, providing a visual affirmation of our thesis.
 
-![](map1.png){width="300"} ![](map2.png){width="300"} ![](map3.png){width="300"}
+![](map1.png) ![](map2.png) ![](map3.png)
+
+## Statistical Modelling
+
+Our Linear model shows that the White, non-Hispanic appears to have higher average wage values than the Black, non-Hispanic. We also ran a multinomial logistic regression with Race/Ethnicity as the dependent variable. The result indicates that different levels of education impact the odds of belonging to each Race/Ethnicity category differently. For instance, having a Bachelor's degree increases the odds of being Black, non-Hispanic compared to White, non-Hispanic. Also, being in the $10,000 to 20,000 income group seems to decrease the odds of being Hispanic.  
