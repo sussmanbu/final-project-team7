@@ -1,0 +1,21 @@
+---
+title: "Blog Post 6"
+author: "Team 7Up"
+date: "2024-04-22"
+date-modified: "2024-04-22"
+draft: FALSE
+---
+
+## Thesis
+
+The thesis of our project is that racial disparities are reflected in educational level, average income, and housing status, and reflected across different counties.
+
+## Progress
+
+For this week, we used sf map data to create static and interactive maps that show income/wages/racial proportion disparities across different counties in New York state. We further clean our data to create data columns that has information for each county. We combined the dataset “Quarterly Census of Employment and Wages Annual Data” from 2013 to 2015 to our dataset to add new columns that have average wages information for each county.
+
+## Mapping
+
+To enhance our visual storytelling, we have utilized tools from the RColorBrewer and leaflet package to refine our interacting map. Each map has clearly displayed how these characteristics are distributed in NY State across each county. By comparing each graph, the systematic relationship between wage levels and racial distinctions becomes apparent, providing a visual affirmation of our thesis.
+
+![](map1.png){width="300"} ![](map2.png){width="300"} ![](map3.png){width="300"}
