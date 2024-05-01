@@ -183,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>here() starts at /Users/vynguyen/Desktop/MA415/final-project-team7</code></pre>
+<pre><code>here() starts at /Users/lincoco/Desktop/final 415</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the path to the RDS file</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cleaned_dataset_path_rds <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"dataset"</span>, <span class="st">"cleaned_NYSERDA_LMI_Census_2013-2015.rds"</span>)</span>
@@ -275,48 +275,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="analysis" class="level2">
 <h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a cross-tabulation of Race / Ethnicity and Education Level</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>ct <span class="ot">&lt;-</span> <span class="fu">table</span>(clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Race_Ethnicity</span><span class="st">`</span>, clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Education_Level</span><span class="st">`</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Melting the table for ggplot</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>ct_melted <span class="ot">&lt;-</span> <span class="fu">melt</span>(ct)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting with counts in each box</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ct_melted, <span class="fu">aes</span>(<span class="at">x =</span> Var2, <span class="at">y =</span> Var1, <span class="at">fill =</span> value)) <span class="sc">+</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span>  </span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> value), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span>  <span class="co"># Showing the count</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"lightblue"</span>, <span class="at">high =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Education Level"</span>, <span class="at">y =</span> <span class="st">"Race / Ethnicity"</span>, <span class="at">fill =</span> <span class="st">"Count"</span>,</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Heatmap of Education Level by Race / Ethnicity"</span>) <span class="sc">+</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.2.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a cross-tabulation of Race / Ethnicity and Education Level</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>ct <span class="ot">&lt;-</span> <span class="fu">table</span>(clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Race_Ethnicity</span><span class="st">`</span>, clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Education_Level</span><span class="st">`</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Melting the table for ggplot</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>ct_melted <span class="ot">&lt;-</span> <span class="fu">melt</span>(ct)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting with counts in each box</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ct_melted, <span class="fu">aes</span>(<span class="at">x =</span> Var2, <span class="at">y =</span> Var1, <span class="at">fill =</span> value)) <span class="sc">+</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span>  </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> value), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span>  <span class="co"># Showing the count</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"lightblue"</span>, <span class="at">high =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Education Level"</span>, <span class="at">y =</span> <span class="st">"Race / Ethnicity"</span>, <span class="at">fill =</span> <span class="st">"Count"</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Heatmap of Education Level by Race / Ethnicity"</span>) <span class="sc">+</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Same as before but with percentages of each education level</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ct_percent <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(ct, <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ct_percent_melted <span class="ot">&lt;-</span> <span class="fu">melt</span>(ct_percent)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting with percentage in each box</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ct_percent_melted, <span class="fu">aes</span>(<span class="at">x =</span> Var2, <span class="at">y =</span> Var1, <span class="at">fill =</span> value)) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span>  </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, value)), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span>  <span class="co"># showing percentage</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"lightblue"</span>, <span class="at">high =</span> <span class="st">"blue"</span>) <span class="sc">+</span>  </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Education Level"</span>, <span class="at">y =</span> <span class="st">"Race / Ethnicity"</span>, <span class="at">fill =</span> <span class="st">"Percentage"</span>,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Heatmap of Education Level by Race / Ethnicity (Percentage)"</span>) <span class="sc">+</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Same as before but with percentages of each education level</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ct_percent <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(ct, <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>ct_percent_melted <span class="ot">&lt;-</span> <span class="fu">melt</span>(ct_percent)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting with percentage in each box</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ct_percent_melted, <span class="fu">aes</span>(<span class="at">x =</span> Var2, <span class="at">y =</span> Var1, <span class="at">fill =</span> value)) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span>  </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, value)), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span>  <span class="co"># showing percentage</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"lightblue"</span>, <span class="at">high =</span> <span class="st">"blue"</span>) <span class="sc">+</span>  </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Education Level"</span>, <span class="at">y =</span> <span class="st">"Race / Ethnicity"</span>, <span class="at">fill =</span> <span class="st">"Percentage"</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Heatmap of Education Level by Race / Ethnicity (Percentage)"</span>) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.2.3</code></pre>
+</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'dplyr'</code></pre>
@@ -331,27 +337,27 @@ Attaching package: 'dplyr'</code></pre>
 
     intersect, setdiff, setequal, union</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income Numeric</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$0 to &lt;$10,000"</span> <span class="sc">~</span> <span class="dv">5</span>,</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$10,000-&lt;$20,000"</span> <span class="sc">~</span> <span class="dv">15</span>,</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$20,000-&lt;$30,000"</span> <span class="sc">~</span> <span class="dv">25</span>,</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$30,000-&lt;$40,000"</span> <span class="sc">~</span> <span class="dv">35</span>,</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$40,000-&lt;$50,000"</span> <span class="sc">~</span> <span class="dv">45</span>,</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$50,000+"</span> <span class="sc">~</span> <span class="dv">55</span>,</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_real_</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(clean_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(<span class="st">`</span><span class="at">Education_Level</span><span class="st">`</span>, <span class="st">`</span><span class="at">Income Numeric</span><span class="st">`</span>, <span class="at">.fun=</span>mean), <span class="at">y =</span> <span class="st">`</span><span class="at">Income Numeric</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Race_Ethnicity</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"summary"</span>, <span class="at">fun =</span> <span class="st">"mean"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Education Level"</span>, <span class="at">y =</span> <span class="st">"Average Income"</span>, <span class="at">fill =</span> <span class="st">"Race / Ethnicity"</span>, <span class="at">title =</span> <span class="st">"Average Income by Education Level and Race / Ethnicity"</span>) <span class="sc">+</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">55</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>),</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income Numeric</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$0 to &lt;$10,000"</span> <span class="sc">~</span> <span class="dv">5</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$10,000-&lt;$20,000"</span> <span class="sc">~</span> <span class="dv">15</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$20,000-&lt;$30,000"</span> <span class="sc">~</span> <span class="dv">25</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$30,000-&lt;$40,000"</span> <span class="sc">~</span> <span class="dv">35</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$40,000-&lt;$50,000"</span> <span class="sc">~</span> <span class="dv">45</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$50,000+"</span> <span class="sc">~</span> <span class="dv">55</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_real_</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(clean_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(<span class="st">`</span><span class="at">Education_Level</span><span class="st">`</span>, <span class="st">`</span><span class="at">Income Numeric</span><span class="st">`</span>, <span class="at">.fun=</span>mean), <span class="at">y =</span> <span class="st">`</span><span class="at">Income Numeric</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Race_Ethnicity</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"summary"</span>, <span class="at">fun =</span> <span class="st">"mean"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Education Level"</span>, <span class="at">y =</span> <span class="st">"Average Income"</span>, <span class="at">fill =</span> <span class="st">"Race / Ethnicity"</span>, <span class="at">title =</span> <span class="st">"Average Income by Education Level and Race / Ethnicity"</span>) <span class="sc">+</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">55</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>),</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.
 ℹ Please use the `linewidth` argument instead.</code></pre>
@@ -494,15 +500,15 @@ Household_TypeYounger(Up to 40) with no children
 <p>:::</p>
 <p>Model 3: Multinomial logistic regression with Race_Ethnicity as the dependent variable</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Race_Ethnicity <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Race_Ethnicity)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Education_Level <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Education_Level)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Income_Groups <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Income_Groups)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Economic_Development_Region <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Economic_Development_Region)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Owner_Renter_Status <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Owner_Renter_Status)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Multinomial logistic regression</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>multinom_model <span class="ot">&lt;-</span> <span class="fu">multinom</span>(Race_Ethnicity <span class="sc">~</span> Education_Level <span class="sc">+</span> Income_Groups <span class="sc">+</span> Household_Weight <span class="sc">+</span> Owner_Renter_Status, <span class="at">data =</span> clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Race_Ethnicity <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Race_Ethnicity)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Education_Level <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Education_Level)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Income_Groups <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Income_Groups)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Economic_Development_Region <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Economic_Development_Region)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Owner_Renter_Status <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Owner_Renter_Status)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Multinomial logistic regression</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>multinom_model <span class="ot">&lt;-</span> <span class="fu">multinom</span>(Race_Ethnicity <span class="sc">~</span> Education_Level <span class="sc">+</span> Income_Groups <span class="sc">+</span> Household_Weight <span class="sc">+</span> Owner_Renter_Status, <span class="at">data =</span> clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># weights:  70 (52 variable)
 initial  value 500274.461823 
@@ -516,8 +522,8 @@ iter  70 value 233605.230698
 final  value 233605.164315 
 converged</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of the model</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(multinom_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of the model</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(multinom_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Call:
 multinom(formula = Race_Ethnicity ~ Education_Level + Income_Groups + 
@@ -621,7 +627,395 @@ Residual Deviance: 467210.3
 AIC: 467314.3 </code></pre>
 </div>
 </div>
-<p>```</p>
+<p>Model 4: Multinomial logistic regression with Income disparity across Education, Household Weight, and Race Ethnicity</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>cleaned_dataset_path_rds <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"dataset"</span>, <span class="st">"cleaned_NYSERDA_LMI_Census_2013-2015.rds"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>clean_data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(cleaned_dataset_path_rds)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>OwnerStatue<span class="ot">&lt;-</span><span class="fu">ifelse</span>(clean_data<span class="sc">$</span><span class="st">"Owner_Renter_Status"</span><span class="sc">==</span><span class="st">"Own"</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Numeric</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$0 to &lt;$10,000"</span> <span class="sc">~</span> <span class="dv">5</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$10,000-&lt;$20,000"</span> <span class="sc">~</span> <span class="dv">15</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$20,000-&lt;$30,000"</span> <span class="sc">~</span> <span class="dv">25</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$30,000-&lt;$40,000"</span> <span class="sc">~</span> <span class="dv">35</span>,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$40,000-&lt;$50,000"</span> <span class="sc">~</span> <span class="dv">45</span>,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$50,000+"</span> <span class="sc">~</span> <span class="dv">55</span>,</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_real_</span>)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Model fitting </span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>multinom_model <span class="ot">&lt;-</span> <span class="fu">multinom</span>(Income_Groups <span class="sc">~</span> Education_Level <span class="sc">+</span> Household_Weight <span class="sc">+</span> Race_Ethnicity, <span class="at">data =</span> clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># weights:  72 (55 variable)
+initial  value 556946.929899 
+iter  10 value 477887.632429
+iter  20 value 467261.034391
+iter  30 value 463870.725984
+iter  40 value 442500.718578
+iter  50 value 424055.356909
+iter  60 value 411251.963412
+iter  70 value 406690.904482
+final  value 406689.281147 
+converged</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(multinom_model) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+multinom(formula = Income_Groups ~ Education_Level + Household_Weight + 
+    Race_Ethnicity, data = clean_data)
+
+Coefficients:
+                 (Intercept) Education_Level2 - High School Diploma
+$10,000-&lt;$20,000  0.17398756                              0.1675598
+$20,000-&lt;$30,000 -0.06279155                              0.4991578
+$30,000-&lt;$40,000 -0.47372010                              0.6912341
+$40,000-&lt;$50,000 -0.69550342                              0.8049590
+$50,000+          0.49187800                              1.1169909
+                 Education_Level3 - Some College Education_Level4 - Associate's
+$10,000-&lt;$20,000                     -0.01431515                    -0.01698338
+$20,000-&lt;$30,000                      0.41785261                     0.59777409
+$30,000-&lt;$40,000                      0.71147581                     1.02226414
+$40,000-&lt;$50,000                      0.90884445                     1.22852616
+$50,000+                              1.47288625                     2.07010428
+                 Education_Level5 - Bachelor's
+$10,000-&lt;$20,000                    -0.2478429
+$20,000-&lt;$30,000                     0.3401299
+$30,000-&lt;$40,000                     0.7879517
+$40,000-&lt;$50,000                     1.1156675
+$50,000+                             2.3950944
+                 Education_Level6 - Graduate Degree Household_Weight
+$10,000-&lt;$20,000                         -0.2369755     -0.002224211
+$20,000-&lt;$30,000                          0.3523127     -0.003644953
+$30,000-&lt;$40,000                          0.8183086     -0.002923348
+$40,000-&lt;$50,000                          1.2770752     -0.005413830
+$50,000+                                  2.9816037     -0.003944505
+                 Race_EthnicityBlack, non-Hispanic Race_EthnicityHispanic
+$10,000-&lt;$20,000                       -0.06600965            0.006152891
+$20,000-&lt;$30,000                       -0.31185696           -0.137885734
+$30,000-&lt;$40,000                       -0.25109052           -0.112421246
+$40,000-&lt;$50,000                       -0.34631296           -0.109406970
+$50,000+                               -0.55132819           -0.253783683
+                 Race_EthnicityOther Race_EthnicityWhite, non-Hispanic
+$10,000-&lt;$20,000          -0.0262662                         0.4407918
+$20,000-&lt;$30,000          -0.1909129                         0.3470999
+$30,000-&lt;$40,000          -0.3580024                         0.4413430
+$40,000-&lt;$50,000          -0.3137825                         0.4573344
+$50,000+                  -0.4733333                         0.3533307
+
+Std. Errors:
+                 (Intercept) Education_Level2 - High School Diploma
+$10,000-&lt;$20,000  0.04435088                             0.02392510
+$20,000-&lt;$30,000  0.04503688                             0.02538493
+$30,000-&lt;$40,000  0.04718596                             0.02705010
+$40,000-&lt;$50,000  0.04937492                             0.02912248
+$50,000+          0.03683256                             0.02238016
+                 Education_Level3 - Some College Education_Level4 - Associate's
+$10,000-&lt;$20,000                      0.02764059                     0.03887774
+$20,000-&lt;$30,000                      0.02872337                     0.03852824
+$30,000-&lt;$40,000                      0.03007312                     0.03900004
+$40,000-&lt;$50,000                      0.03191908                     0.04057540
+$50,000+                              0.02471228                     0.03285722
+                 Education_Level5 - Bachelor's
+$10,000-&lt;$20,000                    0.03441659
+$20,000-&lt;$30,000                    0.03435462
+$30,000-&lt;$40,000                    0.03488013
+$40,000-&lt;$50,000                    0.03612170
+$50,000+                            0.02832791
+                 Education_Level6 - Graduate Degree Household_Weight
+$10,000-&lt;$20,000                         0.04393958     0.0003427134
+$20,000-&lt;$30,000                         0.04316178     0.0003565812
+$30,000-&lt;$40,000                         0.04308288     0.0003588261
+$40,000-&lt;$50,000                         0.04330674     0.0003858698
+$50,000+                                 0.03489819     0.0002848635
+                 Race_EthnicityBlack, non-Hispanic Race_EthnicityHispanic
+$10,000-&lt;$20,000                        0.04738577             0.04761856
+$20,000-&lt;$30,000                        0.04811484             0.04830471
+$30,000-&lt;$40,000                        0.04975214             0.05026589
+$40,000-&lt;$50,000                        0.05190374             0.05222769
+$50,000+                                0.03837231             0.03880342
+                 Race_EthnicityOther Race_EthnicityWhite, non-Hispanic
+$10,000-&lt;$20,000          0.07142358                        0.04264048
+$20,000-&lt;$30,000          0.07275167                        0.04260176
+$30,000-&lt;$40,000          0.07789195                        0.04405970
+$40,000-&lt;$50,000          0.07984876                        0.04534036
+$50,000+                  0.05846483                        0.03417443
+
+Residual Deviance: 813378.6 
+AIC: 813488.6 </code></pre>
+</div>
+</div>
+<p>Comment: These coefficients reflect the estimated effects of various demographic and educational factors on income distribution within your dataset. Positive coefficients indicate a higher likelihood of being in the respective income bracket relative to the highest income bracket for that predictor level, while negative coefficients indicate a lower likelihood.</p>
+<p>Education appears to have a strong influence, with higher levels of education generally increasing income level. Race/ethnicity also shows significant differences in income distribution, reflecting socioeconomic disparities.</p>
+<p>Household Weight The coefficients are very small and negative across all income brackets, suggesting a slight decrease in the likelihood of being in higher income brackets with an increase in household weight, though the effect appears to be very minimal.</p>
+<p>Using Anova to get pvalue for the statistical significant for each coefficient</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: carData</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'car'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:purrr':
+
+    some</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    recode</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>anova_results <span class="ot">&lt;-</span> <span class="fu">Anova</span>(multinom_model)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(anova_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table (Type II tests)
+
+Response: Income_Groups
+                 LR Chisq Df Pr(&gt;Chisq)    
+Education_Level     44277 25  &lt; 2.2e-16 ***
+Household_Weight      257  5  &lt; 2.2e-16 ***
+Race_Ethnicity       2140 20  &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Comment: The output from the ANOVA suggests that all the predictors in your multinomial logistic regression model—Education Level, Household Weight, and Race/Ethnicity—are highly statistically significant in predicting the different income groups. Specifically, Education Level has a particularly strong influence on income group classification, as indicated by a very high likelihood ratio chi-square statistic (LR Chisq) of 44277 with 25 degrees of freedom and a p-value less than 0.0001. Similarly, Race/Ethnicity shows substantial influence with an LR Chisq of 2140 and a p-value less than 0.0001, and Household Weight also proves significant with an LR Chisq of 257. These results underscore the strong effects of educational attainment and racial/ethnic background on income distribution, as well as the more modest but significant role of household demographics, confirming the importance of these factors in socioeconomic studies.</p>
+<p>95% Confidence Interval on Coefficients on each variable</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get model coefficients and standard errors</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>coef_matrix <span class="ot">&lt;-</span> <span class="fu">summary</span>(multinom_model)<span class="sc">$</span>coefficients</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>se_matrix <span class="ot">&lt;-</span> <span class="fu">summary</span>(multinom_model)<span class="sc">$</span>standard.errors</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate lower and upper bounds of the 95% confidence intervals</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>ci_lower <span class="ot">&lt;-</span> coef_matrix <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se_matrix</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>ci_upper <span class="ot">&lt;-</span> coef_matrix <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_matrix</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co">#extrac outcome group </span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>predictors <span class="ot">=</span> <span class="fu">colnames</span>(coef_matrix)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>outcome_groups <span class="ot">=</span> <span class="fu">rownames</span>(coef_matrix)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize an empty data frame to hold detailed CI data</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>detailed_ci_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through each outcome group to append data</span></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(coef_matrix)) {</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>  temp_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Outcome_Group =</span> outcome_groups[i],</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Predictor =</span> predictors,</span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">Estimate =</span> coef_matrix[i, ],</span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">CI_Lower =</span> ci_lower[i, ],</span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">CI_Upper =</span> ci_upper[i, ]</span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>  detailed_ci_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(detailed_ci_data, temp_data)</span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(detailed_ci_data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Outcome_Group"</span>, <span class="st">"Predictor"</span>, <span class="st">"Estimate"</span>, <span class="st">"CI Lower"</span>, <span class="st">"CI Upper"</span>)</span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> detailed_ci_data[</span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>  detailed_ci_data<span class="sc">$</span>Outcome_Group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"$50,000+"</span>,</span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"$40,000-&lt;$50,000"</span>,</span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"$30,000-&lt;$40,000"</span>,</span>
+<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"$20,000-&lt;$30,000"</span>,</span>
+<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"$10,000-&lt;$20,000"</span>,</span>
+<span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"$0 to &lt;$10,000"</span>) <span class="sc">&amp;</span> </span>
+<span id="cb33-35"><a href="#cb33-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">"Education_Level"</span>, detailed_ci_data<span class="sc">$</span>Predictor), ]</span>
+<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(filtered_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                           Outcome_Group
+Education_Level2 - High School Diploma  $10,000-&lt;$20,000
+Education_Level3 - Some College         $10,000-&lt;$20,000
+Education_Level4 - Associate's          $10,000-&lt;$20,000
+Education_Level5 - Bachelor's           $10,000-&lt;$20,000
+Education_Level6 - Graduate Degree      $10,000-&lt;$20,000
+Education_Level2 - High School Diploma1 $20,000-&lt;$30,000
+Education_Level3 - Some College1        $20,000-&lt;$30,000
+Education_Level4 - Associate's1         $20,000-&lt;$30,000
+Education_Level5 - Bachelor's1          $20,000-&lt;$30,000
+Education_Level6 - Graduate Degree1     $20,000-&lt;$30,000
+Education_Level2 - High School Diploma2 $30,000-&lt;$40,000
+Education_Level3 - Some College2        $30,000-&lt;$40,000
+Education_Level4 - Associate's2         $30,000-&lt;$40,000
+Education_Level5 - Bachelor's2          $30,000-&lt;$40,000
+Education_Level6 - Graduate Degree2     $30,000-&lt;$40,000
+Education_Level2 - High School Diploma3 $40,000-&lt;$50,000
+Education_Level3 - Some College3        $40,000-&lt;$50,000
+Education_Level4 - Associate's3         $40,000-&lt;$50,000
+Education_Level5 - Bachelor's3          $40,000-&lt;$50,000
+Education_Level6 - Graduate Degree3     $40,000-&lt;$50,000
+Education_Level2 - High School Diploma4         $50,000+
+Education_Level3 - Some College4                $50,000+
+Education_Level4 - Associate's4                 $50,000+
+Education_Level5 - Bachelor's4                  $50,000+
+Education_Level6 - Graduate Degree4             $50,000+
+                                                                     Predictor
+Education_Level2 - High School Diploma  Education_Level2 - High School Diploma
+Education_Level3 - Some College                Education_Level3 - Some College
+Education_Level4 - Associate's                  Education_Level4 - Associate's
+Education_Level5 - Bachelor's                    Education_Level5 - Bachelor's
+Education_Level6 - Graduate Degree          Education_Level6 - Graduate Degree
+Education_Level2 - High School Diploma1 Education_Level2 - High School Diploma
+Education_Level3 - Some College1               Education_Level3 - Some College
+Education_Level4 - Associate's1                 Education_Level4 - Associate's
+Education_Level5 - Bachelor's1                   Education_Level5 - Bachelor's
+Education_Level6 - Graduate Degree1         Education_Level6 - Graduate Degree
+Education_Level2 - High School Diploma2 Education_Level2 - High School Diploma
+Education_Level3 - Some College2               Education_Level3 - Some College
+Education_Level4 - Associate's2                 Education_Level4 - Associate's
+Education_Level5 - Bachelor's2                   Education_Level5 - Bachelor's
+Education_Level6 - Graduate Degree2         Education_Level6 - Graduate Degree
+Education_Level2 - High School Diploma3 Education_Level2 - High School Diploma
+Education_Level3 - Some College3               Education_Level3 - Some College
+Education_Level4 - Associate's3                 Education_Level4 - Associate's
+Education_Level5 - Bachelor's3                   Education_Level5 - Bachelor's
+Education_Level6 - Graduate Degree3         Education_Level6 - Graduate Degree
+Education_Level2 - High School Diploma4 Education_Level2 - High School Diploma
+Education_Level3 - Some College4               Education_Level3 - Some College
+Education_Level4 - Associate's4                 Education_Level4 - Associate's
+Education_Level5 - Bachelor's4                   Education_Level5 - Bachelor's
+Education_Level6 - Graduate Degree4         Education_Level6 - Graduate Degree
+                                           Estimate    CI Lower    CI Upper
+Education_Level2 - High School Diploma   0.16755980  0.12066659  0.21445300
+Education_Level3 - Some College         -0.01431515 -0.06849070  0.03986041
+Education_Level4 - Associate's          -0.01698338 -0.09318375  0.05921699
+Education_Level5 - Bachelor's           -0.24784289 -0.31529939 -0.18038638
+Education_Level6 - Graduate Degree      -0.23697547 -0.32309705 -0.15085389
+Education_Level2 - High School Diploma1  0.49915781  0.44940335  0.54891227
+Education_Level3 - Some College1         0.41785261  0.36155481  0.47415042
+Education_Level4 - Associate's1          0.59777409  0.52225874  0.67328943
+Education_Level5 - Bachelor's1           0.34012994  0.27279489  0.40746499
+Education_Level6 - Graduate Degree1      0.35231275  0.26771566  0.43690983
+Education_Level2 - High School Diploma2  0.69123407  0.63821587  0.74425227
+Education_Level3 - Some College2         0.71147581  0.65253250  0.77041912
+Education_Level4 - Associate's2          1.02226414  0.94582405  1.09870422
+Education_Level5 - Bachelor's2           0.78795171  0.71958666  0.85631676
+Education_Level6 - Graduate Degree2      0.81830862  0.73386618  0.90275106
+Education_Level2 - High School Diploma3  0.80495896  0.74787890  0.86203902
+Education_Level3 - Some College3         0.90884445  0.84628304  0.97140585
+Education_Level4 - Associate's3          1.22852616  1.14899837  1.30805395
+Education_Level5 - Bachelor's3           1.11566749  1.04486896  1.18646602
+Education_Level6 - Graduate Degree3      1.27707524  1.19219402  1.36195646
+Education_Level2 - High School Diploma4  1.11699086  1.07312575  1.16085598
+Education_Level3 - Some College4         1.47288625  1.42445018  1.52132231
+Education_Level4 - Associate's4          2.07010428  2.00570414  2.13450443
+Education_Level5 - Bachelor's4           2.39509438  2.33957167  2.45061708
+Education_Level6 - Graduate Degree4      2.98160370  2.91320325  3.05000414</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the merge</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> filtered_data <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Income_Groups =</span> Outcome_Group)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> <span class="fu">merge</span>(filtered_data, clean_data[<span class="fu">c</span>(<span class="st">"Income_Groups"</span>, <span class="st">"Race_Ethnicity"</span>)], <span class="at">by =</span> <span class="st">"Income_Groups"</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure 'Race_Ethnicity' is a factor if it's intended to be used as a color differentiator</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>filtered_data<span class="sc">$</span>Race_Ethnicity <span class="ot">&lt;-</span> <span class="fu">factor</span>(filtered_data<span class="sc">$</span>Race_Ethnicity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Education Levels High School Diploma (Education_Level2): Positive coefficients across lower income brackets, suggesting that having a high school diploma, relative to having less than a high school education, increases the likelihood of being in these lower income brackets compared to the highest income bracket. The coefficient decreases as the income bracket increases.</p>
+<p>Some College (Education_Level3): A mix of negative and positive coefficients across income brackets, suggesting a variable effect but generally showing a similar pattern to having a high school diploma. Coefficients are generally smaller than those for high school education.</p>
+<p>Associate’s Degree (Education_Level4): Increasing positive coefficients across higher income brackets, indicating that having an Associate’s degree increases the likelihood of being in these higher income brackets relative to the highest income bracket.</p>
+<p>Bachelor’s Education (Education_Level5): Negative coefficients in lower income brackets and positive in higher, particularly strong in the highest income brackets, suggesting that a Bachelor’s degree significantly increases the likelihood of being in higher income brackets.</p>
+<p>Graduate Degree (Education_Level6): Strong positive coefficients as income increases, indicating a very strong likelihood of being in higher income brackets with a graduate degree. Race/Ethnicity</p>
+<p>Visualize of Coefidence Intervals for Education on Income</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot coef interval #Graph not print</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(filtered_data, <span class="fu">aes</span>(<span class="at">x =</span> Predictor, <span class="at">y =</span> Estimate, <span class="at">ymin =</span> <span class="st">`</span><span class="at">CI Lower</span><span class="st">`</span>, <span class="at">ymax =</span> <span class="st">`</span><span class="at">CI Upper</span><span class="st">`</span>,<span class="at">color=</span>Race_Ethnicity)) <span class="sc">+</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>() <span class="sc">+</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Income_Groups) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Confidence Intervals for Model Coefficients"</span>, <span class="at">x =</span> <span class="st">"Predictor"</span>, <span class="at">y =</span> <span class="st">"Coefficient Estimate"</span>) <span class="sc">+</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Comment: fixed Hispanic: Negative coefficients across almost all income brackets, suggesting that being Hispanic decreases the likelihood of being in higher income brackets relative to the highest income bracket.</p>
+<p>Other Race: Mixed effects, with generally negative coefficients across the income brackets.</p>
+<p>White, non-Hispanic: Positive coefficients in all income brackets, with an increasing trend as income increases, suggesting that being White, non-Hispanic increases the likelihood of being in higher income brackets relative to the highest income bracket.</p>
+<p>Black, non-Hispanic: Negative coefficients in all income brackets, suggesting that being Black, non-Hispanic decreases the likelihood of being in higher income brackets relative to the highest income bracket.</p>
+<p>Impact of Household Weights on Income</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a sequence of household weights for predictions[ ok ]</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>weight_range <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(clean_data<span class="sc">$</span>Household_Weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">max</span>(clean_data<span class="sc">$</span>Household_Weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create pred_data ensuring OwnerStatue remains numeric</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>pred_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Household_Weight =</span> weight_range,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Education_Level =</span> <span class="fu">levels</span>(clean_data<span class="sc">$</span>Education_Level)[<span class="dv">1</span>],</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">OwnerStatue =</span> <span class="dv">0</span>,  <span class="co"># Explicitly set as numeric zero</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Race_Ethnicity =</span> <span class="fu">levels</span>(clean_data<span class="sc">$</span>Race_Ethnicity)[<span class="dv">1</span>]</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure that factors are correctly set, particularly for OwnerStatue [ok]</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>pred_data<span class="sc">$</span>Education_Level <span class="ot">&lt;-</span> <span class="fu">factor</span>(pred_data<span class="sc">$</span>Education_Level, <span class="at">levels =</span> <span class="fu">levels</span>(clean_data<span class="sc">$</span>Education_Level))</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>pred_data<span class="sc">$</span>OwnerStatue <span class="ot">&lt;-</span> <span class="fu">factor</span>(pred_data<span class="sc">$</span>OwnerStatue, <span class="at">levels =</span> <span class="fu">levels</span>(clean_data<span class="sc">$</span>OwnerStatue))  <span class="co"># Ensuring it's a factor</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, use the pred_data for prediction[ok]</span></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>predicted_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(multinom_model, <span class="at">newdata =</span> pred_data, <span class="at">type =</span> <span class="st">"probs"</span>) </span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>prob_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(predicted_probs)</span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>prob_data<span class="sc">$</span>Household_Weight <span class="ot">&lt;-</span> weight_range  <span class="co"># Add Household_Weight to the data frame for plotting</span></span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the data frame to long format for easier plotting with ggplot2 [ok]</span></span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>prob_data_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(prob_data, </span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>                               <span class="at">cols =</span> <span class="sc">-</span>Household_Weight, </span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>                               <span class="at">names_to =</span> <span class="st">"Income_Group"</span>, </span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a>                               <span class="at">values_to =</span> <span class="st">"Probability"</span>)</span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting [ok]: casual relationship establised</span></span>
+<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(prob_data_long, <span class="fu">aes</span>(<span class="at">x =</span> Household_Weight, <span class="at">y =</span> Probability, <span class="at">color =</span> Income_Group)) <span class="sc">+</span></span>
+<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Predicted Probability of Income Groups by Household Weight"</span>,</span>
+<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Household Weight"</span>, <span class="at">y =</span> <span class="st">"Probability"</span>) <span class="sc">+</span></span>
+<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Comment: The graph depicting the predicted probability of income groups by household weight reveals distinct trends across different income brackets. The probability of being in the lowest income group ($0 to &lt;$10,000) increases significantly as household weight increases, suggesting that larger household sizes may be associated with lower incomes. Conversely, the probability of being in the highest income bracket ($50,000+) decreases as household weight increases. For the middle income groups, from $10,000 to &lt;$50,000, there is a relatively steady decrease in probability with increasing household weight, though the magnitude of change is less pronounced than in the lowest and highest income groups. This visual representation indicates a clear negative association between household weight and higher income levels, supporting the interpretation that larger households tend to have lower per capita incomes.</p>
+<p>Multinomial regression on the impact of Education Level, Race Ethnicity on Income Group</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>multinom_model <span class="ot">&lt;-</span> <span class="fu">multinom</span>(Income_Groups <span class="sc">~</span> Education_Level <span class="sc">+</span> Race_Ethnicity, <span class="at">data =</span> clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># weights:  66 (50 variable)
+initial  value 556946.929899 
+iter  10 value 462727.963949
+iter  20 value 459141.295292
+iter  30 value 431255.553112
+iter  40 value 422766.741479
+iter  50 value 414504.412298
+iter  60 value 406832.529532
+final  value 406817.787210 
+converged</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prediction grid based on unique levels of Education and Race</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>pred_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Education_Level =</span> <span class="fu">levels</span>(clean_data<span class="sc">$</span>Education_Level),</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Race_Ethnicity =</span> <span class="fu">levels</span>(clean_data<span class="sc">$</span>Race_Ethnicity)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict probabilities for each combination</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>predicted_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(multinom_model, <span class="at">newdata =</span> pred_grid, <span class="at">type =</span> <span class="st">"probs"</span>)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>prob_data <span class="ot">&lt;-</span> <span class="fu">cbind</span>(pred_grid, <span class="fu">as.data.frame</span>(predicted_probs))</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming predicted probabilities columns are named directly as income groups</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>prob_data_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(prob_data, </span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>                               <span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(Education_Level, Race_Ethnicity),  <span class="co"># excluding predictor columns</span></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>                               <span class="at">names_to =</span> <span class="st">"Income_Group"</span>, </span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>                               <span class="at">values_to =</span> <span class="st">"Probability"</span>)</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(prob_data_long, <span class="fu">aes</span>(<span class="at">x =</span> Education_Level, <span class="at">y =</span> Probability, <span class="at">group =</span> Race_Ethnicity, <span class="at">color =</span> Race_Ethnicity)) <span class="sc">+</span></span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>  <span class="co"># Use points to represent the probabilities</span></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span>   <span class="co"># Connect the points with lines</span></span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Income_Group) <span class="sc">+</span></span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Predicted Probability of Income Groups by Education Level and Race"</span>,</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Education Level"</span>, <span class="at">y =</span> <span class="st">"Probability"</span>) <span class="sc">+</span></span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">levels</span>(prob_data_long<span class="sc">$</span>Education_Level)) <span class="sc">+</span> <span class="co"># Ensure the education levels are in order</span></span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))  <span class="co"># To prevent overlapping text on x-axis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Comment: The graph displaying the predicted probability of income groups by education level and race reveals significant racial disparities in economic outcomes. Notably, the probability of being in the highest income bracket ($50,000+) clearly increases with higher education levels for all racial groups, but the slope is steeper and higher for White, non-Hispanic individuals compared to other racial groups, indicating a greater likelihood of reaching higher income levels with increased education. In contrast, Black, Hispanic, and Other racial groups show consistently lower probabilities of being in this income bracket, even at higher educational levels, suggesting systemic barriers or disparities in the conversion of educational attainment into economic success. This visualization underscores the complex interplay of race, education, and income, highlighting persistent inequality in economic opportunities across different racial and ethnic groups.</p>
 
 
 </section>
