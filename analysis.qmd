@@ -651,7 +651,9 @@ The graph depicting the predicted probability of income groups by household weig
 
 Multinomial regression on the impact of Education Level, Race Ethnicity on Income Group
 ```{r}
-multinom_model <- multinom(Income_Group ~ Education_Level + Race_Ethnicity, data = clean_data)
+library(nnet)
+library(tidyr)
+multinom_model <- multinom(Income_Groups ~ Education_Level + Race_Ethnicity, data = clean_data)
 # Prediction grid based on unique levels of Education and Race
 pred_grid <- expand.grid(
   Education_Level = levels(clean_data$Education_Level),
@@ -668,6 +670,7 @@ prob_data_long <- pivot_longer(prob_data,
                                names_to = "Income_Group", 
                                values_to = "Probability")
 
+
 ggplot(prob_data_long, aes(x = Education_Level, y = Probability, group = Race_Ethnicity, color = Race_Ethnicity)) +
   geom_point() +  # Use points to represent the probabilities
   geom_line() +   # Connect the points with lines
@@ -677,6 +680,7 @@ ggplot(prob_data_long, aes(x = Education_Level, y = Probability, group = Race_Et
   scale_x_discrete(limits = levels(prob_data_long$Education_Level)) + # Ensure the education levels are in order
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # To prevent overlapping text on x-axis
+
 ```
 Comment:
 The graph displaying the predicted probability of income groups by education level and race reveals significant racial disparities in economic outcomes. Notably, the probability of being in the highest income bracket ($50,000+) clearly increases with higher education levels for all racial groups, but the slope is steeper and higher for White, non-Hispanic individuals compared to other racial groups, indicating a greater likelihood of reaching higher income levels with increased education. In contrast, Black, Hispanic, and Other racial groups show consistently lower probabilities of being in this income bracket, even at higher educational levels, suggesting systemic barriers or disparities in the conversion of educational attainment into economic success. This visualization underscores the complex interplay of race, education, and income, highlighting persistent inequality in economic opportunities across different racial and ethnic groups.
