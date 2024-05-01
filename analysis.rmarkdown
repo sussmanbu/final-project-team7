@@ -5,8 +5,10 @@ toc: true
 draft: false
 ---
 
+
 ![](https://upload.wikimedia.org/wikipedia/commons/7/77/Pebbleswithquarzite.jpg)
 ## Loading Clean Data
+
 
 ```{r}
 library(here)
@@ -19,7 +21,9 @@ clean_data <- readRDS(cleaned_dataset_path_rds)
 head(clean_data)
 ```
 
+
 ## Analysis
+
 
 ```{r}
 library(ggplot2)
@@ -42,6 +46,7 @@ ggplot(ct_melted, aes(x = Var2, y = Var1, fill = value)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
+
 ```{r}
 # Same as before but with percentages of each education level
 ct_percent <- prop.table(ct, 2) * 100
@@ -57,6 +62,7 @@ ggplot(ct_percent_melted, aes(x = Var2, y = Var1, fill = value)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
+
 ```{r}
 library(dplyr)
 library(forcats)
@@ -85,10 +91,12 @@ ggplot(clean_data, aes(x = fct_reorder(`Education_Level`, `Income Numeric`, .fun
 ```
 
 
+
 ----------------------------------------------------------------------------------------
 ## New Analysis
 
 # Libraries
+
 
 ```{r}
 library(ggplot2)
@@ -106,7 +114,9 @@ library(modelr)     # For weighted regression
 clean_data <- readRDS(here("dataset", "cleaned_NYSERDA_LMI_Census_2013-2015.rds"))
 ```
 
+
 1. Analyzing income distribution by race/ethnicity
+
 
 ```{r}
 # Option 1
@@ -134,6 +144,7 @@ ggplot(grouped_data, aes(x = Race, y = Proportion, fill = Income)) +
   scale_fill_brewer(palette = "Paired")
 
 ```
+
 ```{r}
 # Option 2
 
@@ -157,7 +168,9 @@ ggplot(plot_data, aes(x = `Income_Groups`, y = Proportion, fill = `Income_Groups
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+
 2. Analyzing Housing Characteristics by Race/Ethnicity:
+
 
 ```{r}
 weighted_counts <- clean_data %>%
@@ -174,7 +187,9 @@ ggplot(weighted_counts, aes(x=`Race_Ethnicity`, y=Weighted.Count, fill=`Owner_Re
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
+
 3. Analyzing Impact of Race/Ethnicity on Educational Outcomes:
+
 
 ```{r}
 weighted_education_counts <- clean_data %>%
@@ -193,7 +208,9 @@ ggplot(weighted_education_counts, aes(x=`Race_Ethnicity`, y=Weighted.Count, fill
   theme(legend.position="right")
 ```
 
+
 4. Geographical Map
+
 
 ```{r}
 library(sf)
@@ -204,7 +221,6 @@ ny_counties <- ny_counties[ny_counties$STATEFP == '36', ]
 
 #head(ny_counties)
 ```
-
 
 ```{r}
 #install.packages("modeest")
@@ -267,7 +283,9 @@ merged_data <- ny_counties_sf %>%
   left_join(demographic_data_aggregated, by = c("NAME" = "County"))
 ```
 
+
 5. Static Maps 
+
 
 ```{r}
 library(scales) 
@@ -363,7 +381,9 @@ print(black_map)
 ```
 
 
+
 6. Interactive Version
+
 
 
 ```{r}
@@ -430,9 +450,11 @@ print(interactive_map)
 ```
 
 
+
 ## Statistical Modelling
 
 Model 1 Linear Regression between black, white, hispanic, asian population proportion and Average wage at county level
+
 
 ```{r}
 #linear model
@@ -446,7 +468,9 @@ plot(x = demographic_data_aggregated$`Black, non-Hispanic`, y = demographic_data
 plot(x = demographic_data_aggregated$`White, non-Hispanic`, y = demographic_data_aggregated$Average_Wage) 
 ```
 
+
 Model 2: Linear Regression between Household weight, Education, Income group, Race/Ethnicity, Owner/Renter Status, Household Type
+
 
 ```{r}
 clean_data$Education_Level <- as.factor(clean_data$Education_Level)
@@ -465,7 +489,9 @@ par(mfrow=c(2,2))
 model_linear
 ```
 
+
 Model 3: Multinomial logistic regression with Race_Ethnicity as the dependent variable
+
 ```{r}
 library(nnet)
 clean_data$Race_Ethnicity <- as.factor(clean_data$Race_Ethnicity)
@@ -482,7 +508,9 @@ summary(multinom_model)
 ```
 
 
+
 Model 4: Multinomial logistic regression with Income disparity across Education, Household Weight, and Race Ethnicity
+
 ```{r}
 cleaned_dataset_path_rds <- here("dataset", "cleaned_NYSERDA_LMI_Census_2013-2015.rds")
 clean_data <- readRDS(cleaned_dataset_path_rds)
@@ -499,6 +527,7 @@ clean_data$`Income_Numeric` <- case_when(
 multinom_model <- multinom(Income_Groups ~ Education_Level + Household_Weight + Race_Ethnicity, data = clean_data)
 summary(multinom_model) 
 ```
+
 Comment:
 These coefficients reflect the estimated effects of various demographic and educational factors on income distribution within your dataset. Positive coefficients indicate a higher likelihood of being in the respective income bracket relative to the highest income bracket for that predictor level, while negative coefficients indicate a lower likelihood.
 
@@ -508,15 +537,18 @@ Household Weight
 The coefficients are very small and negative across all income brackets, suggesting a slight decrease in the likelihood of being in higher income brackets with an increase in household weight, though the effect appears to be very minimal.
 
 Using Anova to get pvalue for the statistical significant for each coefficient
+
 ```{r}
 library(car)
 anova_results <- Anova(multinom_model)
 print(anova_results)
 ```
+
 Comment:
 The output from the ANOVA suggests that all the predictors in your multinomial logistic regression model—Education Level, Household Weight, and Race/Ethnicity—are highly statistically significant in predicting the different income groups. Specifically, Education Level has a particularly strong influence on income group classification, as indicated by a very high likelihood ratio chi-square statistic (LR Chisq) of 44277 with 25 degrees of freedom and a p-value less than 0.0001. Similarly, Race/Ethnicity shows substantial influence with an LR Chisq of 2140 and a p-value less than 0.0001, and Household Weight also proves significant with an LR Chisq of 257. These results underscore the strong effects of educational attainment and racial/ethnic background on income distribution, as well as the more modest but significant role of household demographics, confirming the importance of these factors in socioeconomic studies.
 
 95% Confidence Interval on Coefficients on each variable
+
 ```{r}
 # Get model coefficients and standard errors
 coef_matrix <- summary(multinom_model)$coefficients
@@ -564,6 +596,7 @@ filtered_data <- merge(filtered_data, clean_data[c("Income_Groups", "Race_Ethnic
 filtered_data$Race_Ethnicity <- factor(filtered_data$Race_Ethnicity)
 
 ```
+
 Education Levels
 High School Diploma (Education_Level2):
 Positive coefficients across lower income brackets, suggesting that having a high school diploma, relative to having less than a high school education, increases the likelihood of being in these lower income brackets compared to the highest income bracket.
@@ -585,6 +618,7 @@ Race/Ethnicity
 
 
 Visualize of Coefidence Intervals for Education on Income 
+
 ```{r}
 #Plot coef interval #Graph not print
 ggplot(filtered_data, aes(x = Predictor, y = Estimate, ymin = `CI Lower`, ymax = `CI Upper`,color=Race_Ethnicity)) + 
@@ -595,6 +629,7 @@ ggplot(filtered_data, aes(x = Predictor, y = Estimate, ymin = `CI Lower`, ymax =
   theme_minimal()+
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
+
 Comment: fixed
 Hispanic:
 Negative coefficients across almost all income brackets, suggesting that being Hispanic decreases the likelihood of being in higher income brackets relative to the highest income bracket.
@@ -610,6 +645,7 @@ Negative coefficients in all income brackets, suggesting that being Black, non-H
 
 
 Impact of Household Weights on Income
+
 ```{r}
 # Generate a sequence of household weights for predictions[ ok ]
 weight_range <- seq(min(clean_data$Household_Weight, na.rm = TRUE),
@@ -645,11 +681,13 @@ ggplot(prob_data_long, aes(x = Household_Weight, y = Probability, color = Income
        x = "Household Weight", y = "Probability") +
   theme_minimal()
 ```
+
 Comment:
 The graph depicting the predicted probability of income groups by household weight reveals distinct trends across different income brackets. The probability of being in the lowest income group ($0 to <$10,000) increases significantly as household weight increases, suggesting that larger household sizes may be associated with lower incomes. Conversely, the probability of being in the highest income bracket ($50,000+) decreases as household weight increases. For the middle income groups, from $10,000 to <$50,000, there is a relatively steady decrease in probability with increasing household weight, though the magnitude of change is less pronounced than in the lowest and highest income groups. This visual representation indicates a clear negative association between household weight and higher income levels, supporting the interpretation that larger households tend to have lower per capita incomes.
 
 
 Multinomial regression on the impact of Education Level, Race Ethnicity on Income Group
+
 ```{r}
 multinom_model <- multinom(Income_Group ~ Education_Level + Race_Ethnicity, data = clean_data)
 # Prediction grid based on unique levels of Education and Race
@@ -678,5 +716,6 @@ ggplot(prob_data_long, aes(x = Education_Level, y = Probability, group = Race_Et
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # To prevent overlapping text on x-axis
 ```
+
 Comment:
 The graph displaying the predicted probability of income groups by education level and race reveals significant racial disparities in economic outcomes. Notably, the probability of being in the highest income bracket ($50,000+) clearly increases with higher education levels for all racial groups, but the slope is steeper and higher for White, non-Hispanic individuals compared to other racial groups, indicating a greater likelihood of reaching higher income levels with increased education. In contrast, Black, Hispanic, and Other racial groups show consistently lower probabilities of being in this income bracket, even at higher educational levels, suggesting systemic barriers or disparities in the conversion of educational attainment into economic success. This visualization underscores the complex interplay of race, education, and income, highlighting persistent inequality in economic opportunities across different racial and ethnic groups.
