@@ -5,10 +5,27 @@ toc: true
 draft: false
 ---
 
-![](https://upload.wikimedia.org/wikipedia/commons/7/77/Pebbleswithquarzite.jpg)
-## Loading Clean Data
+![](images/race.png)
 
-```{r}
+## Introduction
+------------------------------------------------------------------------  
+In today's increasingly complex socioeconomic, understanding the interplay between household composition, educational attainment, and racial demographics is crucial for devising strategies that promote economic equity. Our project seeks to delve into how these factors collectively influence individual income levels across different racial groups. By examining the effects of household weight — a proxy for household size and composition — alongside the educational levels of individuals, we aim to uncover insights into the socioeconomic dynamics that shape income disparities. The intersection of race adds a critical dimension to this analysis, providing a comprehensive understanding of the diverse experiences across demographic groups.
+
+
+## Motivation Questions
+------------------------------------------------------------------------
+Household Weight and Income: How does household weight influence income across different racial groups, and to what extent does it vary between them?
+
+Education and Income: What is the impact of education level on income within these racial categories? How significant is this impact when compared to other demographic factors?
+
+Combined Effects: How do household weight and education interact to influence income across different racial groups?
+
+
+## Visualizations of interested variables and relationships
+------------------------------------------------------------------------
+```{r include = FALSE}
+
+## Loading Clean Data
 library(here)
 # Set the path to the RDS file
 cleaned_dataset_path_rds <- here("dataset", "cleaned_NYSERDA_LMI_Census_2013-2015.rds")
@@ -19,9 +36,11 @@ clean_data <- readRDS(cleaned_dataset_path_rds)
 head(clean_data)
 ```
 
-## Analysis
+### 1. Education and Income
 
-```{r}
+#### Analyzing education level by race/ethnicity
+
+```{r include = FALSE}
 library(ggplot2)
 library(reshape2)
 
@@ -42,7 +61,7 @@ ggplot(ct_melted, aes(x = Var2, y = Var1, fill = value)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
-```{r}
+```{r echo = FALSE}
 # Same as before but with percentages of each education level
 ct_percent <- prop.table(ct, 2) * 100
 ct_percent_melted <- melt(ct_percent)
@@ -57,40 +76,8 @@ ggplot(ct_percent_melted, aes(x = Var2, y = Var1, fill = value)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-```{r}
-library(dplyr)
-library(forcats)
 
-clean_data$`Income Numeric` <- case_when(
-  clean_data$`Income_Groups` == "$0 to <$10,000" ~ 5,
-  clean_data$`Income_Groups` == "$10,000-<$20,000" ~ 15,
-  clean_data$`Income_Groups` == "$20,000-<$30,000" ~ 25,
-  clean_data$`Income_Groups` == "$30,000-<$40,000" ~ 35,
-  clean_data$`Income_Groups` == "$40,000-<$50,000" ~ 45,
-  clean_data$`Income_Groups` == "$50,000+" ~ 55,
-  TRUE ~ NA_real_
-)
-
-ggplot(clean_data, aes(x = fct_reorder(`Education_Level`, `Income Numeric`, .fun=mean), y = `Income Numeric`, fill = `Race_Ethnicity`)) +
-  geom_bar(stat = "summary", fun = "mean", position = position_dodge()) +
-  theme_minimal() +
-  labs(x = "Education Level", y = "Average Income", fill = "Race / Ethnicity", title = "Average Income by Education Level and Race / Ethnicity") +
-  theme(axis.text.x = element_text(angle = 55, hjust = 1),
-        legend.position = "top",
-        panel.grid.major.y = element_line(color = "black", size = 0.5),
-        panel.grid.minor.y = element_line(color = "black", size = 0.5)) +
-  scale_fill_brewer(palette = "Set3")
-
-
-```
-
-
-----------------------------------------------------------------------------------------
-## New Analysis
-
-# Libraries
-
-```{r}
+```{r include = FALSE}
 library(ggplot2)
 library(dplyr)
 library(readr)
@@ -101,14 +88,34 @@ library(modelr)     # For weighted regression
 
 ```
 
-```{r}
+```{r include = FALSE}
 # Load the dataset
 clean_data <- readRDS(here("dataset", "cleaned_NYSERDA_LMI_Census_2013-2015.rds"))
 ```
 
-1. Analyzing income distribution by race/ethnicity
 
-```{r}
+### 2. Household Weight and Income
+
+#### Household Characteristics 
+
+```{r echo = FALSE}
+weighted_counts <- clean_data %>%
+  group_by(`Race_Ethnicity`, `Owner_Renter_Status`) %>%
+  summarise(Weighted.Count = sum(`Household_Weight`), .groups = 'drop')
+
+# Plot
+ggplot(weighted_counts, aes(x=`Race_Ethnicity`, y=Weighted.Count, fill=`Owner_Renter_Status`)) +
+  geom_bar(stat="identity", position=position_dodge()) +
+  labs(title="Weighted Housing Status Distribution by Race / Ethnicity",
+       x="Race / Ethnicity", y="Weighted Count") +
+  scale_y_continuous(labels = scales::comma) +
+  scale_fill_brewer(palette="Set1") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+#### Weighted Household proportions by Income groups in each Race/Ethnicity
+```{r echo = FALSE}
 # Option 1
 
 # Calculating weighted proportions
@@ -128,13 +135,13 @@ grouped_data <- grouped_data %>%
 ggplot(grouped_data, aes(x = Race, y = Proportion, fill = Income)) +
   geom_bar(stat = "identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  labs(title = "Weighted Distribution of Income Groups by Race/Ethnicity",
+  labs(title = "Household Weight by Income Groups and Race/Ethnicity",
        x = "Race / Ethnicity",
        y = "Proportion") +
   scale_fill_brewer(palette = "Paired")
-
 ```
-```{r}
+
+```{r echo = FALSE}
 # Option 2
 
 # Calculating weighted proportions
@@ -150,33 +157,19 @@ ggplot(plot_data, aes(x = `Income_Groups`, y = Proportion, fill = `Income_Groups
   geom_bar(stat = "identity", position = "dodge") +
   facet_wrap(~`Race_Ethnicity`, scales = "free_x") +
   scale_y_continuous(labels = scales::percent_format()) +
-  labs(title = "Income Distribution by Race/Ethnicity",
+  labs(title = "Household Weight distribution by Income Groups and Race/Ethnicity",
        x = "Income Groups",
        y = "Weighted Proportion") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-2. Analyzing Housing Characteristics by Race/Ethnicity:
 
-```{r}
-weighted_counts <- clean_data %>%
-  group_by(`Race_Ethnicity`, `Owner_Renter_Status`) %>%
-  summarise(Weighted.Count = sum(`Household_Weight`), .groups = 'drop')
+### 3. Household Weight and Education
 
-# Plot
-ggplot(weighted_counts, aes(x=`Race_Ethnicity`, y=Weighted.Count, fill=`Owner_Renter_Status`)) +
-  geom_bar(stat="identity", position=position_dodge()) +
-  labs(title="Weighted Housing Status Distribution by Race / Ethnicity",
-       x="Race / Ethnicity", y="Weighted Count") +
-  scale_y_continuous(labels = scales::comma) +
-  scale_fill_brewer(palette="Set1") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-```
-3. Analyzing Impact of Race/Ethnicity on Educational Outcomes:
+#### Analyzing Impact of Race/Ethnicity on Educational Outcomes:
 
-```{r}
+```{r echo = FALSE}
 weighted_education_counts <- clean_data %>%
   group_by(`Race_Ethnicity`, `Education_Level`) %>%
   summarise(Weighted.Count = sum(`Household_Weight`), .groups = 'drop')
@@ -193,9 +186,10 @@ ggplot(weighted_education_counts, aes(x=`Race_Ethnicity`, y=Weighted.Count, fill
   theme(legend.position="right")
 ```
 
-4. Geographical Map
 
-```{r}
+#### 4. Geographical Map
+
+```{r include = FALSE}
 library(sf)
 ny_counties <- st_read("dataset-ignore/tl_2023_us_county.shp")
 demographic_data <- clean_data  
@@ -206,7 +200,7 @@ ny_counties <- ny_counties[ny_counties$STATEFP == '36', ]
 ```
 
 
-```{r}
+```{r echo = FALSE}
 #install.packages("modeest")
 library(modeest)
 
@@ -267,9 +261,10 @@ merged_data <- ny_counties_sf %>%
   left_join(demographic_data_aggregated, by = c("NAME" = "County"))
 ```
 
-5. Static Maps 
 
-```{r}
+#### 5. Static Maps 
+
+```{r echo = FALSE}
 library(scales) 
 
 # Color palettes for the maps
@@ -362,11 +357,10 @@ print(wage_map)
 print(black_map)
 ```
 
+#### 6. Interactive Version
 
-6. Interactive Version
 
-
-```{r}
+```{r echo = FALSE}
 # install.packages("leaflet")
 library(RColorBrewer)
 library(leaflet)
@@ -432,9 +426,9 @@ print(interactive_map)
 
 ## Statistical Modelling
 
-Model 1 Linear Regression between black, white, hispanic, asian population proportion and Average wage at county level
+#### Model 1: Linear Regression between black, white, hispanic, asian population proportion and Average wage at county level
 
-```{r}
+```{r echo = FALSE}
 #linear model
 modellm<-lm(Average_Wage ~ `Black, non-Hispanic`+`Hispanic`+`Asian, non-Hispanic`+`White, non-Hispanic`, data = demographic_data_aggregated)
 summary(modellm)
@@ -446,9 +440,9 @@ plot(x = demographic_data_aggregated$`Black, non-Hispanic`, y = demographic_data
 plot(x = demographic_data_aggregated$`White, non-Hispanic`, y = demographic_data_aggregated$Average_Wage) 
 ```
 
-Model 2: Linear Regression between Household weight, Education, Income group, Race/Ethnicity, Owner/Renter Status, Household Type
+#### Model 2: Linear Regression between Household weight, Education, Income group, Race/Ethnicity, Owner/Renter Status, Household Type
 
-```{r}
+```{r echo = FALSE}
 clean_data$Education_Level <- as.factor(clean_data$Education_Level)
 clean_data$Race_Ethnicity <- as.factor(clean_data$Race_Ethnicity)
 clean_data$Income_Groups <- as.factor(clean_data$Income_Groups)
@@ -465,8 +459,8 @@ par(mfrow=c(2,2))
 model_linear
 ```
 
-Model 3: Multinomial logistic regression with Race_Ethnicity as the dependent variable
-```{r}
+#### Model 3: Multinomial logistic regression with Race_Ethnicity as the dependent variable
+```{r echo = FALSE}
 library(nnet)
 clean_data$Race_Ethnicity <- as.factor(clean_data$Race_Ethnicity)
 clean_data$Education_Level <- as.factor(clean_data$Education_Level)
@@ -481,18 +475,8 @@ multinom_model <- multinom(Race_Ethnicity ~ Education_Level + Income_Groups + Ho
 summary(multinom_model)
 ```
 
-## Introduction
-------------------------------------------------------------------------
-In today's increasingly complex socioeconomic landscape, understanding the interplay between household composition, educational attainment, and racial demographics is crucial for devising strategies that promote economic equity. This research project seeks to delve into how these factors collectively influence individual income levels across different racial groups. By examining the effects of household weight—a proxy for household size and composition—alongside the educational levels of individuals, we aim to uncover nuanced insights into the socioeconomic dynamics that shape income disparities. The intersection of race adds a critical dimension to this analysis, providing a comprehensive understanding of the diverse experiences across demographic groups.
 
-## Research Question:
-Household Weight and Income: How does household weight influence income across different racial groups, and to what extent does it vary between them?
-
-Education and Income: What is the impact of education level on income within these racial categories? How significant is this impact when compared to other demographic factors?
-
-Combined Effects: How do household weight and education interact to influence income across different racial groups?
-
-### Model 4: Multinomial logistic regression with Income disparity across Education, Household Weight, and Race Ethnicity
+#### Model 4: Multinomial logistic regression with Income disparity across Education, Household Weight, and Race Ethnicity
 
 Multinomial logistic regression is particularly suited for scenarios where the response variable is categorical and consists of more than two categories. In this study, the response variable, income, is inherently categorical with distinct income groups (such as "$0 to <$10,000", "$10,000-<$20,000", etc.), making multinomial logistic regression an appropriate choice. 
 
@@ -516,8 +500,8 @@ I focused on key variables known to impact income based on socioeconomic researc
 
 However, due to the nature of logistic regression, the results are in terms of odds ratios, which might introduce some complexity in direct interpretation. There is inherent uncertainty in these estimates, as they are influenced by the model's assumptions, the choice of included variables, and the data's representativeness. 
 
-### Using Anova to get pvalue for the statistical significant for each coefficient
-```{r}
+#### Using Anova to get pvalue for the statistical significant for each coefficient
+```{r echo = FALSE}
 library(car)
 anova_results <- Anova(multinom_model)
 print(anova_results)
@@ -526,8 +510,8 @@ The output from the ANOVA suggests that all the predictors in multinomial logist
 Education Level has a particularly strong influence on income group classification, as indicated by a very high likelihood ratio chi-square statistic (LR Chisq) of 44277 with 25 degrees of freedom and a p-value less than 0.0001. Race/Ethnicity shows substantial influence with an LR Chisq of 2140 and a p-value less than 0.0001, and Household Weight also proves significant with an LR Chisq of 257. 
 
 
-### 95% Confidence Interval on Coefficients on each variable
-```{r}
+#### 95% Confidence Interval on Coefficients on each variable
+```{r echo = FALSE}
 # Get model coefficients and standard errors
 coef_matrix <- summary(multinom_model)$coefficients
 se_matrix <- summary(multinom_model)$standard.errors
@@ -587,7 +571,7 @@ Bachelor's Education (Education_Level5): Negative coefficients in lower income b
 Graduate Degree (Education_Level6): Strong positive coefficients as income increases, indicating a very strong likelihood of being in higher income brackets with a graduate degree. Race/Ethnicity.
 
 
-### Visualize of Coefidence Intervals for Education on Income 
+#### Visualize of Coefidence Intervals for Education on Income 
 ```{r}
 #Plot coef interval #Graph not print
 ggplot(filtered_data, aes(x = Predictor, y = Estimate, ymin = `CI Lower`, ymax = `CI Upper`,color=Race_Ethnicity)) + 
@@ -607,7 +591,7 @@ White, non-Hispanic: Positive coefficients in all income brackets, with an incre
 Black, non-Hispanic: Negative coefficients in all income brackets, suggesting that being Black, non-Hispanic decreases the likelihood of being in higher income brackets relative to the highest income bracket.
 
 
-### Impact of Household Weights on Income
+#### Impact of Household Weights on Income
 ```{r}
 # Generate a sequence of household weights for predictions[ ok ]
 weight_range <- seq(min(clean_data$Household_Weight, na.rm = TRUE),
@@ -646,7 +630,7 @@ ggplot(prob_data_long, aes(x = Household_Weight, y = Probability, color = Income
 The graph depicting the predicted probability of income groups by household weight reveals distinct trends across different income brackets. The probability of being in the lowest income group (\$0 to \<\$10,000) increases significantly as household weight increases, suggesting that larger household sizes may be associated with lower incomes. Conversely, the probability of being in the highest income bracket (\$50,000+) decreases as household weight increases. For the middle income groups, from \$10,000 to \<\$50,000, there is a relatively steady decrease in probability with increasing household weight, though the magnitude of change is less pronounced than in the lowest and highest income groups. This visual representation indicates a clear negative association between household weight and higher income levels, supporting the interpretation that larger households tend to have lower per capita incomes.
 
 
-### Multinomial regression on the impact of Education Level, Race Ethnicity on Income Group
+#### Multinomial regression on the impact of Education Level, Race Ethnicity on Income Group
 ```{r}
 library(nnet)
 library(tidyr)
