@@ -7,59 +7,80 @@ draft: FALSE
 
 ![](images/The_Big_Picture_2.jpeg)
 
-This comes from the file `big_picture.Rmd`.
+This comes from the file `big_picture.qmd`.
 
 Think of this page as your 538/Upshot style article. This means that you should try to tell a story through the data and your analysis. Read articles from those sites and similar sites to get a feeling for what they are like. Try to write in the style of a news or popular article. Importantly, this pge should be geared towards the general public. You shouldn't assume the reader understands how to interpret a linear regression. Focus on interpretation and visualizations.
 
----
 
-## Rubric: On this page
+#### Household Weight proportions by Income groups in each Race/Ethnicity
+![](images/Household weight.png)
 
-You will
+#### Interactive Map
 
-* Title
-  * Your big picture page should have a creative/click-bait-y title/headline that provides a hint about your thesis.
-* Clarity of Explanation
-  * You should have a clear thesis/goal for this page. What are you trying to show? Make sure that you explain your analysis in detail but don't go into top much mathematics or statistics. The audience for this page is the general public (to the extent possible). Your thesis should be a statement, not a question.
-  * Each figure should be very polished and also not too complicated. There should be a clear interpretation of the figure so the figure has a clear purpose. Even something like a histogram can be difficult to interpret for non-experts.
-* Creativity
-  * Do your best to make things interesting. Think of a story. Think of how each part of your analysis supports the previous part or provides a different perspective.
-* This page should be self-contained.
-  
-**Note**: This page should have no code visible, i.e. use `#| echo: FALSE`.  
+```{r include = FALSE}
+merged_data <- readRDS("dataset-ignore/merged_data.rds")
+```
 
----
+```{r echo = FALSE}
+# install.packages("leaflet")
+library(RColorBrewer)
+library(leaflet)
+library(scales)
 
-## Rubric: Other components
+palette <- brewer.pal(9, "Pastel1")
+palette[length(palette)] <- "#8FBC8F"  
 
-### Interactive
+# Creating color factors for each category
+race_colors <- colorFactor(palette, domain = merged_data$Least_Common_Race_Ethnicity, na.color = "grey50")
+income_colors <- colorNumeric(palette = "viridis", domain = merged_data$Average_Income, na.color = "grey50")
+education_colors <- colorFactor(brewer.pal(9, "Set3"), domain = merged_data$Most_Common_Education_Level, na.color = "grey50")
 
-You will also be required to make an interactive dashboard like [this one](/flex/flex.html).
+# Create the interactive leaflet map
+interactive_map <- leaflet(merged_data) %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addPolygons(
+    fillColor = ~race_colors(Least_Common_Race_Ethnicity),
+    color = "#444444",
+    weight = 1,
+    opacity = 1,
+    fillOpacity = 0.7,
+    popup = ~paste(NAME, "<br>", "Least Common Race/Ethnicity: ", Least_Common_Race_Ethnicity),
+    group = "Race/Ethnicity",
+    highlightOptions = highlightOptions(
+      weight = 3,
+      color = "#666",
+      fillOpacity = 0.7,
+      bringToFront = TRUE
+    )
+  ) %>%
+  addPolygons(
+    fillColor = ~income_colors(Average_Income),
+    color = "#444444",
+    weight = 1,
+    opacity = 1,
+    fillOpacity = 0.7,
+    popup = ~paste(NAME, "<br>", "Average Income: ", dollar_format()(Average_Income)),
+    group = "Average Income"
+  ) %>%
+  addPolygons(
+    fillColor = ~education_colors(Most_Common_Education_Level),
+    color = "#444444",
+    weight = 1,
+    opacity = 1,
+    fillOpacity = 0.7,
+    popup = ~paste(NAME, "<br>", "Most Common Education Level: ", Most_Common_Education_Level),
+    group = "Education Level"
+  ) %>%
+  addLegend("bottomright", pal = race_colors, values = ~Least_Common_Race_Ethnicity, title = "Race/Ethnicity",
+            opacity = 0.7, group = "Race/Ethnicity") %>%
+  addLegend("bottomright", pal = income_colors, values = ~Average_Income, title = "Average Income",
+            opacity = 0.7, group = "Average Income", labFormat = labelFormat(prefix = "$")) %>%
+  addLegend("bottomright", pal = education_colors, values = ~Most_Common_Education_Level, title = "Education Level",
+            opacity = 0.7, group = "Education Level") %>%
+  addLayersControl(
+    baseGroups = c("Race/Ethnicity", "Average Income", "Education Level"),
+    options = layersControlOptions(collapsed = FALSE)
+  )
 
-Your Big Data page should include a link to an interactive dashboard. The dashboard should be created either using Shiny or FlexDashboard (or another tool with professor's approval). This interactive component should in some way support your thesis from your big picture page. Good interactives often provide both high-level understanding of the data while allowing a user to investigate specific scenarios, observations, subgroups, etc.
-
-* Quality and ease of use of the interactive components.
-Is it clear what can be explored using your interactive components?
-Does it enhance and reinforce your conclusions from the Big Picture?
-Plotly with default hover text will get no credit. Be creative!
-
-
-### Video Recording
-
-Make a video recording (probably using Zoom) demonstrating your interactive components.
-You should provide a quick explanation of your data and demonstrate some of the conclusions from your EDA.
-This video should be no longer than 4 minutes.
-Include a link to your video (and password if needed) in your README.md file on your Github repository. You are not required to provide a link on the website.
-This can be presented by any subset of the team members.
-
-
-### Rest of the Site
-
-Finally, here are important things to keep in mind for the rest of the site. 
-
-The main title of your page is informative.
-Each post has an author/description/informative title.
-All lab required posts are present.
-Each page (including the home page) has a nice featured image associated with it.
-Your about page is up to date and clean.
-You have removed the generic posts from the initial site template.
+print(interactive_map)
+```

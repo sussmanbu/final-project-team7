@@ -57,7 +57,7 @@ variables_df <- data.frame(
 kable(variables_df, format = "html")
 ```
 
-## Data Cleaning
+# Data Cleaning
 
 [Link to the load_and_clean_data.R](scripts/load_and_clean_data.R)
 
@@ -89,19 +89,19 @@ data <- data.frame(lapply(data, function(x) if(is.character(x)) factor(x) else x
 
 ```{r}
 data <- data %>%
-  mutate(`County / County Group` = strsplit(as.character(`County / County Group`), ",\\s*|&\\s*")) %>%
-  unnest(`County / County Group`) %>%
-  mutate(`County / County Group` = trimws(`County / County Group`))  # Trim whitespace to avoid creating empty entries
+  mutate(`County...County.Group` = strsplit(as.character(`County...County.Group`), ",\\s*|&\\s*")) %>%
+  unnest(`County...County.Group`) %>%
+  mutate(`County...County.Group` = trimws(`County...County.Group`))  # Trim whitespace to avoid creating empty entries
 
 # Ensuring there are no empty or NA county names after splitting
 data <- data %>%
-  filter(`County / County Group` != "" & !is.na(`County / County Group`))
+  filter(`County...County.Group` != "" & !is.na(`County...County.Group`))
 ```
 
 -   Renamed variable name. We changed "County / County Group" to County, and used underscore to rename all the other variables like "Race / Ethnicity" to "Race_Ethnicity"
 -   saved our new clean data file as a rds file: cleaned_NYSERDA_LMI_Census_2013-2015.rds to the dataset folder since it is now only 2.7mb.
 
-## Combining Dataset
+### Combining Dataset
 
 To bring the additional dataset for cross-county analysis, we didn't combined the new dataset to our original one directly, but created a secondary combined dataset at country level to directly use for county-level visualization and statistical analysis.
 
@@ -144,7 +144,11 @@ joined_dataset <- left_join(original_data, county_avg_wage, by = "County")
 
 ### Map Data
 
-As we used map visualiztion to show the county difference in a NY state map, we also brought in map data that is stored in our data-ignore data. Here is a code of how we import the data
+As we used map visualization to show the county difference in a NY state map, we also brought in map data that is stored in our data-ignore data. Here is a code of how we import the data
+
+```{r include = FALSE}
+clean_data <- readRDS("dataset-ignore/clean_data.rds")
+```
 
 ```{r}
 library(sf)
