@@ -52,68 +52,133 @@ We often relate educations attainment with income levels and assume it's one of 
 Now let's look at the New York State from its map. With all the 62 counties in New York, they different from each others in terms of racial demographics, income level, education levels, and much more.
 
 
-```{r include = FALSE}
-merged_data <- readRDS("dataset-ignore/merged_data.rds")
+```{r, echo = FALSE}
+suppressMessages({
+  library(sf)
+  library(here)
+  library(dplyr)
+  library(stringr)
+  library(tidyr)
+
+  clean_data <- readRDS(here("dataset", "cleaned_NYSERDA_LMI_Census_2013-2015.rds"))
+
+  # Reading shapefile quietly
+  ny_counties <- st_read("dataset-ignore/tl_2023_us_county.shp", quiet = TRUE)
+
+  ny_counties <- ny_counties[ny_counties$STATEFP == '36', ]
+  demographic_data <- clean_data  
+})
+
 ```
+
+```{r echo = FALSE}
+#install.packages("modeest")
+library(modeest)
+
+# Loading geographic data
+ny_counties_sf <- st_as_sf(ny_counties)
+ny_counties_sf <- st_transform(ny_counties_sf, crs = 4326)
+
+
+#Adding the average wage from the combined dataset 
+dataset_to_combine <- read.csv("combining-dataset/Quarterly_Census_of_Employment_and_Wages_Annual_Data__Beginning_2000_20240415.csv", stringsAsFactors = FALSE) |>
+    mutate_if(is.character, str_trim) # Trim leading and trailing whitespace from all character columns
+
+#Counting the average wage for each county from another dataset
+county_avg_wage <- 
+  filter(dataset_to_combine, Area.Type == "County") |>
+  group_by(Area) |>
+  summarise(Total_Wages = sum(`Total.Wage`, na.rm = TRUE),
+            Total_Employment = sum(`Average.Employment`, na.rm = TRUE)) |>
+  mutate(Average_Wage = Total_Wages / Total_Employment) |>
+  rename(County = Area) |>
+  mutate(County = str_replace_all(County, fixed(" County"), "")) |>
+  select(-c(Total_Wages, Total_Employment))
+
+#make a table with racial proportion for each race in each county 
+race_proportion <- demographic_data |>
+  group_by(Race_Ethnicity, County) |>
+  summarise(count=n(), .groups = 'drop') |>
+  group_by(County) |>
+  mutate(total = sum(count)) |>
+  ungroup() |>
+  mutate(proportion = count / total) %>%
+  select(-count, -total) %>%
+  pivot_wider(names_from = Race_Ethnicity, values_from = proportion)
+
+# Aggregating demographic data to find least common race, average income, and most common education level
+demographic_data_aggregated <- demographic_data %>%
+  group_by(County) %>%
+  summarise(
+    Least_Common_Race_Ethnicity = names(sort(table(Race_Ethnicity), decreasing = FALSE))[1],
+    Most_Common_Education_Level = names(sort(table(Education_Level), decreasing = TRUE))[1],
+    #Average_Income = weighted.mean(Income_Numeric, Household_Weight, na.rm = TRUE),
+    #.groups = 'drop'
+  )|>
+  left_join(county_avg_wage, by = "County") |>
+  left_join(race_proportion, by = "County")
+
+# Merging
+merged_data <- ny_counties_sf %>%
+  left_join(demographic_data_aggregated, by = c("NAME" = "County"))
+```
+
 
 ```{r echo = FALSE}
 # install.packages("leaflet")
 library(RColorBrewer)
 library(leaflet)
 library(scales)
+library(htmlwidgets)
 
-palette <- brewer.pal(9, "Pastel1")
-palette[length(palette)] <- "#8FBC8F"  
-
-# Creating color factors for each category
-race_colors <- colorFactor(palette, domain = merged_data$Least_Common_Race_Ethnicity, na.color = "grey50")
-income_colors <- colorNumeric(palette = "viridis", domain = merged_data$Average_Income, na.color = "grey50")
+# Color palettes
+race_colors <- colorFactor(brewer.pal(9, "Pastel1"), domain = merged_data$Least_Common_Race_Ethnicity, na.color = "grey50")
 education_colors <- colorFactor(brewer.pal(9, "Set3"), domain = merged_data$Most_Common_Education_Level, na.color = "grey50")
+wage_colors <- colorNumeric(palette = "viridis", domain = merged_data$Average_Wage, na.color = "grey50")
 
-# Create the interactive leaflet map
 interactive_map <- leaflet(merged_data) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
-  addPolygons(
-    fillColor = ~race_colors(Least_Common_Race_Ethnicity),
-    color = "#444444",
-    weight = 1,
-    opacity = 1,
-    fillOpacity = 0.7,
-    popup = ~paste(NAME, "<br>", "Least Common Race/Ethnicity: ", Least_Common_Race_Ethnicity),
-    group = "Race/Ethnicity",
-    highlightOptions = highlightOptions(
-      weight = 3,
-      color = "#666",
+  addProviderTiles(providers$CartoDB.Positron)  # Adding base tiles
+
+# Function to add data polygons with specific legends
+add_data_polygons <- function(data_column, color_palette, group_name, format_popup) {
+  interactive_map <<- interactive_map %>%
+    addPolygons(
+      fillColor = ~color_palette(get(data_column)),
+      color = "#444444",
+      weight = 1,
+      opacity = 1,
       fillOpacity = 0.7,
-      bringToFront = TRUE
+      popup = ~paste(NAME, "<br>", format_popup(get(data_column))),
+      group = group_name
+    ) %>%
+    addLegend(
+      position = "bottomleft",
+      pal = color_palette,
+      values = ~get(data_column),
+      title = group_name,
+      opacity = 0.7,
+      labFormat = labelFormat(),
+      group = group_name
     )
-  ) %>%
-  addPolygons(
-    fillColor = ~income_colors(Average_Income),
-    color = "#444444",
-    weight = 1,
-    opacity = 1,
-    fillOpacity = 0.7,
-    popup = ~paste(NAME, "<br>", "Average Income: ", dollar_format()(Average_Income)),
-    group = "Average Income"
-  ) %>%
-  addPolygons(
-    fillColor = ~education_colors(Most_Common_Education_Level),
-    color = "#444444",
-    weight = 1,
-    opacity = 1,
-    fillOpacity = 0.7,
-    popup = ~paste(NAME, "<br>", "Most Common Education Level: ", Most_Common_Education_Level),
-    group = "Education Level"
-  ) %>%
-  addLegend("bottomright", pal = race_colors, values = ~Least_Common_Race_Ethnicity, title = "Race/Ethnicity",
-            opacity = 0.7, group = "Race/Ethnicity") %>%
-  addLegend("bottomright", pal = income_colors, values = ~Average_Income, title = "Average Income",
-            opacity = 0.7, group = "Average Income", labFormat = labelFormat(prefix = "$")) %>%
-  addLegend("bottomright", pal = education_colors, values = ~Most_Common_Education_Level, title = "Education Level",
-            opacity = 0.7, group = "Education Level") %>%
+}
+
+# Adding legends 
+add_data_polygons("Least_Common_Race_Ethnicity", race_colors, "Race/Ethnicity", function(x) paste("Least Common Race/Ethnicity:", x))
+add_data_polygons("Most_Common_Education_Level", education_colors, "Education Level", function(x) paste("Most Common Education Level:", x))
+add_data_polygons("Average_Wage", wage_colors, "Average Wage", function(x) paste("Average Wage: $", format(x, big.mark = ",")))
+
+
+# Adding population maps
+population_cols <- c("Black, non-Hispanic", "Asian, non-Hispanic", "White, non-Hispanic", "Hispanic")
+names(population_cols) <- c("Black/AA Population", "Asian Population", "White Population", "Hispanic Population")
+for (pop_col in names(population_cols)) {
+  local_color_palette <- colorNumeric(palette = "viridis", domain = merged_data[[population_cols[pop_col]]], na.color = "grey50")
+  add_data_polygons(population_cols[pop_col], local_color_palette, pop_col, function(x) paste(pop_col, ": ", scales::percent(x), sep = ""))
+}
+
+interactive_map <- interactive_map %>%
   addLayersControl(
-    baseGroups = c("Race/Ethnicity", "Average Income", "Education Level"),
+    overlayGroups = c("Race/Ethnicity", "Education Level", "Average Wage", "Black/AA Population", "Asian Population", "White Population", "Hispanic Population"),
     options = layersControlOptions(collapsed = FALSE)
   )
 
