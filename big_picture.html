@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="A 538/Upshot style article about the data.">
+<meta name="description" content="A group of data science student analyzes racial disparities with focus on household composition, income, education level among demographic groups in New York.">
 
-<title>MA [46]15 Final Project - Team 7Up - Big Picture</title>
+<title>MA [46]15 Final Project - Team 7Up - Whites and Asians with Bachelor’s or Higher degrees Earn over $50,000 at Higher Rates than Other Races</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -88,7 +88,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./big_picture.html" rel="" target="" aria-current="page">
- <span class="menu-text">Big Picture</span></a>
+ <span class="menu-text">Whites and Asians with Bachelor’s or Higher degrees Earn over $50,000 at Higher Rates than Other Races</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./analysis.html" rel="" target="">
@@ -115,7 +115,12 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#thesis" id="toc-thesis" class="nav-link active" data-scroll-target="#thesis">Thesis</a></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
+  <ul class="collapse">
+  <li><a href="#household-weight-proportions-by-income-groups-in-each-race" id="toc-household-weight-proportions-by-income-groups-in-each-race" class="nav-link" data-scroll-target="#household-weight-proportions-by-income-groups-in-each-race">Household Weight proportions by Income groups in each Race</a></li>
+  <li><a href="#impact-of-racial-disparities-on-education" id="toc-impact-of-racial-disparities-on-education" class="nav-link" data-scroll-target="#impact-of-racial-disparities-on-education">Impact of racial disparities on Education</a></li>
+  <li><a href="#interactive-map" id="toc-interactive-map" class="nav-link" data-scroll-target="#interactive-map">Interactive Map</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -124,12 +129,12 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Big Picture</h1>
+<h1 class="title">Whites and Asians with Bachelor’s or Higher degrees Earn over $50,000 at Higher Rates than Other Races</h1>
 </div>
 
 <div>
   <div class="description">
-    A 538/Upshot style article about the data.
+    A group of data science student analyzes racial disparities with focus on household composition, income, education level among demographic groups in New York.
   </div>
 </div>
 
@@ -144,25 +149,20 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><img src="images/big_picture_image.png" class="img-fluid" width="400"></p>
+<p><img src="images/big_picture_image.png" class="img-fluid" width="800"></p>
 <section id="thesis" class="level2">
 <h2 class="anchored" data-anchor-id="thesis">Thesis</h2>
 <p>Our study looks into racial disparities in the New York state and we found that racial disparities existed at income, education, and geographically across in each county in the state.</p>
 </section>
 <section id="analysis" class="level2">
 <h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
-<section id="household-weight-proportions-by-income-groups-in-each-raceethnicity" class="level4">
-<h4 class="anchored" data-anchor-id="household-weight-proportions-by-income-groups-in-each-raceethnicity">Household Weight proportions by Income groups in each Race/Ethnicity</h4>
+<section id="household-weight-proportions-by-income-groups-in-each-race" class="level3">
+<h3 class="anchored" data-anchor-id="household-weight-proportions-by-income-groups-in-each-race">Household Weight proportions by Income groups in each Race</h3>
 <p><img src="images/Household weight.png" class="img-fluid"></p>
 <p>This graph shows that education levels vary among races. As we can observe here, Asian and White race has the highest education attainment while Black and Hispanic families shared a much lower education attainment level.</p>
 </section>
-<section id="racial-disparities-on-education-levels-impact-on-education" class="level4">
-<h4 class="anchored" data-anchor-id="racial-disparities-on-education-levels-impact-on-education">Racial disparities on education level’s impact on education</h4>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>here() starts at /Users/vynguyen/Desktop/MA415/final-project-team7</code></pre>
-</div>
-</div>
+<section id="impact-of-racial-disparities-on-education" class="level3">
+<h3 class="anchored" data-anchor-id="impact-of-racial-disparities-on-education">Impact of racial disparities on Education</h3>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="big_picture_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
@@ -170,8 +170,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>We often relate educations attainment with income levels and assume it’s one of the most important indicator of education levels, and a higher education attainment means higher income. However, different races may experience different educational influence in their income. As we can observe in this chart, where each chart shows the different distribution of income levels between different races at a given income level, Black population often exhibit the least proportion of income higher than $50000 compared to its counterpart with the same education level. This graph suggests that racial disparities could contribute to how education influences income level and some races are less beneficial than others in education.</p>
 </section>
-<section id="interactive-map" class="level4">
-<h4 class="anchored" data-anchor-id="interactive-map">Interactive Map</h4>
+<section id="interactive-map" class="level3">
+<h3 class="anchored" data-anchor-id="interactive-map">Interactive Map</h3>
 <p>Now let’s look at the New York State from its map. With all the 62 counties in New York, they different from each others in terms of racial demographics, income level, education levels, and much more.</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
