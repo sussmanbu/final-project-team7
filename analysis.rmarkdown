@@ -6,7 +6,7 @@ draft: false
 ---
 
 
-![](images/race.png)
+![](images/analysis.png)
 
 Our code for this page is in 'analysis.qmd' file.
 
@@ -41,7 +41,7 @@ head(clean_data)
 
 ### 1. Education and Income
 
-#### Analyzing education level by race/ethnicity
+#### Analyzing Education Level by Race/Ethnicity
 
 
 ```{r include = FALSE}
@@ -192,7 +192,7 @@ weighted_education_counts <- clean_data %>%
 # Plot
 ggplot(weighted_education_counts, aes(x=`Race_Ethnicity`, y=Weighted.Count, fill=`Education_Level`)) +
   geom_bar(stat="identity", position=position_dodge()) +
-  labs(title="Weighted Education Level Distribution by Race / Ethnicity",
+  labs(title="Weighted Household distribution by Education Level and Race",
        x="Race / Ethnicity", y="Weighted Count") +
   scale_y_continuous(labels = scales::comma) +  
   scale_fill_viridis_d() +  
@@ -215,7 +215,7 @@ ny_counties <- ny_counties[ny_counties$STATEFP == '36', ]
 #head(ny_counties)
 ```
 
-```{r echo = FALSE}
+```{r include = FALSE}
 #install.packages("modeest")
 library(modeest)
 
@@ -417,11 +417,10 @@ print(hispanic_map)
 
 ## Statistical Modelling
 
-### **Model 1: Linear Regression between Black, White, Hispanic, Asian population proportion and Average wage at county level**
 
-
-```{r echo = FALSE}
+```{r include = FALSE}
 #linear model
+# Model 1: Linear Regression between Black, White, Hispanic, Asian population proportion and Average wage at county level
 modellm<-lm(Average_Wage ~ `Black, non-Hispanic`+`Hispanic`+`Asian, non-Hispanic`+`White, non-Hispanic`, data = demographic_data_aggregated)
 summary(modellm)
 
@@ -432,10 +431,8 @@ plot(x = demographic_data_aggregated$`Black, non-Hispanic`, y = demographic_data
 plot(x = demographic_data_aggregated$`White, non-Hispanic`, y = demographic_data_aggregated$Average_Wage) 
 ```
 
-In the first model, none of the coefficients are statistically significant, suggesting no strong evidence to reject the null hypothesis that there is no difference in wages among these groups. However, in the second model, the negative coefficient for White, non-Hispanic is statistically significant, indicating a robust difference from the baseline, suggesting that when specifically comparing to another group or average, White, non-Hispanic individuals might earn more.  
-The two plots also show that the White, non-Hispanic tends to have higher average wage than the Black, non-Hispanic.
 
-### **Model 2: Linear Regression between Household weight, Education, Income group, Race/Ethnicity, Owner/Renter Status, Household Type**
+### **Model 1: Linear Regression between Household weight, Education, Income group, Race/Ethnicity, Owner/Renter Status, Household Type**
 
 
 ```{r echo = FALSE}
@@ -471,7 +468,7 @@ summary(multinom_model)
 ```
 
 
-### **Model 3: Multinomial logistic regression with Income disparity across Education, Household Weight, and Race Ethnicity**
+### **Model 2: Multinomial logistic regression with Income disparity across Education, Household Weight, and Race Ethnicity**
 
 
 ```{r echo = FALSE}
@@ -497,16 +494,17 @@ According to the above result, there is a strong positive relationship between h
 
 ```{r echo = FALSE}
 library(car)
+library(dplyr)
 anova_results <- Anova(multinom_model)
 print(anova_results)
 ```
 
 The output from the ANOVA suggests that all the predictors in multinomial logistic regression Education Level, Household Weight, and Race/Ethnicity—are highly statistically significant in predicting the different income groups. Education Level has a particularly strong influence on income group classification, as indicated by a very high likelihood ratio chi-square statistic (LR Chisq) of 44277 with 25 degrees of freedom and a p-value less than 0.0001. Race/Ethnicity shows substantial influence with an LR Chisq of 2140 and a p-value less than 0.0001, and Household Weight also proves significant with an LR Chisq of 257.
 
-### **95% Confidence Interval on Coefficients on each variable**
 
+```{r include = FALSE}
+# **95% Confidence Interval on Coefficients on each variable**
 
-```{r echo = FALSE}
 # Get model coefficients and standard errors
 coef_matrix <- summary(multinom_model)$coefficients
 se_matrix <- summary(multinom_model)$standard.errors
@@ -555,8 +553,7 @@ filtered_data$Race_Ethnicity <- factor(filtered_data$Race_Ethnicity)
 ```
 
 
-Education appears to have a strong influence, with higher levels of education generally increasing income level. For Household Weight, the coefficients are very small and negative across all income brackets, suggesting a slight decrease in the likelihood of being in higher income groups with an increase in household weight, though the effect appears to be very minimal. Again, here, Race/Ethnicity also shows significant differences in income distribution, reflecting socioeconomic disparities.
- 
+
 ## Predictions
 
 ### **Visualize of Coefidence Intervals for Education on Income**
@@ -660,3 +657,7 @@ ggplot(prob_data_long, aes(x = Education_Level, y = Probability, group = Race_Et
 The graph displaying the predicted probability of income groups by education level and race reveals significant racial disparities in economic outcomes. Notably, the probability of being in the highest income bracket (\$50,000+) clearly increases with higher education levels for all racial groups, but the slope is steeper and higher for White, non-Hispanic individuals compared to other racial groups, indicating a greater likelihood of reaching higher income levels with increased education. In contrast, Black, Hispanic, and Other racial groups show consistently lower probabilities of being in this income bracket, even at higher educational levels, suggesting systemic barriers or disparities in the conversion of educational attainment into economic success. This visualization underscores the complex interplay of race, education, and income, highlighting persistent inequality in economic opportunities across different racial and ethnic groups.
 
 ## Flaws and Limitations
+Our analysis do highlight some important disparities across race, economic regions, household, and the impact of education and income levels. The varied impact across these predictors underscores the complexity of factors that suggests areas where policy might focus, particularly in addressing regional disparities and supporting different household types. 
+
+Nevertheless, there are limitations in our work on modeling. Our prediction on the relationship between household weight and higher incomes shows a straightforward trend, but this could be affected by outliers or non-linear factors not apparent in a linear model. Also, the relatively low R-squared value in our initial linear model may suggest additional variables and perhaps more complex models could be considered to better capture the underlying aspects affecting Household Weight. In the future, we plan to collect more data, add more features such as age, sex, geographical location, industry of employment, etc. and advance our models to provide more insights into the relationships among Household Weight, Income, Education, and Race. 
+

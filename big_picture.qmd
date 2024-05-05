@@ -5,15 +5,19 @@ toc: true
 draft: FALSE
 ---
 
-![](images/big_picture_image.png)
+![](images/big_picture_image.png){width="400"}
 
 ## Thesis
 
 Our study looks into racial disparities in the New York state and we found that racial disparities existed at income, education, and geographically across in each county in the state.
 
+## Analysis
+
 #### Household Weight proportions by Income groups in each Race/Ethnicity
 
-![](images/Household%20weight.png) This graph shows that education levels vary among races. As we can observe here, Asian and White race has the highest education attainment while Black and Hispanic families shared a much lower education attainment level.
+![](images/Household weight.png) 
+
+This graph shows that education levels vary among races. As we can observe here, Asian and White race has the highest education attainment while Black and Hispanic families shared a much lower education attainment level.
 
 #### Racial disparities on education level's impact on education
 
@@ -40,15 +44,13 @@ ggplot(clean_data, aes(x = Race_Ethnicity, fill = Income_Groups)) +
         axis.text.x = element_text(angle = 45, hjust = 1), 
         strip.text.x = element_text(size = 7, face = "bold")) 
 ```
+
 We often relate educations attainment with income levels and assume it's one of the most important indicator of education levels, and a higher education attainment means higher income. However, different races may experience different educational influence in their income. As we can observe in this chart, where each chart shows the different distribution of income levels between different races at a given income level, Black population often exhibit the least proportion of income higher than $50000 compared to its counterpart with the same education level. This graph suggests that racial disparities could contribute to how education influences income level and some races are less beneficial than others in education.
 
 #### Interactive Map
 
-Exaplanation of the Map:
+Now let's look at the New York State from its map. With all the 62 counties in New York, they different from each others in terms of racial demographics, income level, education levels, and much more.
 
-now let's look at the New York State from its map. With all the 62 counties in New York, they different from each others in terms of racial demographics, income level, education levels, and much more.
-
-Here in the map, we can observe and identify that certain counties with higher proportion of certain races would have higher or lower income. For example, Manhattan county in the middle of NYC has a significantly higher average wage than other counties. Bronx county just up north Manhattan with higher Black & African American population has much lower income compared other counties in the state. This map expose the racial inequalty existed in county level, also implicating the racial segregation in the New York State.
 
 ```{r include = FALSE}
 merged_data <- readRDS("dataset-ignore/merged_data.rds")
@@ -117,3 +119,5 @@ interactive_map <- leaflet(merged_data) %>%
 
 print(interactive_map)
 ```
+
+Here in the map, we can observe and identify that certain counties with higher proportion of certain races would have higher or lower income. For example, Manhattan county in the middle of NYC has a significantly higher average wage than other counties. Bronx county just up north Manhattan with higher Black & African American population has much lower income compared other counties in the state. Additionally, the most common education level is High School. However, in counties coming closer to New York City, individuals, mostly other race - not Asian or Black, do have Bachelor or higher degree. This map exposes the racial inequality existed in county level in terms of income and education aspects, also implicating the racial segregation in the New York State.
