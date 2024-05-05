@@ -2,17 +2,13 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/2024-04-22-blogpost6/blogpost6.html",
       "/posts/2024-04-29-blogpost7/blogpost7.html",
+      "/posts/2024-04-22-blogpost6/blogpost6.html",
       "/posts/2024-04-15-blogpost5/blogpost5.html",
       "/posts/2024-04-08-blogpost4/blogpost4.html",
       "/posts/2024-04-01-blogpost3/blogpost3.html",
       "/posts/2024-03-24-blogpost2/blogpost2.html",
-      "/posts/2024-03-04-blogpost1/blogpost1.html",
-      "/posts/2023-12-20-examples/examples.html",
-      "/posts/2023-10-15-getting-started/getting-started.html",
-      "/posts/2024-02-23-test/test.html",
-      "/posts/2023-10-13-first-team-meeting/first-team-meeting.html"
+      "/posts/2024-03-04-blogpost1/blogpost1.html"
     ]
   }
 ]

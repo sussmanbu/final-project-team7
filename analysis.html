@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -95,8 +61,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -150,7 +114,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link active" data-scroll-target="#analysis">Analysis</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#motivation-questions" id="toc-motivation-questions" class="nav-link" data-scroll-target="#motivation-questions">Motivation Questions</a></li>
+  <li><a href="#visualizations-of-interested-variables-and-relationships" id="toc-visualizations-of-interested-variables-and-relationships" class="nav-link" data-scroll-target="#visualizations-of-interested-variables-and-relationships">Visualizations of interested variables and relationships</a>
+  <ul class="collapse">
+  <li><a href="#education-and-income" id="toc-education-and-income" class="nav-link" data-scroll-target="#education-and-income">1. Education and Income</a></li>
+  <li><a href="#household-weight-and-income" id="toc-household-weight-and-income" class="nav-link" data-scroll-target="#household-weight-and-income">2. Household Weight and Income</a></li>
+  <li><a href="#household-weight-and-education" id="toc-household-weight-and-education" class="nav-link" data-scroll-target="#household-weight-and-education">3. Household Weight and Education</a></li>
+  <li><a href="#geographical-map---ny-county" id="toc-geographical-map---ny-county" class="nav-link" data-scroll-target="#geographical-map---ny-county">Geographical Map - NY County</a></li>
+  </ul></li>
+  <li><a href="#statistical-modelling" id="toc-statistical-modelling" class="nav-link" data-scroll-target="#statistical-modelling">Statistical Modelling</a>
+  <ul class="collapse">
+  <li><a href="#model-1-linear-regression-between-household-weight-education-income-group-raceethnicity-ownerrenter-status-household-type" id="toc-model-1-linear-regression-between-household-weight-education-income-group-raceethnicity-ownerrenter-status-household-type" class="nav-link" data-scroll-target="#model-1-linear-regression-between-household-weight-education-income-group-raceethnicity-ownerrenter-status-household-type"><strong>Model 1: Linear Regression between Household weight, Education, Income group, Race/Ethnicity, Owner/Renter Status, Household Type</strong></a></li>
+  <li><a href="#model-2-multinomial-logistic-regression-with-income-disparity-across-education-household-weight-and-race-ethnicity" id="toc-model-2-multinomial-logistic-regression-with-income-disparity-across-education-household-weight-and-race-ethnicity" class="nav-link" data-scroll-target="#model-2-multinomial-logistic-regression-with-income-disparity-across-education-household-weight-and-race-ethnicity"><strong>Model 2: Multinomial logistic regression with Income disparity across Education, Household Weight, and Race Ethnicity</strong></a></li>
+  <li><a href="#using-anova-to-get-p-value-for-the-statistical-significant-for-each-coefficient" id="toc-using-anova-to-get-p-value-for-the-statistical-significant-for-each-coefficient" class="nav-link" data-scroll-target="#using-anova-to-get-p-value-for-the-statistical-significant-for-each-coefficient"><strong>Using Anova to get p-value for the statistical significant for each coefficient</strong></a></li>
+  </ul></li>
+  <li><a href="#predictions" id="toc-predictions" class="nav-link" data-scroll-target="#predictions">Predictions</a>
+  <ul class="collapse">
+  <li><a href="#visualize-of-coefidence-intervals-for-education-on-income" id="toc-visualize-of-coefidence-intervals-for-education-on-income" class="nav-link" data-scroll-target="#visualize-of-coefidence-intervals-for-education-on-income"><strong>Visualize of Coefidence Intervals for Education on Income</strong></a></li>
+  <li><a href="#impact-of-household-weights-on-income" id="toc-impact-of-household-weights-on-income" class="nav-link" data-scroll-target="#impact-of-household-weights-on-income"><strong>Impact of Household Weights on Income</strong></a></li>
+  <li><a href="#multinomial-regression-on-the-impact-of-education-level-race-ethnicity-on-income-group" id="toc-multinomial-regression-on-the-impact-of-education-level-race-ethnicity-on-income-group" class="nav-link" data-scroll-target="#multinomial-regression-on-the-impact-of-education-level-race-ethnicity-on-income-group"><strong>Multinomial regression on the impact of Education Level, Race Ethnicity on Income Group</strong></a></li>
+  </ul></li>
+  <li><a href="#flaws-and-limitations" id="toc-flaws-and-limitations" class="nav-link" data-scroll-target="#flaws-and-limitations">Flaws and Limitations</a></li>
   </ul>
 </nav>
     </div>
@@ -179,255 +164,112 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Pebbleswithquarzite.jpg" class="img-fluid"> ## Loading Clean Data</p>
+<p><img src="images/analysis.png" class="img-fluid"></p>
+<p>Our code for this page is in ‘analysis.qmd’ file.</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In today’s increasingly complex socioeconomic, understanding the interplay between household composition, educational attainment, and racial demographics is crucial for devising strategies that promote economic equity. Our project seeks to delve into how these factors collectively influence individual income levels across different racial groups. By examining the effects of household weight — a proxy for household size and composition — alongside the educational levels of individuals, we aim to uncover insights into the socioeconomic dynamics that shape income disparities. The intersection of race adds a critical dimension to this analysis, providing a comprehensive understanding of the diverse experiences across demographic groups.</p>
+</section>
+<section id="motivation-questions" class="level2">
+<h2 class="anchored" data-anchor-id="motivation-questions">Motivation Questions</h2>
+<p>Household Weight and Income: How does household weight influence income across different racial groups, and to what extent does it vary between them?</p>
+<p>Education and Income: What is the impact of education level on income within these racial categories? How significant is this impact when compared to other demographic factors?</p>
+<p>Combined Effects: How do household weight and education interact to influence income across different racial groups?</p>
+</section>
+<section id="visualizations-of-interested-variables-and-relationships" class="level2">
+<h2 class="anchored" data-anchor-id="visualizations-of-interested-variables-and-relationships">Visualizations of interested variables and relationships</h2>
+<section id="education-and-income" class="level3">
+<h3 class="anchored" data-anchor-id="education-and-income">1. Education and Income</h3>
+<section id="analyzing-education-level-by-raceethnicity" class="level4">
+<h4 class="anchored" data-anchor-id="analyzing-education-level-by-raceethnicity">Analyzing Education Level by Race/Ethnicity</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>here() starts at /Users/lincoco/Desktop/final 415</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the path to the RDS file</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cleaned_dataset_path_rds <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"dataset"</span>, <span class="st">"cleaned_NYSERDA_LMI_Census_2013-2015.rds"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset from the RDS file</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>clean_data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(cleaned_dataset_path_rds)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    County Households_with_Elderly Households_with_Children
-1   Queens                     Yes                       No
-2   Queens                      No                      Yes
-3     Erie                     Yes                       No
-4   Queens                      No                       No
-5     Erie                     Yes                       No
-6 New York                      No                      Yes
-  Economic_Development_Region    Income_Groups
-1               New York City $10,000-&lt;$20,000
-2               New York City   $0 to &lt;$10,000
-3            Western New York   $0 to &lt;$10,000
-4               New York City $10,000-&lt;$20,000
-5            Western New York $10,000-&lt;$20,000
-6               New York City $10,000-&lt;$20,000
-           Percent_of_Poverty_Level Low_to_Moderate_Income__LMI__Group
-1 1 - Income at or below 100% HHSPG          Group 1 - Very Low Income
-2 1 - Income at or below 100% HHSPG          Group 1 - Very Low Income
-3 1 - Income at or below 100% HHSPG          Group 1 - Very Low Income
-4        2 - Income 101%-150% HHSPG          Group 1 - Very Low Income
-5        2 - Income 101%-150% HHSPG          Group 1 - Very Low Income
-6 1 - Income at or below 100% HHSPG          Group 1 - Very Low Income
-                   Household_Type Non_elderly_Disabled_Indicator
-1         Elderly(60+) Individual                              0
-2 Younger(Up to 40) with children                              0
-3         Elderly(60+) Individual                              0
-4   Older(40-59) with no children                              0
-5               Elderly(60+) Head                              0
-6      Older(40-59) with children                              0
-       Race_Ethnicity          Linguistic_Isolation
-1 Asian, non-Hispanic Linguistically Isolated Other
-2 Asian, non-Hispanic   Not Linguistically Isolated
-3 Black, non-Hispanic   Not Linguistically Isolated
-4            Hispanic   Not Linguistically Isolated
-5 White, non-Hispanic   Not Linguistically Isolated
-6            Hispanic   Not Linguistically Isolated
-                       Housing_Unit_Type Owner_Renter_Status
-1 4 - Moderate Multi-Family (5-50 units)                 Own
-2             1 - Single Family Attached          Rent/Other
-3     5 - Large Multi-Family (50+ units)          Rent/Other
-4     3 - Small Multi-Family (2-4 units)          Rent/Other
-5             2 - Single Family Detached                 Own
-6 4 - Moderate Multi-Family (5-50 units)          Rent/Other
-  Main_Heating_Fuel_Type                   Home_Energy_Payment_Method
-1           3 - Fuel Oil Only pays non-heat electric direct-to-vendor
-2           1 - Electric           Pays heating bill direct-to-vendor
-3           1 - Electric                 Heat included in rent or fee
-4           1 - Electric           Pays heating bill direct-to-vendor
-5        2 - Utility Gas           Pays heating bill direct-to-vendor
-6           3 - Fuel Oil           Pays heating bill direct-to-vendor
-  Housing_Vintage LMI_Study_Region
-1 1939 or Earlier            NYC I
-2 1939 or Earlier            NYC I
-3 1939 or Earlier          Western
-4      1970-&lt;2000            NYC I
-5     1940-&lt; 1970          Western
-6 1939 or Earlier          NYC III
-                                                          LMI_Population_Segment
-1             #8 – Low/Moderate-Income Owners in Multifamily (5+ Unit) Buildings
-2 #5 – Low-Income Renters in Single-Family &amp; Small Multifamily (2-4 Units) Homes
-3                     #1 – Low-Income Renters in Multifamily (5+ Unit) Buildings
-4 #5 – Low-Income Renters in Single-Family &amp; Small Multifamily (2-4 Units) Homes
-5   #3 – Low-Income Owners in Single-Family &amp; Small Multifamily (2-4 Unit) Homes
-6                     #1 – Low-Income Renters in Multifamily (5+ Unit) Buildings
-  Mortgage_Indicator           Time_in_Home                   Education_Level
-1                 No     4 - 10 to 19 years                    5 - Bachelor's
-2            Unknown     4 - 10 to 19 years                  3 - Some College
-3            Unknown 3 - Five to nine years               6 - Graduate Degree
-4            Unknown  2 - Two to four years                  3 - Some College
-5                 No   6 - 30 or more years 1 - Less than High School Diploma
-6            Unknown     5 - 20 to 29 years                   4 - Associate's
-  Head_of_Household_Age Household_Weight
-1                 60-69           145.00
-2                 30-39            28.33
-3                   70+            21.67
-4                 50-59            23.00
-5                   70+            25.67
-6                 50-59            31.33</code></pre>
-</div>
-</div>
-<section id="analysis" class="level2">
-<h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggplot2' was built under R version 4.2.3</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating a cross-tabulation of Race / Ethnicity and Education Level</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>ct <span class="ot">&lt;-</span> <span class="fu">table</span>(clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Race_Ethnicity</span><span class="st">`</span>, clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Education_Level</span><span class="st">`</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Melting the table for ggplot</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>ct_melted <span class="ot">&lt;-</span> <span class="fu">melt</span>(ct)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting with counts in each box</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ct_melted, <span class="fu">aes</span>(<span class="at">x =</span> Var2, <span class="at">y =</span> Var1, <span class="at">fill =</span> value)) <span class="sc">+</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span>  </span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> value), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span>  <span class="co"># Showing the count</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"lightblue"</span>, <span class="at">high =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Education Level"</span>, <span class="at">y =</span> <span class="st">"Race / Ethnicity"</span>, <span class="at">fill =</span> <span class="st">"Count"</span>,</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Heatmap of Education Level by Race / Ethnicity"</span>) <span class="sc">+</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Same as before but with percentages of each education level</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ct_percent <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(ct, <span class="dv">2</span>) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>ct_percent_melted <span class="ot">&lt;-</span> <span class="fu">melt</span>(ct_percent)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting with percentage in each box</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ct_percent_melted, <span class="fu">aes</span>(<span class="at">x =</span> Var2, <span class="at">y =</span> Var1, <span class="at">fill =</span> value)) <span class="sc">+</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span>  </span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, value)), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span>  <span class="co"># showing percentage</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"lightblue"</span>, <span class="at">high =</span> <span class="st">"blue"</span>) <span class="sc">+</span>  </span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Education Level"</span>, <span class="at">y =</span> <span class="st">"Race / Ethnicity"</span>, <span class="at">fill =</span> <span class="st">"Percentage"</span>,</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Heatmap of Education Level by Race / Ethnicity (Percentage)"</span>) <span class="sc">+</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>This percentage-based heatmap offers a nuanced understanding of educational attainment by providing a proportional representation, which allows for a direct comparison of educational levels relative to the size of each racial and ethnic group. For White, non-Hispanic individuals, the percentage of those with less than a high school education is relatively low at 55.1%. In contrast, Asian, non-Hispanics show a remarkable 7.5% holding graduate degrees, which is the highest percentage among all groups for this level of education.</p>
+<p>The statistical implications of these percentages are critical. The data suggests a variance in educational achievement that could be attributed to a range of factors, including economic, social, and cultural influences. The high percentage of White, non-Hispanics with only a high school diploma might reflect cultural issues with higher education, whereas the substantial percentage of graduate degrees among Asian, non-Hispanics could point to a strong cultural emphasis on advanced education. Considering the intertwined relationship between the level of education and income level, this could also suggest why a greater percentage of White people occupy blue collar jobs as compared to Asians.</p>
+</section>
+</section>
+<section id="household-weight-and-income" class="level3">
+<h3 class="anchored" data-anchor-id="household-weight-and-income">2. Household Weight and Income</h3>
+<section id="household-characteristics" class="level4">
+<h4 class="anchored" data-anchor-id="household-characteristics">Household Characteristics</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'dplyr' was built under R version 4.2.3</code></pre>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
+</div>
+</section>
+<section id="weighted-household-proportions-by-income-groups-in-each-raceethnicity" class="level4">
+<h4 class="anchored" data-anchor-id="weighted-household-proportions-by-income-groups-in-each-raceethnicity">Weighted Household proportions by Income groups in each Race/Ethnicity</h4>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="household-weight-and-education" class="level3">
+<h3 class="anchored" data-anchor-id="household-weight-and-education">3. Household Weight and Education</h3>
+<section id="analyzing-impact-of-raceethnicity-on-educational-outcomes" class="level4">
+<h4 class="anchored" data-anchor-id="analyzing-impact-of-raceethnicity-on-educational-outcomes">Analyzing Impact of Race/Ethnicity on Educational Outcomes:</h4>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="geographical-map---ny-county" class="level3">
+<h3 class="anchored" data-anchor-id="geographical-map---ny-county">Geographical Map - NY County</h3>
+<div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>
-Attaching package: 'dplyr'</code></pre>
+Attaching package: 'scales'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
+<pre><code>The following object is masked from 'package:purrr':
 
-    filter, lag</code></pre>
+    discard</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
+<pre><code>The following object is masked from 'package:readr':
 
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income Numeric</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$0 to &lt;$10,000"</span> <span class="sc">~</span> <span class="dv">5</span>,</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$10,000-&lt;$20,000"</span> <span class="sc">~</span> <span class="dv">15</span>,</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$20,000-&lt;$30,000"</span> <span class="sc">~</span> <span class="dv">25</span>,</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$30,000-&lt;$40,000"</span> <span class="sc">~</span> <span class="dv">35</span>,</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$40,000-&lt;$50,000"</span> <span class="sc">~</span> <span class="dv">45</span>,</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$50,000+"</span> <span class="sc">~</span> <span class="dv">55</span>,</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_real_</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(clean_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(<span class="st">`</span><span class="at">Education_Level</span><span class="st">`</span>, <span class="st">`</span><span class="at">Income Numeric</span><span class="st">`</span>, <span class="at">.fun=</span>mean), <span class="at">y =</span> <span class="st">`</span><span class="at">Income Numeric</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Race_Ethnicity</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"summary"</span>, <span class="at">fun =</span> <span class="st">"mean"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Education Level"</span>, <span class="at">y =</span> <span class="st">"Average Income"</span>, <span class="at">fill =</span> <span class="st">"Race / Ethnicity"</span>, <span class="at">title =</span> <span class="st">"Average Income by Education Level and Race / Ethnicity"</span>) <span class="sc">+</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">55</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"top"</span>,</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>),</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.
-ℹ Please use the `linewidth` argument instead.</code></pre>
+    col_factor</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-12-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-12-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-12-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-12-5.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-12-6.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-12-7.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-12-8.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<table class="table">
-<colgroup>
-<col style="width: 5%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">## New Analysis</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05 ‘.’ 0.1 ’ ’ 1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Residual standard error: 10540 on 60 degrees of freedom Multiple R-squared: 0.2327, Adjusted R-squared: 0.2199 F-statistic: 18.2 on 1 and 60 DF, p-value: 7.167e-05 ``` :::</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>{.r .cell-code} plot(x = demographic_data_aggregated$`Black, non-Hispanic`, y = demographic_data_aggregated$Average_Wage)</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">::: {.cell-output-display} <img src="analysis_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"> :::</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>{.r .cell-code} plot(x = demographic_data_aggregated$`White, non-Hispanic`, y = demographic_data_aggregated$Average_Wage)</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">::: {.cell-output-display} <img src="analysis_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"> ::: :::</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Model 2: Linear Regression between Household weight, Education, Income group, Race/Ethnicity, Owner/Renter Status, Household Type</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">::: {.cell}</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">```{.r .cell-code} clean_data<span class="math inline">\(Education_Level &lt;- as.factor(clean_data\)</span>Education_Level) clean_data<span class="math inline">\(Race_Ethnicity &lt;- as.factor(clean_data\)</span>Race_Ethnicity) clean_data<span class="math inline">\(Income_Groups &lt;- as.factor(clean_data\)</span>Income_Groups) clean_data<span class="math inline">\(Economic_Development_Region &lt;- as.factor(clean_data\)</span>Economic_Development_Region) clean_data<span class="math inline">\(Owner_Renter_Status &lt;- as.factor(clean_data\)</span>Owner_Renter_Status) clean_data<span class="math inline">\(Household_Type &lt;- as.factor(clean_data\)</span>Household_Type)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"># Linear model model_linear &lt;- lm(Household_Weight ~ Education_Level + Race_Ethnicity + Income_Groups + Economic_Development_Region + Owner_Renter_Status + Household_Type, data = clean_data) summary(model_linear) ```</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">::: {.cell-output .cell-output-stdout} ```</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Call: lm(formula = Household_Weight ~ Education_Level + Race_Ethnicity + Income_Groups + Economic_Development_Region + Owner_Renter_Status + Household_Type, data = clean_data)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Residuals: Min 1Q Median 3Q Max -42.82 -13.48 -5.44 6.77 655.56</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Coefficients: Estimate Std. Error t value (Intercept) 24.97413 0.32726 76.313 Education_Level2 - High School Diploma -0.05642 0.15096 -0.374 Education_Level3 - Some College -0.10637 0.16239 -0.655 Education_Level4 - Associate’s -0.30700 0.18518 -1.658 Education_Level5 - Bachelor’s 0.14986 0.16799 0.892 Education_Level6 - Graduate Degree -0.44382 0.17398 -2.551 Race_EthnicityBlack, non-Hispanic 3.67498 0.23357 15.734 Race_EthnicityHispanic 6.67351 0.23580 28.301 Race_EthnicityOther 0.62962 0.37247 1.690 Race_EthnicityWhite, non-Hispanic -1.54112 0.20191 -7.633 Income_Groups$10,000-&lt;$20,000 -0.36185 0.20192 -1.792 Income_Groups$20,000-&lt;$30,000 -0.22285 0.20511 -1.087 Income_Groups$30,000-&lt;$40,000 0.68888 0.20948 3.289 Income_Groups$40,000-&lt;$50,000 -0.25564 0.21584 -1.184 Income_Groups$50,000+ 0.49253 0.18013 2.734 Economic_Development_RegionCentral New York -4.13477 0.22602 -18.294 Economic_Development_RegionFinger Lakes -2.41399 0.22120 -10.913 Economic_Development_RegionLong Island 4.27167 0.21758 19.633 Economic_Development_RegionMid-Hudson 3.14474 0.21838 14.400 Economic_Development_RegionMohawk Valley -6.46534 0.21178 -30.529 Economic_Development_RegionNew York City 4.54950 0.19702 23.092 Economic_Development_RegionNorth Country -7.52647 0.23316 -32.281 Economic_Development_RegionSouthern Tier -5.37256 0.20664 -26.000 Economic_Development_RegionWestern New York -2.35784 0.22488 -10.485 Owner_Renter_StatusRent/Other 8.14099 0.10433 78.029 Household_TypeElderly(60+) Individual 1.16832 0.13652 8.558 Household_TypeOlder(40-59) with children 3.98667 0.13000 30.667 Household_TypeOlder(40-59) with no children 3.76672 0.11700 32.193 Household_TypeYounger(Up to 40) with children 5.47273 0.16109 33.974 Household_TypeYounger(Up to 40) with no children 6.11328 0.16615 36.793 Pr(&gt;|t|) (Intercept) &lt; 2e-16 <strong><em> Education_Level2 - High School Diploma 0.70860 Education_Level3 - Some College 0.51245 Education_Level4 - Associate’s 0.09736 . Education_Level5 - Bachelor’s 0.37236 Education_Level6 - Graduate Degree 0.01074 </em> Race_EthnicityBlack, non-Hispanic &lt; 2e-16 </strong><em> Race_EthnicityHispanic &lt; 2e-16 </em><strong> Race_EthnicityOther 0.09096 . Race_EthnicityWhite, non-Hispanic 2.3e-14 </strong><em> Income_Groups$10,000-&lt;$20,000 0.07313 . Income_Groups$20,000-&lt;$30,000 0.27725 Income_Groups$30,000-&lt;$40,000 0.00101 <strong> Income_Groups$40,000-&lt;$50,000 0.23627 Income_Groups$50,000+ 0.00625 </strong> Economic_Development_RegionCentral New York &lt; 2e-16 </em><strong> Economic_Development_RegionFinger Lakes &lt; 2e-16 </strong><em> Economic_Development_RegionLong Island &lt; 2e-16 </em><strong> Economic_Development_RegionMid-Hudson &lt; 2e-16 </strong><em> Economic_Development_RegionMohawk Valley &lt; 2e-16 </em><strong> Economic_Development_RegionNew York City &lt; 2e-16 </strong><em> Economic_Development_RegionNorth Country &lt; 2e-16 </em><strong> Economic_Development_RegionSouthern Tier &lt; 2e-16 </strong><em> Economic_Development_RegionWestern New York &lt; 2e-16 </em><strong> Owner_Renter_StatusRent/Other &lt; 2e-16 </strong><em> Household_TypeElderly(60+) Individual &lt; 2e-16 </em><strong> Household_TypeOlder(40-59) with children &lt; 2e-16 </strong><em> Household_TypeOlder(40-59) with no children &lt; 2e-16 </em><strong> Household_TypeYounger(Up to 40) with children &lt; 2e-16 </strong><em> Household_TypeYounger(Up to 40) with no children &lt; 2e-16 </em>**</td>
-</tr>
-</tbody>
-</table>
-<p>Signif. codes: 0 ‘<em><strong>’ 0.001 ’</strong>’ 0.01 ’</em>’ 0.05 ‘.’ 0.1 ’ ’ 1</p>
-<p>Residual standard error: 22.6 on 310808 degrees of freedom Multiple R-squared: 0.1282, Adjusted R-squared: 0.1281 F-statistic: 1576 on 29 and 310808 DF, p-value: &lt; 2.2e-16</p>
-<pre><code>:::
-
-```{.r .cell-code}
-# Diagnostic plots to check for assumptions
-par(mfrow=c(2,2))
-model_linear</code></pre>
+</section>
+</section>
+<section id="statistical-modelling" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-modelling">Statistical Modelling</h2>
+<section id="model-1-linear-regression-between-household-weight-education-income-group-raceethnicity-ownerrenter-status-household-type" class="level3">
+<h3 class="anchored" data-anchor-id="model-1-linear-regression-between-household-weight-education-income-group-raceethnicity-ownerrenter-status-household-type"><strong>Model 1: Linear Regression between Household weight, Education, Income group, Race/Ethnicity, Owner/Renter Status, Household Type</strong></h3>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -435,213 +277,86 @@ lm(formula = Household_Weight ~ Education_Level + Race_Ethnicity +
     Income_Groups + Economic_Development_Region + Owner_Renter_Status + 
     Household_Type, data = clean_data)
 
-Coefficients:
-                                     (Intercept)  
-                                        24.97413  
-          Education_Level2 - High School Diploma  
-                                        -0.05642  
-                 Education_Level3 - Some College  
-                                        -0.10637  
-                  Education_Level4 - Associate's  
-                                        -0.30700  
-                   Education_Level5 - Bachelor's  
-                                         0.14986  
-              Education_Level6 - Graduate Degree  
-                                        -0.44382  
-               Race_EthnicityBlack, non-Hispanic  
-                                         3.67498  
-                          Race_EthnicityHispanic  
-                                         6.67351  
-                             Race_EthnicityOther  
-                                         0.62962  
-               Race_EthnicityWhite, non-Hispanic  
-                                        -1.54112  
-                   Income_Groups$10,000-&lt;$20,000  
-                                        -0.36185  
-                   Income_Groups$20,000-&lt;$30,000  
-                                        -0.22285  
-                   Income_Groups$30,000-&lt;$40,000  
-                                         0.68888  
-                   Income_Groups$40,000-&lt;$50,000  
-                                        -0.25564  
-                           Income_Groups$50,000+  
-                                         0.49253  
-     Economic_Development_RegionCentral New York  
-                                        -4.13477  
-         Economic_Development_RegionFinger Lakes  
-                                        -2.41399  
-          Economic_Development_RegionLong Island  
-                                         4.27167  
-           Economic_Development_RegionMid-Hudson  
-                                         3.14474  
-        Economic_Development_RegionMohawk Valley  
-                                        -6.46534  
-        Economic_Development_RegionNew York City  
-                                         4.54950  
-        Economic_Development_RegionNorth Country  
-                                        -7.52647  
-        Economic_Development_RegionSouthern Tier  
-                                        -5.37256  
-     Economic_Development_RegionWestern New York  
-                                        -2.35784  
-                   Owner_Renter_StatusRent/Other  
-                                         8.14099  
-           Household_TypeElderly(60+) Individual  
-                                         1.16832  
-        Household_TypeOlder(40-59) with children  
-                                         3.98667  
-     Household_TypeOlder(40-59) with no children  
-                                         3.76672  
-   Household_TypeYounger(Up to 40) with children  
-                                         5.47273  
-Household_TypeYounger(Up to 40) with no children  
-                                         6.11328  </code></pre>
-</div>
-<p>:::</p>
-<p>Model 3: Multinomial logistic regression with Race_Ethnicity as the dependent variable</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Race_Ethnicity <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Race_Ethnicity)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Education_Level <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Education_Level)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Income_Groups <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Income_Groups)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Economic_Development_Region <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Economic_Development_Region)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>Owner_Renter_Status <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(clean_data<span class="sc">$</span>Owner_Renter_Status)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Multinomial logistic regression</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>multinom_model <span class="ot">&lt;-</span> <span class="fu">multinom</span>(Race_Ethnicity <span class="sc">~</span> Education_Level <span class="sc">+</span> Income_Groups <span class="sc">+</span> Household_Weight <span class="sc">+</span> Owner_Renter_Status, <span class="at">data =</span> clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># weights:  70 (52 variable)
-initial  value 500274.461823 
-iter  10 value 282403.948404
-iter  20 value 280232.864254
-iter  30 value 266259.763199
-iter  40 value 256269.811521
-iter  50 value 242314.940159
-iter  60 value 234231.201882
-iter  70 value 233605.230698
-final  value 233605.164315 
-converged</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of the model</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(multinom_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Call:
-multinom(formula = Race_Ethnicity ~ Education_Level + Income_Groups + 
-    Household_Weight + Owner_Renter_Status, data = clean_data)
+Residuals:
+   Min     1Q Median     3Q    Max 
+-42.82 -13.48  -5.44   6.77 655.56 
 
 Coefficients:
-                    (Intercept) Education_Level2 - High School Diploma
-Black, non-Hispanic   0.1720327                              0.8778828
-Hispanic              0.2029666                              0.1209516
-Other                -1.1320638                              0.9020786
-White, non-Hispanic   2.5252654                              1.4197625
-                    Education_Level3 - Some College
-Black, non-Hispanic                       1.1427539
-Hispanic                                  0.3330605
-Other                                     1.2883867
-White, non-Hispanic                       1.5029519
-                    Education_Level4 - Associate's
-Black, non-Hispanic                      0.7332104
-Hispanic                                -0.1137900
-Other                                    1.0143704
-White, non-Hispanic                      1.3551427
-                    Education_Level5 - Bachelor's
-Black, non-Hispanic                   -0.41561162
-Hispanic                              -1.28624007
-Other                                  0.03404424
-White, non-Hispanic                    0.38680494
-                    Education_Level6 - Graduate Degree
-Black, non-Hispanic                         -0.4672515
-Hispanic                                    -1.4952743
-Other                                       -0.1104460
-White, non-Hispanic                          0.3912665
-                    Income_Groups$10,000-&lt;$20,000 Income_Groups$20,000-&lt;$30,000
-Black, non-Hispanic                   -0.03658283                   -0.23673974
-Hispanic                               0.04358311                   -0.03585016
-Other                                 -0.02281292                   -0.18530446
-White, non-Hispanic                    0.38007521                    0.19222045
-                    Income_Groups$30,000-&lt;$40,000 Income_Groups$40,000-&lt;$50,000
-Black, non-Hispanic                   -0.13613483                   -0.20284678
-Hispanic                               0.05182832                    0.08838805
-Other                                 -0.34785688                   -0.29448904
-White, non-Hispanic                    0.23206990                    0.22119510
-                    Income_Groups$50,000+ Household_Weight
-Black, non-Hispanic           -0.31976472      0.003301279
-Hispanic                       0.07938986      0.006515713
-Other                         -0.45804428     -0.002312999
-White, non-Hispanic           -0.01174037     -0.011146464
-                    Owner_Renter_StatusRent/Other
-Black, non-Hispanic                    0.51193537
-Hispanic                               0.81309346
-Other                                  0.01399226
-White, non-Hispanic                   -0.80538807
+                                                 Estimate Std. Error t value
+(Intercept)                                      24.97413    0.32726  76.313
+Education_Level2 - High School Diploma           -0.05642    0.15096  -0.374
+Education_Level3 - Some College                  -0.10637    0.16239  -0.655
+Education_Level4 - Associate's                   -0.30700    0.18518  -1.658
+Education_Level5 - Bachelor's                     0.14986    0.16799   0.892
+Education_Level6 - Graduate Degree               -0.44382    0.17398  -2.551
+Race_EthnicityBlack, non-Hispanic                 3.67498    0.23357  15.734
+Race_EthnicityHispanic                            6.67351    0.23580  28.301
+Race_EthnicityOther                               0.62962    0.37247   1.690
+Race_EthnicityWhite, non-Hispanic                -1.54112    0.20191  -7.633
+Income_Groups$10,000-&lt;$20,000                    -0.36185    0.20192  -1.792
+Income_Groups$20,000-&lt;$30,000                    -0.22285    0.20511  -1.087
+Income_Groups$30,000-&lt;$40,000                     0.68888    0.20948   3.289
+Income_Groups$40,000-&lt;$50,000                    -0.25564    0.21584  -1.184
+Income_Groups$50,000+                             0.49253    0.18013   2.734
+Economic_Development_RegionCentral New York      -4.13477    0.22602 -18.294
+Economic_Development_RegionFinger Lakes          -2.41399    0.22120 -10.913
+Economic_Development_RegionLong Island            4.27167    0.21758  19.633
+Economic_Development_RegionMid-Hudson             3.14474    0.21838  14.400
+Economic_Development_RegionMohawk Valley         -6.46534    0.21178 -30.529
+Economic_Development_RegionNew York City          4.54950    0.19702  23.092
+Economic_Development_RegionNorth Country         -7.52647    0.23316 -32.281
+Economic_Development_RegionSouthern Tier         -5.37256    0.20664 -26.000
+Economic_Development_RegionWestern New York      -2.35784    0.22488 -10.485
+Owner_Renter_StatusRent/Other                     8.14099    0.10433  78.029
+Household_TypeElderly(60+) Individual             1.16832    0.13652   8.558
+Household_TypeOlder(40-59) with children          3.98667    0.13000  30.667
+Household_TypeOlder(40-59) with no children       3.76672    0.11700  32.193
+Household_TypeYounger(Up to 40) with children     5.47273    0.16109  33.974
+Household_TypeYounger(Up to 40) with no children  6.11328    0.16615  36.793
+                                                 Pr(&gt;|t|)    
+(Intercept)                                       &lt; 2e-16 ***
+Education_Level2 - High School Diploma            0.70860    
+Education_Level3 - Some College                   0.51245    
+Education_Level4 - Associate's                    0.09736 .  
+Education_Level5 - Bachelor's                     0.37236    
+Education_Level6 - Graduate Degree                0.01074 *  
+Race_EthnicityBlack, non-Hispanic                 &lt; 2e-16 ***
+Race_EthnicityHispanic                            &lt; 2e-16 ***
+Race_EthnicityOther                               0.09096 .  
+Race_EthnicityWhite, non-Hispanic                 2.3e-14 ***
+Income_Groups$10,000-&lt;$20,000                     0.07313 .  
+Income_Groups$20,000-&lt;$30,000                     0.27725    
+Income_Groups$30,000-&lt;$40,000                     0.00101 ** 
+Income_Groups$40,000-&lt;$50,000                     0.23627    
+Income_Groups$50,000+                             0.00625 ** 
+Economic_Development_RegionCentral New York       &lt; 2e-16 ***
+Economic_Development_RegionFinger Lakes           &lt; 2e-16 ***
+Economic_Development_RegionLong Island            &lt; 2e-16 ***
+Economic_Development_RegionMid-Hudson             &lt; 2e-16 ***
+Economic_Development_RegionMohawk Valley          &lt; 2e-16 ***
+Economic_Development_RegionNew York City          &lt; 2e-16 ***
+Economic_Development_RegionNorth Country          &lt; 2e-16 ***
+Economic_Development_RegionSouthern Tier          &lt; 2e-16 ***
+Economic_Development_RegionWestern New York       &lt; 2e-16 ***
+Owner_Renter_StatusRent/Other                     &lt; 2e-16 ***
+Household_TypeElderly(60+) Individual             &lt; 2e-16 ***
+Household_TypeOlder(40-59) with children          &lt; 2e-16 ***
+Household_TypeOlder(40-59) with no children       &lt; 2e-16 ***
+Household_TypeYounger(Up to 40) with children     &lt; 2e-16 ***
+Household_TypeYounger(Up to 40) with no children  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Std. Errors:
-                    (Intercept) Education_Level2 - High School Diploma
-Black, non-Hispanic  0.04385461                             0.03550242
-Hispanic             0.04340332                             0.03445201
-Other                0.07028943                             0.05766721
-White, non-Hispanic  0.03830676                             0.03093198
-                    Education_Level3 - Some College
-Black, non-Hispanic                      0.04033959
-Hispanic                                 0.03959182
-Other                                    0.06178834
-White, non-Hispanic                      0.03589846
-                    Education_Level4 - Associate's
-Black, non-Hispanic                     0.04765358
-Hispanic                                0.04775056
-Other                                   0.07252259
-White, non-Hispanic                     0.04122173
-                    Education_Level5 - Bachelor's
-Black, non-Hispanic                    0.03549016
-Hispanic                               0.03492365
-Other                                  0.06020907
-White, non-Hispanic                    0.02845506
-                    Education_Level6 - Graduate Degree
-Black, non-Hispanic                         0.03790577
-Hispanic                                    0.03855821
-Other                                       0.06506451
-White, non-Hispanic                         0.02980050
-                    Income_Groups$10,000-&lt;$20,000 Income_Groups$20,000-&lt;$30,000
-Black, non-Hispanic                    0.04744883                    0.04830338
-Hispanic                               0.04769155                    0.04853022
-Other                                  0.07145314                    0.07299604
-White, non-Hispanic                    0.04278204                    0.04285026
-                    Income_Groups$30,000-&lt;$40,000 Income_Groups$40,000-&lt;$50,000
-Black, non-Hispanic                    0.05008570                    0.05230632
-Hispanic                               0.05065684                    0.05270842
-Other                                  0.07836310                    0.08048362
-White, non-Hispanic                    0.04442535                    0.04577317
-                    Income_Groups$50,000+ Household_Weight
-Black, non-Hispanic            0.03963636     0.0003592393
-Hispanic                       0.04004772     0.0003526973
-Other                          0.06070335     0.0006308042
-White, non-Hispanic            0.03527613     0.0003237799
-                    Owner_Renter_StatusRent/Other
-Black, non-Hispanic                    0.02260577
-Hispanic                               0.02317579
-Other                                  0.03592528
-White, non-Hispanic                    0.01870698
-
-Residual Deviance: 467210.3 
-AIC: 467314.3 </code></pre>
+Residual standard error: 22.6 on 310808 degrees of freedom
+Multiple R-squared:  0.1282,    Adjusted R-squared:  0.1281 
+F-statistic:  1576 on 29 and 310808 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<p>Model 4: Multinomial logistic regression with Income disparity across Education, Household Weight, and Race Ethnicity</p>
+<p>This model illustrates that higher income groups generally have higher household weights, with the $50,000+ income category showing a significant positive relationship. Also, different regions show different impacts on household weight, with some regions like “New York City” showing a positive association, whereas regions like “Central New York” have a negative association. This suggests regional disparities in economic conditions, demographic compositions, or living conditions. Additionally, with significant positive coefficient for Black, non-Hispanic, this group has a notably higher household weight compared to White, non-Hispanic, suggesting a demographic trend or characteristic prevalent within this group that increases the household weight. Higher education levels (Associate’s degree and above), however, are associated with lower household weight.</p>
+</section>
+<section id="model-2-multinomial-logistic-regression-with-income-disparity-across-education-household-weight-and-race-ethnicity" class="level3">
+<h3 class="anchored" data-anchor-id="model-2-multinomial-logistic-regression-with-income-disparity-across-education-household-weight-and-race-ethnicity"><strong>Model 2: Multinomial logistic regression with Income disparity across Education, Household Weight, and Race Ethnicity</strong></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>cleaned_dataset_path_rds <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"dataset"</span>, <span class="st">"cleaned_NYSERDA_LMI_Census_2013-2015.rds"</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>clean_data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(cleaned_dataset_path_rds)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span>OwnerStatue<span class="ot">&lt;-</span><span class="fu">ifelse</span>(clean_data<span class="sc">$</span><span class="st">"Owner_Renter_Status"</span><span class="sc">==</span><span class="st">"Own"</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Numeric</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">case_when</span>(</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$0 to &lt;$10,000"</span> <span class="sc">~</span> <span class="dv">5</span>,</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$10,000-&lt;$20,000"</span> <span class="sc">~</span> <span class="dv">15</span>,</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$20,000-&lt;$30,000"</span> <span class="sc">~</span> <span class="dv">25</span>,</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$30,000-&lt;$40,000"</span> <span class="sc">~</span> <span class="dv">35</span>,</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$40,000-&lt;$50,000"</span> <span class="sc">~</span> <span class="dv">45</span>,</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  clean_data<span class="sc">$</span><span class="st">`</span><span class="at">Income_Groups</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"$50,000+"</span> <span class="sc">~</span> <span class="dv">55</span>,</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_real_</span>)</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Model fitting </span></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>multinom_model <span class="ot">&lt;-</span> <span class="fu">multinom</span>(Income_Groups <span class="sc">~</span> Education_Level <span class="sc">+</span> Household_Weight <span class="sc">+</span> Race_Ethnicity, <span class="at">data =</span> clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># weights:  72 (55 variable)
 initial  value 556946.929899 
@@ -655,7 +370,6 @@ iter  70 value 406690.904482
 final  value 406689.281147 
 converged</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(multinom_model) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Call:
 multinom(formula = Income_Groups ~ Education_Level + Household_Weight + 
@@ -741,12 +455,11 @@ Residual Deviance: 813378.6
 AIC: 813488.6 </code></pre>
 </div>
 </div>
-<p>Comment: These coefficients reflect the estimated effects of various demographic and educational factors on income distribution within your dataset. Positive coefficients indicate a higher likelihood of being in the respective income bracket relative to the highest income bracket for that predictor level, while negative coefficients indicate a lower likelihood.</p>
-<p>Education appears to have a strong influence, with higher levels of education generally increasing income level. Race/ethnicity also shows significant differences in income distribution, reflecting socioeconomic disparities.</p>
-<p>Household Weight The coefficients are very small and negative across all income brackets, suggesting a slight decrease in the likelihood of being in higher income brackets with an increase in household weight, though the effect appears to be very minimal.</p>
-<p>Using Anova to get pvalue for the statistical significant for each coefficient</p>
+<p>According to the above result, there is a strong positive relationship between having a graduate degree and being in the highest income. Education and race/ethnicity are significant predictors of income category, with education showing a particularly strong gradient effect. Differences in income distribution are also evident across different racial/ethnic groups. For example, In general, the coefficients for Black, non-Hispanic individuals are negative across most income categories compared to the White, non-Hispanic reference group, suggesting lower odds of being in higher income group. For Hispanic, it also tends to be negative across higher income group, showing a pattern similar to the Black, non-Hispanic group but with varying degrees</p>
+</section>
+<section id="using-anova-to-get-p-value-for-the-statistical-significant-for-each-coefficient" class="level3">
+<h3 class="anchored" data-anchor-id="using-anova-to-get-p-value-for-the-statistical-significant-for-each-coefficient"><strong>Using Anova to get p-value for the statistical significant for each coefficient</strong></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: carData</code></pre>
 </div>
@@ -764,8 +477,6 @@ Attaching package: 'car'</code></pre>
 
     recode</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>anova_results <span class="ot">&lt;-</span> <span class="fu">Anova</span>(multinom_model)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(anova_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Deviance Table (Type II tests)
 
@@ -778,201 +489,32 @@ Race_Ethnicity       2140 20  &lt; 2.2e-16 ***
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>Comment: The output from the ANOVA suggests that all the predictors in your multinomial logistic regression model—Education Level, Household Weight, and Race/Ethnicity—are highly statistically significant in predicting the different income groups. Specifically, Education Level has a particularly strong influence on income group classification, as indicated by a very high likelihood ratio chi-square statistic (LR Chisq) of 44277 with 25 degrees of freedom and a p-value less than 0.0001. Similarly, Race/Ethnicity shows substantial influence with an LR Chisq of 2140 and a p-value less than 0.0001, and Household Weight also proves significant with an LR Chisq of 257. These results underscore the strong effects of educational attainment and racial/ethnic background on income distribution, as well as the more modest but significant role of household demographics, confirming the importance of these factors in socioeconomic studies.</p>
-<p>95% Confidence Interval on Coefficients on each variable</p>
+<p>The output from the ANOVA suggests that all the predictors in multinomial logistic regression Education Level, Household Weight, and Race/Ethnicity—are highly statistically significant in predicting the different income groups. Education Level has a particularly strong influence on income group classification, as indicated by a very high likelihood ratio chi-square statistic (LR Chisq) of 44277 with 25 degrees of freedom and a p-value less than 0.0001. Race/Ethnicity shows substantial influence with an LR Chisq of 2140 and a p-value less than 0.0001, and Household Weight also proves significant with an LR Chisq of 257.</p>
+</section>
+</section>
+<section id="predictions" class="level2">
+<h2 class="anchored" data-anchor-id="predictions">Predictions</h2>
+<section id="visualize-of-coefidence-intervals-for-education-on-income" class="level3">
+<h3 class="anchored" data-anchor-id="visualize-of-coefidence-intervals-for-education-on-income"><strong>Visualize of Coefidence Intervals for Education on Income</strong></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get model coefficients and standard errors</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>coef_matrix <span class="ot">&lt;-</span> <span class="fu">summary</span>(multinom_model)<span class="sc">$</span>coefficients</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>se_matrix <span class="ot">&lt;-</span> <span class="fu">summary</span>(multinom_model)<span class="sc">$</span>standard.errors</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate lower and upper bounds of the 95% confidence intervals</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>ci_lower <span class="ot">&lt;-</span> coef_matrix <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se_matrix</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>ci_upper <span class="ot">&lt;-</span> coef_matrix <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_matrix</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co">#extrac outcome group </span></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>predictors <span class="ot">=</span> <span class="fu">colnames</span>(coef_matrix)</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>outcome_groups <span class="ot">=</span> <span class="fu">rownames</span>(coef_matrix)</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize an empty data frame to hold detailed CI data</span></span>
-<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>detailed_ci_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
-<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through each outcome group to append data</span></span>
-<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(coef_matrix)) {</span>
-<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>  temp_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Outcome_Group =</span> outcome_groups[i],</span>
-<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Predictor =</span> predictors,</span>
-<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">Estimate =</span> coef_matrix[i, ],</span>
-<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">CI_Lower =</span> ci_lower[i, ],</span>
-<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">CI_Upper =</span> ci_upper[i, ]</span>
-<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>  detailed_ci_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(detailed_ci_data, temp_data)</span>
-<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(detailed_ci_data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Outcome_Group"</span>, <span class="st">"Predictor"</span>, <span class="st">"Estimate"</span>, <span class="st">"CI Lower"</span>, <span class="st">"CI Upper"</span>)</span>
-<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> detailed_ci_data[</span>
-<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>  detailed_ci_data<span class="sc">$</span>Outcome_Group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"$50,000+"</span>,</span>
-<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"$40,000-&lt;$50,000"</span>,</span>
-<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"$30,000-&lt;$40,000"</span>,</span>
-<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"$20,000-&lt;$30,000"</span>,</span>
-<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"$10,000-&lt;$20,000"</span>,</span>
-<span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a>                                        <span class="st">"$0 to &lt;$10,000"</span>) <span class="sc">&amp;</span> </span>
-<span id="cb33-35"><a href="#cb33-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">"Education_Level"</span>, detailed_ci_data<span class="sc">$</span>Predictor), ]</span>
-<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(filtered_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                                           Outcome_Group
-Education_Level2 - High School Diploma  $10,000-&lt;$20,000
-Education_Level3 - Some College         $10,000-&lt;$20,000
-Education_Level4 - Associate's          $10,000-&lt;$20,000
-Education_Level5 - Bachelor's           $10,000-&lt;$20,000
-Education_Level6 - Graduate Degree      $10,000-&lt;$20,000
-Education_Level2 - High School Diploma1 $20,000-&lt;$30,000
-Education_Level3 - Some College1        $20,000-&lt;$30,000
-Education_Level4 - Associate's1         $20,000-&lt;$30,000
-Education_Level5 - Bachelor's1          $20,000-&lt;$30,000
-Education_Level6 - Graduate Degree1     $20,000-&lt;$30,000
-Education_Level2 - High School Diploma2 $30,000-&lt;$40,000
-Education_Level3 - Some College2        $30,000-&lt;$40,000
-Education_Level4 - Associate's2         $30,000-&lt;$40,000
-Education_Level5 - Bachelor's2          $30,000-&lt;$40,000
-Education_Level6 - Graduate Degree2     $30,000-&lt;$40,000
-Education_Level2 - High School Diploma3 $40,000-&lt;$50,000
-Education_Level3 - Some College3        $40,000-&lt;$50,000
-Education_Level4 - Associate's3         $40,000-&lt;$50,000
-Education_Level5 - Bachelor's3          $40,000-&lt;$50,000
-Education_Level6 - Graduate Degree3     $40,000-&lt;$50,000
-Education_Level2 - High School Diploma4         $50,000+
-Education_Level3 - Some College4                $50,000+
-Education_Level4 - Associate's4                 $50,000+
-Education_Level5 - Bachelor's4                  $50,000+
-Education_Level6 - Graduate Degree4             $50,000+
-                                                                     Predictor
-Education_Level2 - High School Diploma  Education_Level2 - High School Diploma
-Education_Level3 - Some College                Education_Level3 - Some College
-Education_Level4 - Associate's                  Education_Level4 - Associate's
-Education_Level5 - Bachelor's                    Education_Level5 - Bachelor's
-Education_Level6 - Graduate Degree          Education_Level6 - Graduate Degree
-Education_Level2 - High School Diploma1 Education_Level2 - High School Diploma
-Education_Level3 - Some College1               Education_Level3 - Some College
-Education_Level4 - Associate's1                 Education_Level4 - Associate's
-Education_Level5 - Bachelor's1                   Education_Level5 - Bachelor's
-Education_Level6 - Graduate Degree1         Education_Level6 - Graduate Degree
-Education_Level2 - High School Diploma2 Education_Level2 - High School Diploma
-Education_Level3 - Some College2               Education_Level3 - Some College
-Education_Level4 - Associate's2                 Education_Level4 - Associate's
-Education_Level5 - Bachelor's2                   Education_Level5 - Bachelor's
-Education_Level6 - Graduate Degree2         Education_Level6 - Graduate Degree
-Education_Level2 - High School Diploma3 Education_Level2 - High School Diploma
-Education_Level3 - Some College3               Education_Level3 - Some College
-Education_Level4 - Associate's3                 Education_Level4 - Associate's
-Education_Level5 - Bachelor's3                   Education_Level5 - Bachelor's
-Education_Level6 - Graduate Degree3         Education_Level6 - Graduate Degree
-Education_Level2 - High School Diploma4 Education_Level2 - High School Diploma
-Education_Level3 - Some College4               Education_Level3 - Some College
-Education_Level4 - Associate's4                 Education_Level4 - Associate's
-Education_Level5 - Bachelor's4                   Education_Level5 - Bachelor's
-Education_Level6 - Graduate Degree4         Education_Level6 - Graduate Degree
-                                           Estimate    CI Lower    CI Upper
-Education_Level2 - High School Diploma   0.16755980  0.12066659  0.21445300
-Education_Level3 - Some College         -0.01431515 -0.06849070  0.03986041
-Education_Level4 - Associate's          -0.01698338 -0.09318375  0.05921699
-Education_Level5 - Bachelor's           -0.24784289 -0.31529939 -0.18038638
-Education_Level6 - Graduate Degree      -0.23697547 -0.32309705 -0.15085389
-Education_Level2 - High School Diploma1  0.49915781  0.44940335  0.54891227
-Education_Level3 - Some College1         0.41785261  0.36155481  0.47415042
-Education_Level4 - Associate's1          0.59777409  0.52225874  0.67328943
-Education_Level5 - Bachelor's1           0.34012994  0.27279489  0.40746499
-Education_Level6 - Graduate Degree1      0.35231275  0.26771566  0.43690983
-Education_Level2 - High School Diploma2  0.69123407  0.63821587  0.74425227
-Education_Level3 - Some College2         0.71147581  0.65253250  0.77041912
-Education_Level4 - Associate's2          1.02226414  0.94582405  1.09870422
-Education_Level5 - Bachelor's2           0.78795171  0.71958666  0.85631676
-Education_Level6 - Graduate Degree2      0.81830862  0.73386618  0.90275106
-Education_Level2 - High School Diploma3  0.80495896  0.74787890  0.86203902
-Education_Level3 - Some College3         0.90884445  0.84628304  0.97140585
-Education_Level4 - Associate's3          1.22852616  1.14899837  1.30805395
-Education_Level5 - Bachelor's3           1.11566749  1.04486896  1.18646602
-Education_Level6 - Graduate Degree3      1.27707524  1.19219402  1.36195646
-Education_Level2 - High School Diploma4  1.11699086  1.07312575  1.16085598
-Education_Level3 - Some College4         1.47288625  1.42445018  1.52132231
-Education_Level4 - Associate's4          2.07010428  2.00570414  2.13450443
-Education_Level5 - Bachelor's4           2.39509438  2.33957167  2.45061708
-Education_Level6 - Graduate Degree4      2.98160370  2.91320325  3.05000414</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform the merge</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> filtered_data <span class="sc">%&gt;%</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Income_Groups =</span> Outcome_Group)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> <span class="fu">merge</span>(filtered_data, clean_data[<span class="fu">c</span>(<span class="st">"Income_Groups"</span>, <span class="st">"Race_Ethnicity"</span>)], <span class="at">by =</span> <span class="st">"Income_Groups"</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure 'Race_Ethnicity' is a factor if it's intended to be used as a color differentiator</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>filtered_data<span class="sc">$</span>Race_Ethnicity <span class="ot">&lt;-</span> <span class="fu">factor</span>(filtered_data<span class="sc">$</span>Race_Ethnicity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Education Levels High School Diploma (Education_Level2): Positive coefficients across lower income brackets, suggesting that having a high school diploma, relative to having less than a high school education, increases the likelihood of being in these lower income brackets compared to the highest income bracket. The coefficient decreases as the income bracket increases.</p>
-<p>Some College (Education_Level3): A mix of negative and positive coefficients across income brackets, suggesting a variable effect but generally showing a similar pattern to having a high school diploma. Coefficients are generally smaller than those for high school education.</p>
-<p>Associate’s Degree (Education_Level4): Increasing positive coefficients across higher income brackets, indicating that having an Associate’s degree increases the likelihood of being in these higher income brackets relative to the highest income bracket.</p>
-<p>Bachelor’s Education (Education_Level5): Negative coefficients in lower income brackets and positive in higher, particularly strong in the highest income brackets, suggesting that a Bachelor’s degree significantly increases the likelihood of being in higher income brackets.</p>
-<p>Graduate Degree (Education_Level6): Strong positive coefficients as income increases, indicating a very strong likelihood of being in higher income brackets with a graduate degree. Race/Ethnicity</p>
-<p>Visualize of Coefidence Intervals for Education on Income</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot coef interval #Graph not print</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(filtered_data, <span class="fu">aes</span>(<span class="at">x =</span> Predictor, <span class="at">y =</span> Estimate, <span class="at">ymin =</span> <span class="st">`</span><span class="at">CI Lower</span><span class="st">`</span>, <span class="at">ymax =</span> <span class="st">`</span><span class="at">CI Upper</span><span class="st">`</span>,<span class="at">color=</span>Race_Ethnicity)) <span class="sc">+</span> </span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>() <span class="sc">+</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Income_Groups) <span class="sc">+</span></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Confidence Intervals for Model Coefficients"</span>, <span class="at">x =</span> <span class="st">"Predictor"</span>, <span class="at">y =</span> <span class="st">"Coefficient Estimate"</span>) <span class="sc">+</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Comment: fixed Hispanic: Negative coefficients across almost all income brackets, suggesting that being Hispanic decreases the likelihood of being in higher income brackets relative to the highest income bracket.</p>
-<p>Other Race: Mixed effects, with generally negative coefficients across the income brackets.</p>
-<p>White, non-Hispanic: Positive coefficients in all income brackets, with an increasing trend as income increases, suggesting that being White, non-Hispanic increases the likelihood of being in higher income brackets relative to the highest income bracket.</p>
-<p>Black, non-Hispanic: Negative coefficients in all income brackets, suggesting that being Black, non-Hispanic decreases the likelihood of being in higher income brackets relative to the highest income bracket.</p>
-<p>Impact of Household Weights on Income</p>
+<p>White, non-Hispanic with the positive coefficients in all income groups and an increasing trend as income increases suggest that being White, non-Hispanic increases the likelihood of being in higher income groups relative to the highest income group. For Hispanic, Other, and Black, non-Hispanic, with generally negative coefficients across income groups, demonstrating the decrease in the likelihood of being in higher income brackets relative to the highest income bracket.</p>
+</section>
+<section id="impact-of-household-weights-on-income" class="level3">
+<h3 class="anchored" data-anchor-id="impact-of-household-weights-on-income"><strong>Impact of Household Weights on Income</strong></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a sequence of household weights for predictions[ ok ]</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>weight_range <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(clean_data<span class="sc">$</span>Household_Weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">max</span>(clean_data<span class="sc">$</span>Household_Weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">length.out =</span> <span class="dv">100</span>)</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create pred_data ensuring OwnerStatue remains numeric</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>pred_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Household_Weight =</span> weight_range,</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Education_Level =</span> <span class="fu">levels</span>(clean_data<span class="sc">$</span>Education_Level)[<span class="dv">1</span>],</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">OwnerStatue =</span> <span class="dv">0</span>,  <span class="co"># Explicitly set as numeric zero</span></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Race_Ethnicity =</span> <span class="fu">levels</span>(clean_data<span class="sc">$</span>Race_Ethnicity)[<span class="dv">1</span>]</span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure that factors are correctly set, particularly for OwnerStatue [ok]</span></span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>pred_data<span class="sc">$</span>Education_Level <span class="ot">&lt;-</span> <span class="fu">factor</span>(pred_data<span class="sc">$</span>Education_Level, <span class="at">levels =</span> <span class="fu">levels</span>(clean_data<span class="sc">$</span>Education_Level))</span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>pred_data<span class="sc">$</span>OwnerStatue <span class="ot">&lt;-</span> <span class="fu">factor</span>(pred_data<span class="sc">$</span>OwnerStatue, <span class="at">levels =</span> <span class="fu">levels</span>(clean_data<span class="sc">$</span>OwnerStatue))  <span class="co"># Ensuring it's a factor</span></span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, use the pred_data for prediction[ok]</span></span>
-<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>predicted_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(multinom_model, <span class="at">newdata =</span> pred_data, <span class="at">type =</span> <span class="st">"probs"</span>) </span>
-<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>prob_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(predicted_probs)</span>
-<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>prob_data<span class="sc">$</span>Household_Weight <span class="ot">&lt;-</span> weight_range  <span class="co"># Add Household_Weight to the data frame for plotting</span></span>
-<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the data frame to long format for easier plotting with ggplot2 [ok]</span></span>
-<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>prob_data_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(prob_data, </span>
-<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>                               <span class="at">cols =</span> <span class="sc">-</span>Household_Weight, </span>
-<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>                               <span class="at">names_to =</span> <span class="st">"Income_Group"</span>, </span>
-<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a>                               <span class="at">values_to =</span> <span class="st">"Probability"</span>)</span>
-<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting [ok]: casual relationship establised</span></span>
-<span id="cb37-29"><a href="#cb37-29" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(prob_data_long, <span class="fu">aes</span>(<span class="at">x =</span> Household_Weight, <span class="at">y =</span> Probability, <span class="at">color =</span> Income_Group)) <span class="sc">+</span></span>
-<span id="cb37-30"><a href="#cb37-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb37-31"><a href="#cb37-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Predicted Probability of Income Groups by Household Weight"</span>,</span>
-<span id="cb37-32"><a href="#cb37-32" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Household Weight"</span>, <span class="at">y =</span> <span class="st">"Probability"</span>) <span class="sc">+</span></span>
-<span id="cb37-33"><a href="#cb37-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Comment: The graph depicting the predicted probability of income groups by household weight reveals distinct trends across different income brackets. The probability of being in the lowest income group ($0 to &lt;$10,000) increases significantly as household weight increases, suggesting that larger household sizes may be associated with lower incomes. Conversely, the probability of being in the highest income bracket ($50,000+) decreases as household weight increases. For the middle income groups, from $10,000 to &lt;$50,000, there is a relatively steady decrease in probability with increasing household weight, though the magnitude of change is less pronounced than in the lowest and highest income groups. This visual representation indicates a clear negative association between household weight and higher income levels, supporting the interpretation that larger households tend to have lower per capita incomes.</p>
-<p>Multinomial regression on the impact of Education Level, Race Ethnicity on Income Group</p>
+<p>The graph depicting the predicted probability of income groups by household weight reveals distinct trends across different income brackets. The probability of being in the lowest income group ($0 to &lt;$10,000) increases significantly as household weight increases, suggesting that larger household sizes may be associated with lower incomes. Conversely, the probability of being in the highest income bracket ($50,000+) decreases as household weight increases. For the middle income groups, from $10,000 to &lt;$50,000, there is a relatively steady decrease in probability with increasing household weight, though the magnitude of change is less pronounced than in the lowest and highest income groups. This visual representation indicates a clear negative association between household weight and higher income levels, supporting the interpretation that larger households tend to have lower per capita incomes.</p>
+</section>
+<section id="multinomial-regression-on-the-impact-of-education-level-race-ethnicity-on-income-group" class="level3">
+<h3 class="anchored" data-anchor-id="multinomial-regression-on-the-impact-of-education-level-race-ethnicity-on-income-group"><strong>Multinomial regression on the impact of Education Level, Race Ethnicity on Income Group</strong></h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nnet)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>multinom_model <span class="ot">&lt;-</span> <span class="fu">multinom</span>(Income_Groups <span class="sc">~</span> Education_Level <span class="sc">+</span> Race_Ethnicity, <span class="at">data =</span> clean_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># weights:  66 (50 variable)
 initial  value 556946.929899 
@@ -985,37 +527,17 @@ iter  60 value 406832.529532
 final  value 406817.787210 
 converged</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prediction grid based on unique levels of Education and Race</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>pred_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Education_Level =</span> <span class="fu">levels</span>(clean_data<span class="sc">$</span>Education_Level),</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Race_Ethnicity =</span> <span class="fu">levels</span>(clean_data<span class="sc">$</span>Race_Ethnicity)</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict probabilities for each combination</span></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>predicted_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(multinom_model, <span class="at">newdata =</span> pred_grid, <span class="at">type =</span> <span class="st">"probs"</span>)</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>prob_data <span class="ot">&lt;-</span> <span class="fu">cbind</span>(pred_grid, <span class="fu">as.data.frame</span>(predicted_probs))</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming predicted probabilities columns are named directly as income groups</span></span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>prob_data_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(prob_data, </span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>                               <span class="at">cols =</span> <span class="sc">-</span><span class="fu">c</span>(Education_Level, Race_Ethnicity),  <span class="co"># excluding predictor columns</span></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>                               <span class="at">names_to =</span> <span class="st">"Income_Group"</span>, </span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>                               <span class="at">values_to =</span> <span class="st">"Probability"</span>)</span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(prob_data_long, <span class="fu">aes</span>(<span class="at">x =</span> Education_Level, <span class="at">y =</span> Probability, <span class="at">group =</span> Race_Ethnicity, <span class="at">color =</span> Race_Ethnicity)) <span class="sc">+</span></span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span>  <span class="co"># Use points to represent the probabilities</span></span>
-<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span>   <span class="co"># Connect the points with lines</span></span>
-<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Income_Group) <span class="sc">+</span></span>
-<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Predicted Probability of Income Groups by Education Level and Race"</span>,</span>
-<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Education Level"</span>, <span class="at">y =</span> <span class="st">"Probability"</span>) <span class="sc">+</span></span>
-<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">levels</span>(prob_data_long<span class="sc">$</span>Education_Level)) <span class="sc">+</span> <span class="co"># Ensure the education levels are in order</span></span>
-<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))  <span class="co"># To prevent overlapping text on x-axis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Comment: The graph displaying the predicted probability of income groups by education level and race reveals significant racial disparities in economic outcomes. Notably, the probability of being in the highest income bracket ($50,000+) clearly increases with higher education levels for all racial groups, but the slope is steeper and higher for White, non-Hispanic individuals compared to other racial groups, indicating a greater likelihood of reaching higher income levels with increased education. In contrast, Black, Hispanic, and Other racial groups show consistently lower probabilities of being in this income bracket, even at higher educational levels, suggesting systemic barriers or disparities in the conversion of educational attainment into economic success. This visualization underscores the complex interplay of race, education, and income, highlighting persistent inequality in economic opportunities across different racial and ethnic groups.</p>
+<p>The graph displaying the predicted probability of income groups by education level and race reveals significant racial disparities in economic outcomes. Notably, the probability of being in the highest income bracket ($50,000+) clearly increases with higher education levels for all racial groups, but the slope is steeper and higher for White, non-Hispanic individuals compared to other racial groups, indicating a greater likelihood of reaching higher income levels with increased education. In contrast, Black, Hispanic, and Other racial groups show consistently lower probabilities of being in this income bracket, even at higher educational levels, suggesting systemic barriers or disparities in the conversion of educational attainment into economic success. This visualization underscores the complex interplay of race, education, and income, highlighting persistent inequality in economic opportunities across different racial and ethnic groups.</p>
+</section>
+</section>
+<section id="flaws-and-limitations" class="level2">
+<h2 class="anchored" data-anchor-id="flaws-and-limitations">Flaws and Limitations</h2>
+<p>Our analysis do highlight some important disparities across race, economic regions, household, and the impact of education and income levels. The varied impact across these predictors underscores the complexity of factors that suggests areas where policy might focus, particularly in addressing regional disparities and supporting different household types.</p>
+<p>Nevertheless, there are limitations in our work on modeling. Our prediction on the relationship between household weight and higher incomes shows a straightforward trend, but this could be affected by outliers or non-linear factors not apparent in a linear model. Also, the relatively low R-squared value in our initial linear model may suggest additional variables and perhaps more complex models could be considered to better capture the underlying aspects affecting Household Weight. In the future, we plan to collect more data, add more features such as age, sex, geographical location, industry of employment, etc. and advance our models to provide more insights into the relationships among Household Weight, Income, Education, and Race.</p>
 
 
 </section>

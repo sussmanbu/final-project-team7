@@ -114,13 +114,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#rubric-on-this-page" id="toc-rubric-on-this-page" class="nav-link active" data-scroll-target="#rubric-on-this-page">Rubric: On this page</a></li>
-  <li><a href="#rubric-other-components" id="toc-rubric-other-components" class="nav-link" data-scroll-target="#rubric-other-components">Rubric: Other components</a>
-  <ul class="collapse">
-  <li><a href="#interactive" id="toc-interactive" class="nav-link" data-scroll-target="#interactive">Interactive</a></li>
-  <li><a href="#video-recording" id="toc-video-recording" class="nav-link" data-scroll-target="#video-recording">Video Recording</a></li>
-  <li><a href="#rest-of-the-site" id="toc-rest-of-the-site" class="nav-link" data-scroll-target="#rest-of-the-site">Rest of the Site</a></li>
-  </ul></li>
+  <li><a href="#thesis" id="toc-thesis" class="nav-link active" data-scroll-target="#thesis">Thesis</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
   </ul>
 </nav>
     </div>
@@ -149,50 +144,48 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><img src="images/The_Big_Picture_2.jpeg" class="img-fluid"></p>
-<p>This comes from the file <code>big_picture.Rmd</code>.</p>
-<p>Think of this page as your 538/Upshot style article. This means that you should try to tell a story through the data and your analysis. Read articles from those sites and similar sites to get a feeling for what they are like. Try to write in the style of a news or popular article. Importantly, this pge should be geared towards the general public. You shouldn’t assume the reader understands how to interpret a linear regression. Focus on interpretation and visualizations.</p>
-<hr>
-<section id="rubric-on-this-page" class="level2">
-<h2 class="anchored" data-anchor-id="rubric-on-this-page">Rubric: On this page</h2>
-<p>You will</p>
-<ul>
-<li>Title
-<ul>
-<li>Your big picture page should have a creative/click-bait-y title/headline that provides a hint about your thesis.</li>
-</ul></li>
-<li>Clarity of Explanation
-<ul>
-<li>You should have a clear thesis/goal for this page. What are you trying to show? Make sure that you explain your analysis in detail but don’t go into top much mathematics or statistics. The audience for this page is the general public (to the extent possible). Your thesis should be a statement, not a question.</li>
-<li>Each figure should be very polished and also not too complicated. There should be a clear interpretation of the figure so the figure has a clear purpose. Even something like a histogram can be difficult to interpret for non-experts.</li>
-</ul></li>
-<li>Creativity
-<ul>
-<li>Do your best to make things interesting. Think of a story. Think of how each part of your analysis supports the previous part or provides a different perspective.</li>
-</ul></li>
-<li>This page should be self-contained.</li>
-</ul>
-<p><strong>Note</strong>: This page should have no code visible, i.e.&nbsp;use <code>#| echo: FALSE</code>.</p>
-<hr>
+<p><img src="images/big_picture_image.png" class="img-fluid" width="400"></p>
+<section id="thesis" class="level2">
+<h2 class="anchored" data-anchor-id="thesis">Thesis</h2>
+<p>Our study looks into racial disparities in the New York state and we found that racial disparities existed at income, education, and geographically across in each county in the state.</p>
 </section>
-<section id="rubric-other-components" class="level2">
-<h2 class="anchored" data-anchor-id="rubric-other-components">Rubric: Other components</h2>
-<section id="interactive" class="level3">
-<h3 class="anchored" data-anchor-id="interactive">Interactive</h3>
-<p>You will also be required to make an interactive dashboard like <a href="./flex/flex.html">this one</a>.</p>
-<p>Your Big Data page should include a link to an interactive dashboard. The dashboard should be created either using Shiny or FlexDashboard (or another tool with professor’s approval). This interactive component should in some way support your thesis from your big picture page. Good interactives often provide both high-level understanding of the data while allowing a user to investigate specific scenarios, observations, subgroups, etc.</p>
-<ul>
-<li>Quality and ease of use of the interactive components. Is it clear what can be explored using your interactive components? Does it enhance and reinforce your conclusions from the Big Picture? Plotly with default hover text will get no credit. Be creative!</li>
-</ul>
+<section id="analysis" class="level2">
+<h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
+<section id="household-weight-proportions-by-income-groups-in-each-raceethnicity" class="level4">
+<h4 class="anchored" data-anchor-id="household-weight-proportions-by-income-groups-in-each-raceethnicity">Household Weight proportions by Income groups in each Race/Ethnicity</h4>
+<p><img src="images/Household weight.png" class="img-fluid"></p>
+<p>This graph shows that education levels vary among races. As we can observe here, Asian and White race has the highest education attainment while Black and Hispanic families shared a much lower education attainment level.</p>
 </section>
-<section id="video-recording" class="level3">
-<h3 class="anchored" data-anchor-id="video-recording">Video Recording</h3>
-<p>Make a video recording (probably using Zoom) demonstrating your interactive components. You should provide a quick explanation of your data and demonstrate some of the conclusions from your EDA. This video should be no longer than 4 minutes. Include a link to your video (and password if needed) in your README.md file on your Github repository. You are not required to provide a link on the website. This can be presented by any subset of the team members.</p>
+<section id="racial-disparities-on-education-levels-impact-on-education" class="level4">
+<h4 class="anchored" data-anchor-id="racial-disparities-on-education-levels-impact-on-education">Racial disparities on education level’s impact on education</h4>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>here() starts at /Users/vynguyen/Desktop/MA415/final-project-team7</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="big_picture_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We often relate educations attainment with income levels and assume it’s one of the most important indicator of education levels, and a higher education attainment means higher income. However, different races may experience different educational influence in their income. As we can observe in this chart, where each chart shows the different distribution of income levels between different races at a given income level, Black population often exhibit the least proportion of income higher than $50000 compared to its counterpart with the same education level. This graph suggests that racial disparities could contribute to how education influences income level and some races are less beneficial than others in education.</p>
 </section>
-<section id="rest-of-the-site" class="level3">
-<h3 class="anchored" data-anchor-id="rest-of-the-site">Rest of the Site</h3>
-<p>Finally, here are important things to keep in mind for the rest of the site.</p>
-<p>The main title of your page is informative. Each post has an author/description/informative title. All lab required posts are present. Each page (including the home page) has a nice featured image associated with it. Your about page is up to date and clean. You have removed the generic posts from the initial site template.</p>
+<section id="interactive-map" class="level4">
+<h4 class="anchored" data-anchor-id="interactive-map">Interactive Map</h4>
+<p>Now let’s look at the New York State from its map. With all the 62 counties in New York, they different from each others in terms of racial demographics, income level, education levels, and much more.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: sf layer has inconsistent datum (+proj=longlat +datum=NAD83 +no_defs).
+Need '+proj=longlat +datum=WGS84'
+
+Warning: sf layer has inconsistent datum (+proj=longlat +datum=NAD83 +no_defs).
+Need '+proj=longlat +datum=WGS84'
+
+Warning: sf layer has inconsistent datum (+proj=longlat +datum=NAD83 +no_defs).
+Need '+proj=longlat +datum=WGS84'</code></pre>
+</div>
+</div>
+<p>Here in the map, we can observe and identify that certain counties with higher proportion of certain races would have higher or lower income. For example, Manhattan county in the middle of NYC has a significantly higher average wage than other counties. Bronx county just up north Manhattan with higher Black &amp; African American population has much lower income compared other counties in the state. Additionally, the most common education level is High School. However, in counties coming closer to New York City, individuals, mostly other race - not Asian or Black, do have Bachelor or higher degree. This map exposes the racial inequality existed in county level in terms of income and education aspects, also implicating the racial segregation in the New York State.</p>
 
 
 </section>
