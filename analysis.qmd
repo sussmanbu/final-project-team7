@@ -264,7 +264,7 @@ merged_data <- ny_counties_sf %>%
 ```
 
 ```{r echo = FALSE}
-library(scales) 
+suppressPackageStartupMessages(library(scales))
 
 # Color palettes for the maps
 #wage_colors <- scale_fill_brewer(palette = "Pastel1", na.value = "grey50", guide = "legend")

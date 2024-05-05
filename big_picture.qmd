@@ -1,11 +1,11 @@
 ---
-title: "Big Picture"
-description: "A 538/Upshot style article about the data."
+title: "Whites and Asians with Bachelor's or Higher degrees Earn over $50,000 at Higher Rates than Other Races"
+description: "A group of data science student analyzes racial disparities with focus on household composition, income, education level among demographic groups in New York."
 toc: true
 draft: FALSE
 ---
 
-![](images/big_picture_image.png){width="400"}
+![](images/big_picture_image.png){width="800"}
 
 ## Thesis
 
@@ -13,15 +13,15 @@ Our study looks into racial disparities in the New York state and we found that 
 
 ## Analysis
 
-#### Household Weight proportions by Income groups in each Race/Ethnicity
+### Household Weight proportions by Income groups in each Race
 
 ![](images/Household weight.png) 
 
 This graph shows that education levels vary among races. As we can observe here, Asian and White race has the highest education attainment while Black and Hispanic families shared a much lower education attainment level.
 
-#### Racial disparities on education level's impact on education
+### Impact of racial disparities on Education
 
-```{r, echo = FALSE}
+```{r include = FALSE}
 ## Loading Clean Data
 library(here)
 # Set the path to the RDS file
@@ -30,7 +30,7 @@ cleaned_dataset_path_rds <- here("dataset", "cleaned_NYSERDA_LMI_Census_2013-201
 clean_data <- readRDS(cleaned_dataset_path_rds)
 ```
 
-```{r, echo = FALSE}
+```{r echo = FALSE}
 library(ggplot2)
 ggplot(clean_data, aes(x = Race_Ethnicity, fill = Income_Groups)) +
   geom_bar(position = "fill", stat = "count") +
@@ -47,7 +47,7 @@ ggplot(clean_data, aes(x = Race_Ethnicity, fill = Income_Groups)) +
 
 We often relate educations attainment with income levels and assume it's one of the most important indicator of education levels, and a higher education attainment means higher income. However, different races may experience different educational influence in their income. As we can observe in this chart, where each chart shows the different distribution of income levels between different races at a given income level, Black population often exhibit the least proportion of income higher than $50000 compared to its counterpart with the same education level. This graph suggests that racial disparities could contribute to how education influences income level and some races are less beneficial than others in education.
 
-#### Interactive Map
+### Interactive Map
 
 Now let's look at the New York State from its map. With all the 62 counties in New York, they different from each others in terms of racial demographics, income level, education levels, and much more.
 
