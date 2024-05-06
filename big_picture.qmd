@@ -13,7 +13,7 @@ Our study looks into racial disparities in the New York state and we found that 
 
 ## Analysis
 
-### Household Weight proportions by Income groups in each Race
+### Proportions of Income groups in each Race
 
 ![](images/Household%20weight.png)
 
