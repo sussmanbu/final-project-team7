@@ -78,9 +78,9 @@ ggplot(ct_percent_melted, aes(x = Var2, y = Var1, fill = value)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-This percentage-based heatmap offers a nuanced understanding of educational attainment by providing a proportional representation, which allows for a direct comparison of educational levels relative to the size of each racial and ethnic group. For White, non-Hispanic individuals, the percentage of those with less than a high school education is relatively low at 55.1%. In contrast, Asian, non-Hispanics show a remarkable 7.5% holding graduate degrees, which is the highest percentage among all groups for this level of education. 
+This percentage-based heatmap offers a nuanced understanding of educational attainment by providing a proportional representation, which allows for a direct comparison of educational levels relative to the size of each racial and ethnic group. For White, non-Hispanic individuals, the percentage of those with less than a high school education is relatively low at 55.1%. In contrast, Asian, non-Hispanics show a remarkable 7.5% holding graduate degrees, which is the highest percentage among all groups for this level of education.
 
-The statistical implications of these percentages are critical. The data suggests a variance in educational achievement that could be attributed to a range of factors, including economic, social, and cultural influences. The high percentage of White, non-Hispanics with only a high school diploma might reflect cultural issues with higher education, whereas the substantial percentage of graduate degrees among Asian, non-Hispanics could point to a strong cultural emphasis on advanced education. Considering the intertwined relationship between the level of education and income level, this could also suggest why a greater percentage of White people occupy blue collar jobs as compared to Asians. 
+The statistical implications of these percentages are critical. The data suggests a variance in educational achievement that could be attributed to a range of factors, including economic, social, and cultural influences. The high percentage of White, non-Hispanics with only a high school diploma might reflect cultural issues with higher education, whereas the substantial percentage of graduate degrees among Asian, non-Hispanics could point to a strong cultural emphasis on advanced education. Considering the intertwined relationship between the level of education and income level, this could also suggest why a greater percentage of White people occupy blue collar jobs as compared to Asians.
 
 ```{r include = FALSE}
 library(ggplot2)
@@ -117,6 +117,8 @@ ggplot(weighted_counts, aes(x=`Race_Ethnicity`, y=Weighted.Count, fill=`Owner_Re
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
+The series of graphs vividly illustrate the intersectionality of race, education, and economic outcomes across various demographic groups. The first graph highlights disparities in housing status, showing that White non-Hispanic individuals are significantly more likely to own homes compared to other races, reflecting broader economic advantages. 
+
 
 #### Weighted Household proportions by Income groups in each Race/Ethnicity
 
@@ -167,6 +169,8 @@ ggplot(plot_data, aes(x = `Income_Groups`, y = Proportion, fill = `Income_Groups
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
+ This ownership correlates with the higher income brackets and educational attainment seen in the subsequent graphs, where White non-Hispanics also dominate in higher income ranges and educational levels. 
+ 
 
 ### 3. Household Weight and Education
 
@@ -188,6 +192,8 @@ ggplot(weighted_education_counts, aes(x=`Race_Ethnicity`, y=Weighted.Count, fill
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   theme(legend.position="right")
 ```
+Conversely, minority groups, particularly Hispanics and Black non-Hispanics, are more represented in lower income brackets and lower educational attainment levels, underlining systemic socio-economic barriers that limit both earning potential and homeownership.
+
 
 ### Geographical Map - NY County
 
@@ -398,7 +404,7 @@ print(white_map)
 print(asian_map)
 print(hispanic_map)
 ```
-
+The maps revealing income, education, and racial demographics across New York counties illustrate significant disparities that influence economic outcomes. Counties with higher proportions of individuals holding bachelor's or graduate degrees, predominantly in the New York City area, correspond with the highest average income levels, indicating a strong relationship between higher education and income. Conversely, areas with lower educational attainment, particularly where the most common education level is high school or less, coincide with much lower average wages. Additionally, racial composition impacts economic disparities; counties with a higher proportion of minority populations, especially those where Black or Hispanic individuals are more prevalent, often correlate with lower average incomes, underscoring the intertwined effects of race, education, and economic opportunities.
 
 ## Statistical Modelling
 
@@ -429,7 +435,8 @@ clean_data$Household_Type <- as.factor(clean_data$Household_Type)
 model_linear <- lm(Household_Weight ~ Education_Level + Race_Ethnicity + Income_Groups + Economic_Development_Region + Owner_Renter_Status + Household_Type, data = clean_data)
 summary(model_linear)
 ```
-This model illustrates that higher income groups generally have higher household weights, with the $50,000+ income category showing a significant positive relationship. Also, different regions show different impacts on household weight, with some regions like "New York City" showing a positive association, whereas regions like "Central New York" have a negative association. This suggests regional disparities in economic conditions, demographic compositions, or living conditions. Additionally, with significant positive coefficient for Black, non-Hispanic, this group has a notably higher household weight compared to White, non-Hispanic, suggesting a demographic trend or characteristic prevalent within this group that increases the household weight. Higher education levels (Associate's degree and above), however, are associated with lower household weight.
+
+This model illustrates that higher income groups generally have higher household weights, with the \$50,000+ income category showing a significant positive relationship. Also, different regions show different impacts on household weight, with some regions like "New York City" showing a positive association, whereas regions like "Central New York" have a negative association. This suggests regional disparities in economic conditions, demographic compositions, or living conditions. Additionally, with significant positive coefficient for Black, non-Hispanic, this group has a notably higher household weight compared to White, non-Hispanic, suggesting a demographic trend or characteristic prevalent within this group that increases the household weight. Higher education levels (Associate's degree and above), however, are associated with lower household weight.
 
 ```{r include = FALSE}
 # Model 3: Multinomial logistic regression with Race_Ethnicity as the dependent variable
@@ -474,6 +481,7 @@ library(dplyr)
 anova_results <- Anova(multinom_model)
 print(anova_results)
 ```
+
 The output from the ANOVA suggests that all the predictors in multinomial logistic regression Education Level, Household Weight, and Race/Ethnicity—are highly statistically significant in predicting the different income groups. Education Level has a particularly strong influence on income group classification, as indicated by a very high likelihood ratio chi-square statistic (LR Chisq) of 44277 with 25 degrees of freedom and a p-value less than 0.0001. Race/Ethnicity shows substantial influence with an LR Chisq of 2140 and a p-value less than 0.0001, and Household Weight also proves significant with an LR Chisq of 257.
 
 ```{r include = FALSE}
@@ -526,7 +534,6 @@ filtered_data$Race_Ethnicity <- factor(filtered_data$Race_Ethnicity)
 
 ```
 
-
 ## Predictions
 
 ### **Visualize of Coefidence Intervals for Education on Income**
@@ -542,9 +549,7 @@ ggplot(filtered_data, aes(x = Predictor, y = Estimate, ymin = `CI Lower`, ymax =
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
-White, non-Hispanic with the positive coefficients in all income groups and an increasing trend as income increases suggest that being White, non-Hispanic increases the likelihood of being in higher income groups relative to the highest income group. 
-For Hispanic, Other, and Black, non-Hispanic, with generally negative coefficients across income groups, demonstrating the decrease in the likelihood of being in higher income brackets relative to the highest income bracket.
-
+White, non-Hispanic with the positive coefficients in all income groups and an increasing trend as income increases suggest that being White, non-Hispanic increases the likelihood of being in higher income groups relative to the highest income group. For Hispanic, Other, and Black, non-Hispanic, with generally negative coefficients across income groups, demonstrating the decrease in the likelihood of being in higher income brackets relative to the highest income bracket.
 
 ### **Impact of Household Weights on Income**
 
@@ -624,6 +629,7 @@ ggplot(prob_data_long, aes(x = Education_Level, y = Probability, group = Race_Et
 The graph displaying the predicted probability of income groups by education level and race reveals significant racial disparities in economic outcomes. Notably, the probability of being in the highest income bracket (\$50,000+) clearly increases with higher education levels for all racial groups, but the slope is steeper and higher for White, non-Hispanic individuals compared to other racial groups, indicating a greater likelihood of reaching higher income levels with increased education. In contrast, Black, Hispanic, and Other racial groups show consistently lower probabilities of being in this income bracket, even at higher educational levels, suggesting systemic barriers or disparities in the conversion of educational attainment into economic success. This visualization underscores the complex interplay of race, education, and income, highlighting persistent inequality in economic opportunities across different racial and ethnic groups.
 
 ## Flaws and Limitations
-Our analysis do highlight some important disparities across race, economic regions, household, and the impact of education and income levels. The varied impact across these predictors underscores the complexity of factors that suggests areas where policy might focus, particularly in addressing regional disparities and supporting different household types. 
 
-Nevertheless, there are limitations in our work on modeling. Our prediction on the relationship between household weight and higher incomes shows a straightforward trend, but this could be affected by outliers or non-linear factors not apparent in a linear model. Also, the relatively low R-squared value in our initial linear model may suggest additional variables and perhaps more complex models could be considered to better capture the underlying aspects affecting Household Weight. In the future, we plan to collect more data, add more features such as age, sex, geographical location, industry of employment, etc. and advance our models to provide more insights into the relationships among Household Weight, Income, Education, and Race. 
+Our analysis do highlight some important disparities across race, economic regions, household, and the impact of education and income levels. The varied impact across these predictors underscores the complexity of factors that suggests areas where policy might focus, particularly in addressing regional disparities and supporting different household types.
+
+Nevertheless, there are limitations in our work on modeling. Our prediction on the relationship between household weight and higher incomes shows a straightforward trend, but this could be affected by outliers or non-linear factors not apparent in a linear model. Also, the relatively low R-squared value in our initial linear model may suggest additional variables and perhaps more complex models could be considered to better capture the underlying aspects affecting Household Weight. In the future, we plan to collect more data, add more features such as age, sex, geographical location, industry of employment, etc. and advance our models to provide more insights into the relationships among Household Weight, Income, Education, and Race.
