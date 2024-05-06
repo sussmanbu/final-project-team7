@@ -17,7 +17,7 @@ Our study looks into racial disparities in the New York state and we found that 
 
 ![](images/Household%20weight.png)
 
-This graph shows that education levels vary among races. As we can observe here, Asian and White race has the highest education attainment while Black and Hispanic families shared a much lower education attainment level.
+This graph shows that income level vary among races. As we can observe here, Asian and White race has the highest proportion of income range above $50000 and White has the lowest proportion for $0to $10000 income group. On the other hand, Black and Hispanic families shared a much lower income level with the lowest relative proportion in the highest income range, and the highest proportion in the lowest income range. 
 
 ### Impact of racial disparities on Education
 
