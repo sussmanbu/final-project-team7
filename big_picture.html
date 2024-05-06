@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Racial Disparities in New York: Whites and Asians with Bachelor’s or Higher degrees Earn over $50,000 at Higher Rates than Other Races.">
+<meta name="description" content="A group of data science student analyzes racial disparities with focus on household composition, income, education level among demographic groups in New York.">
 
-<title>MA [46]15 Final Project - Team 7Up - Big Picture</title>
+<title>MA [46]15 Final Project - Team 7Up - Color Lines: Mapping Racial Divides in New York State</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -88,7 +88,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./big_picture.html" rel="" target="" aria-current="page">
- <span class="menu-text">Big Picture</span></a>
+ <span class="menu-text">Color Lines: Mapping Racial Divides in New York State</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./analysis.html" rel="" target="">
@@ -129,12 +129,12 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Big Picture</h1>
+<h1 class="title">Color Lines: Mapping Racial Divides in New York State</h1>
 </div>
 
 <div>
   <div class="description">
-    Racial Disparities in New York: Whites and Asians with Bachelor’s or Higher degrees Earn over $50,000 at Higher Rates than Other Races.
+    A group of data science student analyzes racial disparities with focus on household composition, income, education level among demographic groups in New York.
   </div>
 </div>
 
@@ -159,11 +159,14 @@ ul.task-list li input[type="checkbox"] {
 <section id="household-weight-proportions-by-income-groups-in-each-race" class="level3">
 <h3 class="anchored" data-anchor-id="household-weight-proportions-by-income-groups-in-each-race">Household Weight proportions by Income groups in each Race</h3>
 <p><img src="images/Household weight.png" class="img-fluid"></p>
-<p>This graph shows that education levels vary among races. As we can observe here, Asian and White race has the highest education attainment while Black and Hispanic families shared a much lower education attainment level.</p>
+<p>This graph shows that income level vary among races. As we can observe here, Asian and White race has the highest proportion of income range above $50000 and White has the lowest proportion for $0to $10000 income group. On the other hand, Black and Hispanic families shared a much lower income level with the lowest relative proportion in the highest income range, and the highest proportion in the lowest income range.</p>
 </section>
 <section id="impact-of-racial-disparities-on-education" class="level3">
 <h3 class="anchored" data-anchor-id="impact-of-racial-disparities-on-education">Impact of racial disparities on Education</h3>
 <div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.2.3</code></pre>
+</div>
 <div class="cell-output-display">
 <p><img src="big_picture_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -175,19 +178,27 @@ ul.task-list li input[type="checkbox"] {
 <p>Now let’s look at the New York State from its map. With all the 62 counties in New York, they different from each others in terms of racial demographics, income level, education levels, and much more.</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: sf layer has inconsistent datum (+proj=longlat +datum=NAD83 +no_defs).
-Need '+proj=longlat +datum=WGS84'
-
-Warning: sf layer has inconsistent datum (+proj=longlat +datum=NAD83 +no_defs).
-Need '+proj=longlat +datum=WGS84'
-
-Warning: sf layer has inconsistent datum (+proj=longlat +datum=NAD83 +no_defs).
-Need '+proj=longlat +datum=WGS84'</code></pre>
+<pre><code>Warning: package 'sf' was built under R version 4.2.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.2.3</code></pre>
 </div>
 </div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'leaflet' was built under R version 4.2.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'scales' was built under R version 4.2.3</code></pre>
+</div>
+</div>
+<section id="issue-with-showing-the-map-here" class="level4">
+<h4 class="anchored" data-anchor-id="issue-with-showing-the-map-here">issue with showing the map here</h4>
+<p>*For some reasons we are not able to render the interactive map we created in the website. We include a video presentation of this map from R Studio in the video recording.</p>
 <p>Here in the map, we can observe and identify that certain counties with higher proportion of certain races would have higher or lower income. For example, Manhattan county in the middle of NYC has a significantly higher average wage than other counties. Bronx county just up north Manhattan with higher Black &amp; African American population has much lower income compared other counties in the state. Additionally, the most common education level is High School. However, in counties coming closer to New York City, individuals, mostly other race - not Asian or Black, do have Bachelor or higher degree. This map exposes the racial inequality existed in county level in terms of income and education aspects, also implicating the racial segregation in the New York State.</p>
 
 
+</section>
 </section>
 </section>
 

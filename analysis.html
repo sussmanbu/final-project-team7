@@ -88,7 +88,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./big_picture.html" rel="" target="">
- <span class="menu-text">Big Picture</span></a>
+ <span class="menu-text">Color Lines: Mapping Racial Divides in New York State</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./analysis.html" rel="" target="" aria-current="page">
@@ -123,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#household-weight-and-education" id="toc-household-weight-and-education" class="nav-link" data-scroll-target="#household-weight-and-education">3. Household Weight and Education</a></li>
   <li><a href="#geographical-map---ny-county" id="toc-geographical-map---ny-county" class="nav-link" data-scroll-target="#geographical-map---ny-county">Geographical Map - NY County</a></li>
   </ul></li>
-  <li><a href="#statistical-modeling" id="toc-statistical-modeling" class="nav-link" data-scroll-target="#statistical-modeling">Statistical Modeling</a>
+  <li><a href="#statistical-modelling" id="toc-statistical-modelling" class="nav-link" data-scroll-target="#statistical-modelling">Statistical Modelling</a>
   <ul class="collapse">
   <li><a href="#model-1-linear-regression-between-household-weight-education-income-group-raceethnicity-ownerrenter-status-household-type" id="toc-model-1-linear-regression-between-household-weight-education-income-group-raceethnicity-ownerrenter-status-household-type" class="nav-link" data-scroll-target="#model-1-linear-regression-between-household-weight-education-income-group-raceethnicity-ownerrenter-status-household-type"><strong>Model 1: Linear Regression between Household weight, Education, Income group, Race/Ethnicity, Owner/Renter Status, Household Type</strong></a></li>
   <li><a href="#model-2-multinomial-logistic-regression-with-income-disparity-across-education-household-weight-and-race-ethnicity" id="toc-model-2-multinomial-logistic-regression-with-income-disparity-across-education-household-weight-and-race-ethnicity" class="nav-link" data-scroll-target="#model-2-multinomial-logistic-regression-with-income-disparity-across-education-household-weight-and-race-ethnicity"><strong>Model 2: Multinomial logistic regression with Income disparity across Education, Household Weight, and Race Ethnicity</strong></a></li>
@@ -200,6 +200,7 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="analysis_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>The series of graphs vividly illustrate the intersectionality of race, education, and economic outcomes across various demographic groups. The first graph highlights disparities in housing status, showing that White non-Hispanic individuals are significantly more likely to own homes compared to other races, reflecting broader economic advantages.</p>
 </section>
 <section id="weighted-household-proportions-by-income-groups-in-each-raceethnicity" class="level4">
 <h4 class="anchored" data-anchor-id="weighted-household-proportions-by-income-groups-in-each-raceethnicity">Weighted Household proportions by Income groups in each Race/Ethnicity</h4>
@@ -208,6 +209,7 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="analysis_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>This ownership correlates with the higher income brackets and educational attainment seen in the subsequent graphs, where White non-Hispanics also dominate in higher income ranges and educational levels.</p>
 </section>
 </section>
 <section id="household-weight-and-education" class="level3">
@@ -219,11 +221,20 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="analysis_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Conversely, minority groups, particularly Hispanics and Black non-Hispanics, are more represented in lower income brackets and lower educational attainment levels, underlining systemic socio-economic barriers that limit both earning potential and homeownership.</p>
 </section>
 </section>
 <section id="geographical-map---ny-county" class="level3">
 <h3 class="anchored" data-anchor-id="geographical-map---ny-county">Geographical Map - NY County</h3>
 <div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'scales' was built under R version 4.2.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The `legend.text.align` argument of `theme()` is deprecated as of ggplot2
+3.5.0.
+ℹ Please use theme(legend.text = element_text(hjust)) instead.</code></pre>
+</div>
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -249,10 +260,11 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="analysis_files/figure-html/unnamed-chunk-12-8.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>The maps revealing income, education, and racial demographics across New York counties illustrate significant disparities that influence economic outcomes. Counties with higher proportions of individuals holding bachelor’s or graduate degrees, predominantly in the New York City area, correspond with the highest average income levels, indicating a strong relationship between higher education and income. Conversely, areas with lower educational attainment, particularly where the most common education level is high school or less, coincide with much lower average wages. Additionally, racial composition impacts economic disparities; counties with a higher proportion of minority populations, especially those where Black or Hispanic individuals are more prevalent, often correlate with lower average incomes, underscoring the intertwined effects of race, education, and economic opportunities.</p>
 </section>
 </section>
-<section id="statistical-modeling" class="level2">
-<h2 class="anchored" data-anchor-id="statistical-modeling">Statistical Modeling</h2>
+<section id="statistical-modelling" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-modelling">Statistical Modelling</h2>
 <section id="model-1-linear-regression-between-household-weight-education-income-group-raceethnicity-ownerrenter-status-household-type" class="level3">
 <h3 class="anchored" data-anchor-id="model-1-linear-regression-between-household-weight-education-income-group-raceethnicity-ownerrenter-status-household-type"><strong>Model 1: Linear Regression between Household weight, Education, Income group, Race/Ethnicity, Owner/Renter Status, Household Type</strong></h3>
 <div class="cell">
