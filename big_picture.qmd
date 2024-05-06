@@ -1,5 +1,5 @@
 ---
-title: "Whites and Asians with Bachelor's or Higher degrees Earn over $50,000 at Higher Rates than Other Races"
+title: "Color Lines: Mapping Racial Divides in New York State"
 description: "A group of data science student analyzes racial disparities with focus on household composition, income, education level among demographic groups in New York."
 toc: true
 draft: FALSE
@@ -184,5 +184,8 @@ interactive_map <- interactive_map %>%
 
 print(interactive_map)
 ```
+
+#### issue with showing the map here
+*For some reasons we are not able to render the interactive map we created in the website. We include a video presentation of this map from R Studio in the video recording. 
 
 Here in the map, we can observe and identify that certain counties with higher proportion of certain races would have higher or lower income. For example, Manhattan county in the middle of NYC has a significantly higher average wage than other counties. Bronx county just up north Manhattan with higher Black & African American population has much lower income compared other counties in the state. Additionally, the most common education level is High School. However, in counties coming closer to New York City, individuals, mostly other race - not Asian or Black, do have Bachelor or higher degree. This map exposes the racial inequality existed in county level in terms of income and education aspects, also implicating the racial segregation in the New York State.
