@@ -280,24 +280,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>here() starts at /Users/lincoco/Desktop/finalllll</code></pre>
+<pre><code>here() starts at /Users/vynguyen/Desktop/MA415/final-project-team7</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'readr' was built under R version 4.2.3</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggplot2' was built under R version 4.2.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'dplyr' was built under R version 4.2.3</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ purrr     1.0.2
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
 ✔ lubridate 1.9.3     ✔ tidyr     1.3.0</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
@@ -306,32 +297,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtaining the data from the data-ignore folder since its &gt; 50mb</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>dataset_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"dataset-ignore"</span>, <span class="st">"NYSERDA_LMI_Census_2013-2015.csv"</span>)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(dataset_path, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtaining the data from the data-ignore folder since its &gt; 50mb</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>dataset_path <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"dataset-ignore"</span>, <span class="st">"NYSERDA_LMI_Census_2013-2015.csv"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(dataset_path, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Handling duplicate rows (eliminating them) for the sake of avoiding redundancy and potential biases. Furthermore we handled the one variable that had missing values: “Mortgage Indicator” by assigning missing values to “Unknown” to maintain data integrity and save the variable for future analysis that may reveal some patterns.</li>
 <li>We then converted “character” types to “factor” types to facilitate future statistical analysis</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting all character columns to factors</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">lapply</span>(data, <span class="cf">function</span>(x) <span class="cf">if</span>(<span class="fu">is.character</span>(x)) <span class="fu">factor</span>(x) <span class="cf">else</span> x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting all character columns to factors</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">lapply</span>(data, <span class="cf">function</span>(x) <span class="cf">if</span>(<span class="fu">is.character</span>(x)) <span class="fu">factor</span>(x) <span class="cf">else</span> x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>We reorganized the “County” column to exclude county groups but keep only county to enable cross-country comparative analysis and prepare for merge with the other dataset</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">County...County.Group</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">strsplit</span>(<span class="fu">as.character</span>(<span class="st">`</span><span class="at">County...County.Group</span><span class="st">`</span>), <span class="st">",</span><span class="sc">\\</span><span class="st">s*|&amp;</span><span class="sc">\\</span><span class="st">s*"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="st">`</span><span class="at">County...County.Group</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">County...County.Group</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">trimws</span>(<span class="st">`</span><span class="at">County...County.Group</span><span class="st">`</span>))  <span class="co"># Trim whitespace to avoid creating empty entries</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensuring there are no empty or NA county names after splitting</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">County...County.Group</span><span class="st">`</span> <span class="sc">!=</span> <span class="st">""</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(<span class="st">`</span><span class="at">County...County.Group</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">County...County.Group</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">strsplit</span>(<span class="fu">as.character</span>(<span class="st">`</span><span class="at">County...County.Group</span><span class="st">`</span>), <span class="st">",</span><span class="sc">\\</span><span class="st">s*|&amp;</span><span class="sc">\\</span><span class="st">s*"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="st">`</span><span class="at">County...County.Group</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">County...County.Group</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">trimws</span>(<span class="st">`</span><span class="at">County...County.Group</span><span class="st">`</span>))  <span class="co"># Trim whitespace to avoid creating empty entries</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensuring there are no empty or NA county names after splitting</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">County...County.Group</span><span class="st">`</span> <span class="sc">!=</span> <span class="st">""</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(<span class="st">`</span><span class="at">County...County.Group</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Renamed variable name. We changed “County / County Group” to County, and used underscore to rename all the other variables like “Race / Ethnicity” to “Race_Ethnicity”</li>
@@ -346,51 +337,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>read in the dataset and preliminary cleaning by Trim leading and trailing whitespace from all character columns</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>dataset_to_combine <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"combining-dataset/Quarterly_Census_of_Employment_and_Wages_Annual_Data__Beginning_2000_20240415.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate_if</span>(is.character, str_trim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>dataset_to_combine <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"combining-dataset/Quarterly_Census_of_Employment_and_Wages_Annual_Data__Beginning_2000_20240415.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate_if</span>(is.character, str_trim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Calculate the average wage for each county from the new dataset</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>county_avg_wage <span class="ot">&lt;-</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dataset_to_combine, Area.Type <span class="sc">==</span> <span class="st">"County"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Area) <span class="sc">|&gt;</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total_Wages =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Total.Wage</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">Total_Employment =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Average.Employment</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Average_Wage =</span> Total_Wages <span class="sc">/</span> Total_Employment) <span class="sc">|&gt;</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">County =</span> Area) <span class="sc">|&gt;</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">County =</span> <span class="fu">str_replace_all</span>(County, <span class="fu">fixed</span>(<span class="st">" County"</span>), <span class="st">""</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Total_Wages, Total_Employment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>county_avg_wage <span class="ot">&lt;-</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dataset_to_combine, Area.Type <span class="sc">==</span> <span class="st">"County"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Area) <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total_Wages =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Total.Wage</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">Total_Employment =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Average.Employment</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Average_Wage =</span> Total_Wages <span class="sc">/</span> Total_Employment) <span class="sc">|&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">County =</span> Area) <span class="sc">|&gt;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">County =</span> <span class="fu">str_replace_all</span>(County, <span class="fu">fixed</span>(<span class="st">" County"</span>), <span class="st">""</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Total_Wages, Total_Employment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Merge it with our original data</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>cleaned_dataset_path_rds <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"dataset"</span>, <span class="st">"cleaned_NYSERDA_LMI_Census_2013-2015.rds"</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>original_data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(cleaned_dataset_path_rds)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>joined_dataset <span class="ot">&lt;-</span> <span class="fu">left_join</span>(original_data, county_avg_wage, <span class="at">by =</span> <span class="st">"County"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cleaned_dataset_path_rds <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"dataset"</span>, <span class="st">"cleaned_NYSERDA_LMI_Census_2013-2015.rds"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>original_data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(cleaned_dataset_path_rds)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>joined_dataset <span class="ot">&lt;-</span> <span class="fu">left_join</span>(original_data, county_avg_wage, <span class="at">by =</span> <span class="st">"County"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="map-data" class="level3">
 <h3 class="anchored" data-anchor-id="map-data">Map Data</h3>
 <p>As we used map visualization to show the county difference in a NY state map, we also brought in map data that is stored in our data-ignore data. Here is a code of how we import the data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'sf' was built under R version 4.2.3</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ny_counties <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"dataset-ignore/tl_2023_us_county.shp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ny_counties <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"dataset-ignore/tl_2023_us_county.shp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `tl_2023_us_county' from data source 
-  `/Users/lincoco/Desktop/finalllll/dataset-ignore/tl_2023_us_county.shp' 
+  `/Users/vynguyen/Desktop/MA415/final-project-team7/dataset-ignore/tl_2023_us_county.shp' 
   using driver `ESRI Shapefile'
 Simple feature collection with 3235 features and 18 fields
 Geometry type: MULTIPOLYGON
@@ -398,8 +386,8 @@ Dimension:     XY
 Bounding box:  xmin: -179.2311 ymin: -14.60181 xmax: 179.8597 ymax: 71.43979
 Geodetic CRS:  NAD83</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>demographic_data <span class="ot">&lt;-</span> clean_data  </span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>ny_counties <span class="ot">&lt;-</span> ny_counties[ny_counties<span class="sc">$</span>STATEFP <span class="sc">==</span> <span class="st">'36'</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>demographic_data <span class="ot">&lt;-</span> clean_data  </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>ny_counties <span class="ot">&lt;-</span> ny_counties[ny_counties<span class="sc">$</span>STATEFP <span class="sc">==</span> <span class="st">'36'</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="additional-packages" class="level3">
