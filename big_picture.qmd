@@ -17,7 +17,7 @@ Our study looks into racial disparities in the New York state and we found that 
 
 ![](images/Household%20weight.png)
 
-This graph shows that income level vary among races. As we can observe here, Asian and White race has the highest proportion of income range above \$50000 and White has the lowest proportion for \$0to \$10000 income group. On the other hand, Black and Hispanic families shared a much lower income level with the lowest relative proportion in the highest income range, and the highest proportion in the lowest income range.
+This graph shows that income level vary among races. As we can observe here, Asian and White race has the highest proportion of income range above \$50000 and White has the lowest proportion for \$0 to \$10000 income group. On the other hand, Black and Hispanic families shared a much lower income level with the lowest relative proportion in the highest income range, and the highest proportion in the lowest income range.
 
 ### Impact of racial disparities on Education
 
@@ -122,7 +122,7 @@ merged_data <- ny_counties_sf %>%
   left_join(demographic_data_aggregated, by = c("NAME" = "County"))
 ```
 
-```{r echo = FALSE}
+```{r include = FALSE}
 # install.packages("leaflet")
 library(RColorBrewer)
 library(leaflet)
@@ -183,8 +183,8 @@ interactive_map <- interactive_map %>%
 print(interactive_map)
 ```
 
-#### issue with showing the map here
-
-\*For some reasons we are not able to render the interactive map we created in the website. We include a video presentation of this map from R Studio in the video recording.
+![Team 7Up - Interactive Component](images/interactive_map.mov)
 
 Here in the map, we can observe and identify that certain counties with higher proportion of certain races would have higher or lower income. For example, Manhattan county in the middle of NYC has a significantly higher average wage than other counties. Bronx county just up north Manhattan with higher Black & African American population has much lower income compared other counties in the state. Additionally, the most common education level is High School. However, in counties coming closer to New York City, individuals, mostly other race - not Asian or Black, do have Bachelor or higher degree. This map exposes the racial inequality existed in county level in terms of income and education aspects, also implicating the racial segregation in the New York State.
+
+*Note: This is not the 4-minute video recording of our team. In our recording presentation (link attached in README.md file on our Github repository), we also introduced this map and briefly explained it. For some reasons, we are not able to render to display our interactive map in this website. To play around and interact more with this map, please run the code in "big_picture.qmd" file. This map does have some user-friendly functionality such as zoom in/out or filter of your choice.*
